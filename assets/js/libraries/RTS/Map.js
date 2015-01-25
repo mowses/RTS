@@ -1,4 +1,5 @@
 (function($, Events, ObserverCore, Rts) {
+
 	var Map = function(config) {
 		var self = this;
 
@@ -12,7 +13,7 @@
 			return c;
 		}
 
-		this.init = function() {
+		function init() {
 
 		}
 
@@ -36,10 +37,21 @@
 			return terrain;
 		}
 
-		this.init();
+		this.loadMap = function(filepath) {
+			$.get(filepath, function(data) {
+				self.extendData(data);
+			});
+
+			return this;
+		}
+
+		init();
 	};
 
-	Rts.Map = Map;
+	$.extend(Rts, {
+		Map: Map
+	});
 
-	return Rts.Map;
+	return Map;
+
 })(jQuery, Events, ObserverCore, Rts);
