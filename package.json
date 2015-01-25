@@ -1,0 +1,25 @@
+{
+	"name": "rts_game",
+	"private": true,
+	"version": "0.0.1",
+	"description": "Real Time Strategy browser game",
+	"keywords": [],
+	"dependencies": {
+		"ObjDiff": "mowses/ObjDiff",
+		"Events": "mowses/Events",
+		"ObserverCore": "mowses/ObserverCore"
+	},
+	"devDependencies": {
+
+	},
+	"scripts": {
+
+	},
+	"main": "app.js",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/anonymous node/sails user/app.git"
+	},
+	"author": "mowses",
+	"license": ""
+}
