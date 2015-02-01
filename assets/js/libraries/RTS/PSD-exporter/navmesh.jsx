@@ -75,73 +75,115 @@ var global = {};
 		alert("Saved to " + fullPath);
 	}
 
-	function generateNavMesh() {
+	function generatePolygons() {
 		var doc = app.activeDocument,
-			result = {
-				triangles: []
-			},
-			poly2tri = global.poly2tri,
-			swctx = new poly2tri.SweepContext([]),
-			triangles;
+			result = [];
 
 		// cada pathItem tem subPathItem
 		// em outras palavras é um layer com varias camadas de shapes
 		// cada uma pode ser movida pra cima/baixo/front, etc...
 		// e cada layer pode ser atribuido uma propriedade de "renderizacao":
 		// combine, subtract, intersect, exclude
+		// mas há uma aba no photoshop que mostra o path final que esta layer vai renderizar, aba `Paths`
 		$.each(doc.pathItems, function(ipath, path) {
-			var indexof = path.name.indexOf('.navmesh'),
-				name = path.name.substr(0, indexof);
-
-			if (indexof == -1) return;
-
-			var res = result[name];
 			$.each(path.subPathItems, function(ispi, spi) {
-				var hole = [];
+				var hole = [],
+					points = [];
 
 				// subshapes devem estar como "exclude overlapping shapes"
 				$.each(spi.pathPoints, function(ipp, pp) {
 					var x = Math.ceil(pp.anchor[0]),
 						y = Math.ceil(pp.anchor[1]);
 
-					hole.push(new poly2tri.Point(x,y));
+					points.push([x,y]);
 				});
 
-				swctx.addHole(hole);
+				result.push(points);
 			});
-		});
-
-		// triangulate
-		swctx.triangulate();
-		triangles = swctx.getTriangles();
-
-		$.each(triangles, function(i, triangle) {
-			var points = triangle.getPoints(),
-				triangle_points = [];
-
-			$.each(points, function(j, point) {
-				triangle_points.push([point.x, point.y]);
-			});
-
-			result.triangles.push(triangle_points);
 		});
 
 		return result;
 	}
 
-	function createLayer() {
-		$.each(navmeshes.triangles, function(i, triangle) {
+	function generatePath(polygons) {
+		var poly2tri = global.poly2tri,
+			swctx = new poly2tri.SweepContext([]);
+
+		$.each(polygons, function(i, polygon_coords) {
+			var hole = [];
+
+			$.each(polygon_coords, function(j, coord) {
+				var x = Math.ceil(coord[0]),
+					y = Math.ceil(coord[1]);
+
+				hole.push(new poly2tri.Point(x,y));
+			});
+
+			swctx.addHole(hole);
+		});
+
+		return swctx;
+	}
+
+	function generateTriangles(path) {
+		var triangles = path.triangulate().getTriangles(),
+			result = [];
+
+		$.each(triangles, function(i, triangle) {
+			var points = triangle.getPoints(),
+				triangle_points = [
+					[points[0].x, points[0].y],
+					[points[1].x, points[1].y],
+					[points[2].x, points[2].y]
+				];
+
+			result.push(triangle_points);
+		});
+
+		return result;
+	}
+
+	/*function getBoundaries(path) {
+		var result = [],
+			triangles = path.triangulate().getTriangles();
+
+		$.each(triangles, function(i, triangle) {
+			var points = triangle.getPoints();
+
+			$.each(points, function(pi, point) {
+				var p1 = pi,
+					p2 = (pi + 1) % 3,
+					edge_index = triangle.edgeIndex(points[p1], points[p2]),
+					constrained = triangle.constrained_edge[edge_index];
+
+				if (!constrained) return;
+
+				result.push([points[p1].x, points[p1].y]);
+				result.push([points[p2].x, points[p2].y]);
+			});
+		});
+
+		return result;
+	}*/
+
+	function createTriangulationLayers(triangles) {
+		$.each(triangles, function(i, triangle) {
 			DrawShape.apply(DrawShape, triangle);
 		});
 	}
 
 
-	var navmeshes = generateNavMesh();
+	var polygons = generatePolygons(),
+		path = generatePath(polygons),
+		triangles = generateTriangles(path);
+
 	// create layer with triangulation
 	if (confirm('Do you want to generate triangulation layers in your PSD file?')) {
-		createLayer(navmeshes);
+		createTriangulationLayers(triangles);
 	}
 
-	saveFile('navMesh', JSON.stringify(navmeshes));
+	saveFile('navMesh', JSON.stringify({
+		polygons: polygons
+	}));
 
 })(jQuery);
