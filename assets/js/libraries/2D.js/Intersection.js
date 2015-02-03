@@ -134,7 +134,7 @@ Intersection.intersectBezier2Bezier2 = function(a1, a2, a3, b1, b2, b3) {
     c21 = a.add(b);
 
     c20 = new Point2D(b1.x, b1.y);
-    
+
     if ( c12.y == 0 ) {
         var v0 = c12.x*(c10.y - c20.y);
         var v1 = v0 - c11.x*c11.y;
@@ -310,7 +310,7 @@ Intersection.intersectBezier2Bezier3 = function(a1, a2, a3, b1, b2, b3, b4) {
             checkRoots:
             for ( var j = 0; j < xRoots.length; j++ ) {
                 var xRoot = xRoots[j];
-                
+
                 if ( 0 <= xRoot && xRoot <= 1 ) {
                     for ( var k = 0; k < yRoots.length; k++ ) {
                         if ( Math.abs( xRoot - yRoots[k] ) < TOLERANCE ) {
@@ -399,7 +399,7 @@ Intersection.intersectBezier2Line = function(p1, p2, p3, a1, a2) {
     var min = a1.min(a2); // used to determine if point is on line segment
     var max = a1.max(a2); // used to determine if point is on line segment
     var result = new Intersection("No Intersection");
-    
+
     a = p2.multiply(-2);
     c2 = p1.add(a.add(p3));
 
@@ -412,7 +412,7 @@ Intersection.intersectBezier2Line = function(p1, p2, p3, a1, a2) {
     // Convert line to normal form: ax + by + c = 0
     // Find normal to line: negative inverse of original line's slope
     n = new Vector2D(a1.y - a2.y, a2.x - a1.x);
-    
+
     // Determine new c coefficient
     cl = a1.x*a2.y - a2.x*a1.y;
 
@@ -495,12 +495,12 @@ Intersection.intersectBezier2Rectangle = function(p1, p2, p3, r1, r2) {
     var max        = r1.max(r2);
     var topRight   = new Point2D( max.x, min.y );
     var bottomLeft = new Point2D( min.x, max.y );
-    
+
     var inter1 = Intersection.intersectBezier2Line(p1, p2, p3, min, topRight);
     var inter2 = Intersection.intersectBezier2Line(p1, p2, p3, topRight, max);
     var inter3 = Intersection.intersectBezier2Line(p1, p2, p3, max, bottomLeft);
     var inter4 = Intersection.intersectBezier2Line(p1, p2, p3, bottomLeft, min);
-    
+
     var result = new Intersection("No Intersection");
 
     result.appendPoints(inter1.points);
@@ -802,7 +802,7 @@ Intersection.intersectBezier3Bezier3 = function(a1, a2, a3, a4, b1, b2, b3, b4) 
             checkRoots:
             for ( var j = 0; j < xRoots.length; j++ ) {
                 var xRoot = xRoots[j];
-                
+
                 if ( 0 <= xRoot && xRoot <= 1 ) {
                     for ( var k = 0; k < yRoots.length; k++ ) {
                         if ( Math.abs( xRoot - yRoots[k] ) < TOLERANCE ) {
@@ -910,7 +910,7 @@ Intersection.intersectBezier3Line = function(p1, p2, p3, p4, a1, a2) {
     var min = a1.min(a2); // used to determine if point is on line segment
     var max = a1.max(a2); // used to determine if point is on line segment
     var result = new Intersection("No Intersection");
-    
+
     // Start with Bezier using Bernstein polynomials for weighting functions:
     //     (1-t^3)P1 + 3t(1-t)^2P2 + 3t^2(1-t)P3 + t^3P4
     //
@@ -920,7 +920,7 @@ Intersection.intersectBezier3Line = function(p1, p2, p3, p4, a1, a2) {
     //             /\                  /\                /\       /\
     //             ||                  ||                ||       ||
     //             c3                  c2                c1       c0
-    
+
     // Calculate the coefficients
     a = p1.multiply(-1);
     b = p2.multiply(3);
@@ -940,11 +940,11 @@ Intersection.intersectBezier3Line = function(p1, p2, p3, p4, a1, a2) {
     c1 = new Vector2D(c.x, c.y);
 
     c0 = new Vector2D(p1.x, p1.y);
-    
+
     // Convert line to normal form: ax + by + c = 0
     // Find normal to line: negative inverse of original line's slope
     n = new Vector2D(a1.y - a2.y, a2.x - a1.x);
-    
+
     // Determine new c coefficient
     cl = a1.x*a2.y - a2.x*a1.y;
 
@@ -1032,12 +1032,12 @@ Intersection.intersectBezier3Rectangle = function(p1, p2, p3, p4, r1, r2) {
     var max        = r1.max(r2);
     var topRight   = new Point2D( max.x, min.y );
     var bottomLeft = new Point2D( min.x, max.y );
-    
+
     var inter1 = Intersection.intersectBezier3Line(p1, p2, p3, p4, min, topRight);
     var inter2 = Intersection.intersectBezier3Line(p1, p2, p3, p4, topRight, max);
     var inter3 = Intersection.intersectBezier3Line(p1, p2, p3, p4, max, bottomLeft);
     var inter4 = Intersection.intersectBezier3Line(p1, p2, p3, p4, bottomLeft, min);
-    
+
     var result = new Intersection("No Intersection");
 
     result.appendPoints(inter1.points);
@@ -1058,11 +1058,11 @@ Intersection.intersectBezier3Rectangle = function(p1, p2, p3, p4, r1, r2) {
 *****/
 Intersection.intersectCircleCircle = function(c1, r1, c2, r2) {
     var result;
-    
+
     // Determine minimum and maximum radii where circles can intersect
     var r_max = r1 + r2;
     var r_min = Math.abs(r1 - r2);
-    
+
     // Determine actual distance between circle circles
     var c_dist = c1.distanceFrom( c2 );
 
@@ -1147,7 +1147,7 @@ Intersection.intersectCircleLine = function(c, r, a1, a2) {
                 result.points.push( a1.lerp(a2, u2) );
         }
     }
-    
+
     return result;
 };
 
@@ -1189,12 +1189,12 @@ Intersection.intersectCircleRectangle = function(c, r, r1, r2) {
     var max        = r1.max(r2);
     var topRight   = new Point2D( max.x, min.y );
     var bottomLeft = new Point2D( min.x, max.y );
-    
+
     var inter1 = Intersection.intersectCircleLine(c, r, min, topRight);
     var inter2 = Intersection.intersectCircleLine(c, r, topRight, max);
     var inter3 = Intersection.intersectCircleLine(c, r, max, bottomLeft);
     var inter4 = Intersection.intersectCircleLine(c, r, bottomLeft, min);
-    
+
     var result = new Intersection("No Intersection");
 
     result.appendPoints(inter1.points);
@@ -1214,7 +1214,7 @@ Intersection.intersectCircleRectangle = function(c, r, r1, r2) {
 /*****
 *
 *   intersectEllipseEllipse
-*   
+*
 *   This code is based on MgcIntr2DElpElp.cpp written by David Eberly.  His
 *   code along with many other excellent examples are avaiable at his site:
 *   http://www.magic-software.com
@@ -1249,7 +1249,7 @@ Intersection.intersectEllipseEllipse = function(c1, rx1, ry1, c2, rx2, ry2) {
 
         for ( var x = 0; x < xRoots.length; x++ ) {
             var test =
-                ( a[0]*xRoots[x] + a[1]*yRoots[y] + a[3] ) * xRoots[x] + 
+                ( a[0]*xRoots[x] + a[1]*yRoots[y] + a[3] ) * xRoots[x] +
                 ( a[2]*yRoots[y] + a[4] ) * yRoots[y] + a[5];
             if ( Math.abs(test) < norm0 ) {
                 test =
@@ -1271,7 +1271,7 @@ Intersection.intersectEllipseEllipse = function(c1, rx1, ry1, c2, rx2, ry2) {
 /*****
 *
 *   intersectEllipseLine
-*   
+*
 *   NOTE: Rotation will need to be added to this function
 *
 *****/
@@ -1317,7 +1317,7 @@ Intersection.intersectEllipseLine = function(c, rx, ry, a1, a2) {
             result = new Intersection("Outside");
         }
     }
-    
+
     return result;
 };
 
@@ -1356,12 +1356,12 @@ Intersection.intersectEllipseRectangle = function(c, rx, ry, r1, r2) {
     var max        = r1.max(r2);
     var topRight   = new Point2D( max.x, min.y );
     var bottomLeft = new Point2D( min.x, max.y );
-    
+
     var inter1 = Intersection.intersectEllipseLine(c, rx, ry, min, topRight);
     var inter2 = Intersection.intersectEllipseLine(c, rx, ry, topRight, max);
     var inter3 = Intersection.intersectEllipseLine(c, rx, ry, max, bottomLeft);
     var inter4 = Intersection.intersectEllipseLine(c, rx, ry, bottomLeft, min);
-    
+
     var result = new Intersection("No Intersection");
 
     result.appendPoints(inter1.points);
@@ -1383,7 +1383,7 @@ Intersection.intersectEllipseRectangle = function(c, rx, ry, r1, r2) {
 *****/
 Intersection.intersectLineLine = function(a1, a2, b1, b2) {
     var result;
-    
+
     var ua_t = (b2.x - b1.x) * (a1.y - b1.y) - (b2.y - b1.y) * (a1.x - b1.x);
     var ub_t = (a2.x - a1.x) * (a1.y - b1.y) - (a2.y - a1.y) * (a1.x - b1.x);
     var u_b  = (b2.y - b1.y) * (a2.x - a1.x) - (b2.x - b1.x) * (a2.y - a1.y);
@@ -1448,12 +1448,12 @@ Intersection.intersectLineRectangle = function(a1, a2, r1, r2) {
     var max        = r1.max(r2);
     var topRight   = new Point2D( max.x, min.y );
     var bottomLeft = new Point2D( min.x, max.y );
-    
+
     var inter1 = Intersection.intersectLineLine(min, topRight, a1, a2);
     var inter2 = Intersection.intersectLineLine(topRight, max, a1, a2);
     var inter3 = Intersection.intersectLineLine(max, bottomLeft, a1, a2);
     var inter4 = Intersection.intersectLineLine(bottomLeft, min, a1, a2);
-    
+
     var result = new Intersection("No Intersection");
 
     result.appendPoints(inter1.points);
@@ -1503,12 +1503,12 @@ Intersection.intersectPolygonRectangle = function(points, r1, r2) {
     var max        = r1.max(r2);
     var topRight   = new Point2D( max.x, min.y );
     var bottomLeft = new Point2D( min.x, max.y );
-    
+
     var inter1 = Intersection.intersectLinePolygon(min, topRight, points);
     var inter2 = Intersection.intersectLinePolygon(topRight, max, points);
     var inter3 = Intersection.intersectLinePolygon(max, bottomLeft, points);
     var inter4 = Intersection.intersectLinePolygon(bottomLeft, min, points);
-    
+
     var result = new Intersection("No Intersection");
 
     result.appendPoints(inter1.points);
@@ -1530,7 +1530,7 @@ Intersection.intersectPolygonRectangle = function(points, r1, r2) {
 *****/
 Intersection.intersectRayRay = function(a1, a2, b1, b2) {
     var result;
-    
+
     var ua_t = (b2.x - b1.x) * (a1.y - b1.y) - (b2.y - b1.y) * (a1.x - b1.x);
     var ub_t = (a2.x - a1.x) * (a1.y - b1.y) - (a2.y - a1.y) * (a1.x - b1.x);
     var u_b  = (b2.y - b1.y) * (a2.x - a1.x) - (b2.x - b1.x) * (a2.y - a1.y);
@@ -1567,12 +1567,12 @@ Intersection.intersectRectangleRectangle = function(a1, a2, b1, b2) {
     var max        = a1.max(a2);
     var topRight   = new Point2D( max.x, min.y );
     var bottomLeft = new Point2D( min.x, max.y );
-    
+
     var inter1 = Intersection.intersectLineRectangle(min, topRight, b1, b2);
     var inter2 = Intersection.intersectLineRectangle(topRight, max, b1, b2);
     var inter3 = Intersection.intersectLineRectangle(max, bottomLeft, b1, b2);
     var inter4 = Intersection.intersectLineRectangle(bottomLeft, min, b1, b2);
-    
+
     var result = new Intersection("No Intersection");
 
     result.appendPoints(inter1.points);

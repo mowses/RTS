@@ -1,22 +1,42 @@
-(function($, Events, ObserverCore, Rts, Poly2tri, Intersection) {
+(function($, Events, ObserverCore, Rts, Poly2tri, Intersection, Point2D) {
+
+	$.extend(poly2tri.Point.prototype, {
+		to2D: function() {
+			return new Point2D(this.x, this.y);
+		},
+
+		lerp: function(point, percent) {
+			var p1 = this.to2D(),
+				p2 = point.to2D(),
+				lerped = p1.lerp(p2, percent);
+
+			return lerped.poly2Tri();
+		},
+
+		inPolygon: function(poly) {
+			var pt = this;
+
+			for (var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
+				((poly[i].y <= pt.y && pt.y < poly[j].y) || (poly[j].y <= pt.y && pt.y < poly[i].y)) && (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x) && (c = !c);
+
+			return c;
+		}
+	});
+
+	$.extend(Point2D.prototype, {
+		poly2Tri: function() {
+			return new poly2tri.Point(this.x, this.y);
+		}
+	});
 
 	function Map(config) {
 		var self = this,
 			polygons = null;
 
-		function isPointInPoly(poly, pt) {
+		function isPointInPoly(pt, poly) {
 			for (var c = false, i = 0, l = poly.length, j = l - 2; i < l; i += 2, j = i - 2) {
 				((poly[i + 1] <= pt[1] && pt[1] < poly[j + 1]) || (poly[j + 1] <= pt[1] && pt[1] < poly[i + 1])) && (pt[0] < (poly[j] - poly[i]) * (pt[1] - poly[i + 1]) / (poly[j + 1] - poly[i + 1]) + poly[i]) && (c = !c);
 			}
-
-			return c;
-		}
-
-		function isPointInTriangle(pt, triangle) {
-			poly = triangle.getPoints();
-
-			for (var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
-				((poly[i].y <= pt.y && pt.y < poly[j].y) || (poly[j].y <= pt.y && pt.y < poly[i].y)) && (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x) && (c = !c);
 
 			return c;
 		}
@@ -73,16 +93,21 @@
 
 			self.events
 				.on('load map', function() {
-					var swctx = new Poly2tri.SweepContext([]);
+					var swctx = new Poly2tri.SweepContext([]),
+						_polygons = $.map(polygons, function(polygon) {
+							return [$.map(polygon, function(coord) {
+								return {
+									x: Math.ceil(coord[0]),
+									y: Math.ceil(coord[1])
+								}
+							})];
+						});
 
-					$.each(polygons, function(i, polygon_coords) {
+					$.each(_polygons, function(i, polygon_coords) {
 						var hole = [];
 
 						$.each(polygon_coords, function(j, coord) {
-							var x = Math.ceil(coord[0]),
-								y = Math.ceil(coord[1]);
-
-							hole.push(new Poly2tri.Point(x, y));
+							hole.push(new Poly2tri.Point(coord.x, coord.y));
 						});
 
 						swctx.addHole(hole);
@@ -105,6 +130,7 @@
 						$.extend(point1, {
 							visibility: [],
 							distance: [],
+							midpoint: [],
 							triangles: triangles,
 							adjacent: adjacent,
 							index: i
@@ -112,30 +138,42 @@
 
 						$.each(self.poly2tri.points_, function(j, point2) {
 							var visible = true,
-								distance = 0;
+								distance = 0,
+								midpoint = point1.lerp(point2, 0.5);
 
 							if (i != j) {
 								distance = getDistance(point1, point2);
 
+								// check for edge obstacles from point1 to point2
 								$.each(self.poly2tri.edge_list, function(ei, edge) {
-									var edges = [edge.p, edge.q];
-									// edges points e points nao devem ser os mesmos
-									if (edges.indexOf(point1) >= 0 || edges.indexOf(point2) >= 0) return;
-
 									var intersects = Intersection.intersectLineLine(point1, point2, edge.p, edge.q);
+									// remove point1, point2, and edges intersections from the result
+									intersects.points = $.grep(intersects.points, function(point) {
+										var point = new Poly2tri.Point(point.x, point.y);
+
+										if (!point1.equals(point) && !point2.equals(point) && !edge.p.equals(point) && !edge.q.equals(point)) return true;
+									});
 									visible = !intersects.points.length;
 									return visible;
 								});
 							}
 
-							point1.visibility[j] = visible;
+							// check if between point1 and point2 is inside the polygon
+							if (visible) {
+								if (i == 19 && j == 22) console.log('visible: carry on from here', visible, point1, point2, midpoint.inPolygon(_polygons[0]));
+							}
+
+							point1.midpoint[j] = midpoint;
+							point1.visibility[j] = visible && $.grep(_polygons, function(polygon) {
+								return midpoint.inPolygon(polygon);
+							}).length > 0;
 							point1.distance[j] = distance;
 						});
 					});
 				});
 		}
 
-		this.getTerrainAt = function(position) {
+		/*this.getTerrainAt = function(position) {
 			var data = this.getData(),
 				terrain;
 
@@ -153,7 +191,7 @@
 			});
 
 			return terrain;
-		}
+		}*/
 
 		this.loadMap = function(filepath) {
 			$.get(filepath, function(data) {
@@ -175,7 +213,7 @@
 				closest_dist = 99999999;
 
 			$.each(triangles, function(i, triangle) {
-				if (!isPointInTriangle(point, triangle)) return;
+				if (!point.inPolygon(triangle.getPoints())) return;
 
 				var triangle_point = getClosestPointFromTriangle(point, triangle),
 					distance = getDistance(point, triangle_point);
@@ -197,17 +235,21 @@
 
 		this.findPath = function(start_point, end_point) {
 			var result = {
-				closed: [],
-				open: [{
+				closed: [start_point],
+				open: getAdjacentPoints({
 					point: start_point,
 					distances: getDistances(start_point)
-				}]
+				})
 			};
 
 			function getAdjacentPoints(node) {
 				var result = [];
 
-				$.each(node.point.adjacent, function(j, adjpoint) {
+				$.each(node.point.visibility, function(j, visible) {
+					if (!visible) return;
+
+					var adjpoint = self.poly2tri.getPoint(j);
+					if (adjpoint === node.point) return;
 					result.push({
 						point: adjpoint,
 						parent: node,
@@ -261,7 +303,7 @@
 				current = getBestNode();
 				if (current.point === end_point) {
 					var path = reconstructPath(current, []);
-					console.log('path find:', result, path);
+					console.log('path found:', result, path);
 					return path;
 				}
 
@@ -313,4 +355,4 @@
 
 	return Map;
 
-})(jQuery, Events, ObserverCore, Rts, poly2tri, Intersection);
+})(jQuery, Events, ObserverCore, Rts, poly2tri, Intersection, Point2D);

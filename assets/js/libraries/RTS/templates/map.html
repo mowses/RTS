@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="{{Rts.map.data.width}}" height="{{Rts.map.data.height}}">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" ng-attr-width="{{Rts.map.data.width}}" ng-attr-height="{{Rts.map.data.height}}">
 	<!-- <polygon ng-repeat="terrain in Rts.map.data.terrain.sand" polygon-points style="fill: gold;" /> -->
 	<polygon ng-repeat="(index, triangle) in Rts.map.data.triangles" id="triangle-{{index}}" polygon-points style="fill: #5CACDB;" />
 
-	<circle ng-repeat="clickPos in Rts.map.data.clickPos" cx="{{clickPos.point.x}}" cy="{{clickPos.point.y}}" r="6" fill="yellow" />
+	<circle ng-repeat="clickPos in Rts.map.data.clickPos" ng-attr-cx="{{clickPos.point.x}}" ng-attr-cy="{{clickPos.point.y}}" r="6" fill="yellow" />
 
-	<circle ng-repeat="pathPos in Rts.map.data.pathPos" cx="{{pathPos.point.x}}" cy="{{pathPos.point.y}}" r="3" fill="white" />
+	<circle ng-repeat="pathPos in Rts.map.data.pathPos" ng-attr-cx="{{pathPos.point.x}}" ng-attr-cy="{{pathPos.point.y}}" r="3" fill="white" />
 	<path path stroke="white" stroke-width="2" fill="none" />
 </svg>

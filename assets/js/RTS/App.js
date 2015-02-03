@@ -137,7 +137,7 @@ angular.module('Rts', [])
                 });
 
                 $element.attr('d', 'M' + path_pos[0].point.x + ' ' + path_pos[0].point.y + ' ' + lines.join(' '));
-            }, true);
+            });
         }
     };
 });
