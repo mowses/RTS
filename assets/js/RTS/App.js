@@ -91,8 +91,22 @@ angular.module('Rts', [])
                     clickpos[clicks++ % 2] = $scope.Rts.map.getClosestFromPos(pos);
 
                     if (clickpos[0] && clickpos[1]) {
-                        var result = $scope.Rts.map.findPath(clickpos[0].point, clickpos[1].point);
-                        $scope.Rts.map.data.pathPos = result;
+                        var result = $scope.Rts.map.findPath(clickpos[0].point, clickpos[1].point),
+                            distance = 0;
+
+                        $.each(result, function(i, item) {
+                            var next_point = result[i+1];
+                            if (!next_point) return;
+
+                            distance += item.point.distance[next_point.point.index];
+                        });
+
+                        console.log('total distance:', distance);
+                        if (!e.shiftKey) {
+                            $scope.Rts.map.data.pathPos = result;
+                        } else {
+                            console.log('distance from Start to End:', clickpos[0].point.distance[clickpos[1].point.index]);
+                        }
                     }
 
                     $scope.$apply();

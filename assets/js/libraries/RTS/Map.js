@@ -125,12 +125,21 @@
 								return $.grep(triangle.getPoints(), function(point) {
 									return point != point1;
 								});
-							}));
+							})),
+							connected_edges = $.map(self.poly2tri.edge_list, function(edge) {
+								if (edge.p == point1) return edge.q;
+								if (edge.q == point1) return edge.p;
+							}),
+							edges = $.map(self.poly2tri.edge_list, function(edge) {
+								if (edge.p == point1 || edge.q == point1) return edge;
+							});
 
 						$.extend(point1, {
 							visibility: [],
 							distance: [],
 							midpoint: [],
+							connected_edges: connected_edges,
+							edges: edges,
 							triangles: triangles,
 							adjacent: adjacent,
 							index: i
@@ -158,15 +167,23 @@
 								});
 							}
 
-							// check if between point1 and point2 is inside the polygon
 							if (visible) {
-								if (i == 19 && j == 22) console.log('visible: carry on from here', visible, point1, point2, midpoint.inPolygon(_polygons[0]));
+								visible = false;
+
+								// to continue visibility
+								// the point must be inside at least 1 triangle
+								$.each(self.poly2tri.getTriangles(), function(it, triangle) {
+									var inside = midpoint.inPolygon(triangle.getPoints());
+
+									if (inside) {
+										visible = true;
+										return false;
+									}
+								});
 							}
 
 							point1.midpoint[j] = midpoint;
-							point1.visibility[j] = visible && $.grep(_polygons, function(polygon) {
-								return midpoint.inPolygon(polygon);
-							}).length > 0;
+							point1.visibility[j] = (point1.connected_edges.indexOf(point2) >= 0) || visible;
 							point1.distance[j] = distance;
 						});
 					});
@@ -235,26 +252,44 @@
 
 		this.findPath = function(start_point, end_point) {
 			var result = {
-				closed: [start_point],
-				open: getAdjacentPoints({
-					point: start_point,
-					distances: getDistances(start_point)
-				})
+				closed: {},
+				open: {}
 			};
 
-			function getAdjacentPoints(node) {
-				var result = [];
+			result.open[start_point.index] = {
+				point: start_point,
+				parent: null,
+				distances: getDistances(start_point)
+			};
+
+			function getVisiblePoints(node) {
+				var result = {};
 
 				$.each(node.point.visibility, function(j, visible) {
 					if (!visible) return;
 
 					var adjpoint = self.poly2tri.getPoint(j);
 					if (adjpoint === node.point) return;
-					result.push({
+
+					result[adjpoint.index] = {
 						point: adjpoint,
 						parent: node,
 						distances: getDistances(adjpoint)
-					});
+					};
+				});
+
+				return result;
+			}
+
+			function getAdjacentPoints(node) {
+				var result = {};
+
+				$.each(node.point.adjacent, function(j, adjpoint) {
+					result[adjpoint.index] = {
+						point: adjpoint,
+						parent: node,
+						distances: getDistances(adjpoint)
+					};
 				});
 
 				return result;
@@ -273,13 +308,14 @@
 			}
 
 			function getBestNode() {
-				var closest_dist = 9999999,
+				var closest_dist = 999999999,
 					best_node = null;
 
 				$.each(result.open, function(i, open) {
 					var f = open.distances.f;
 
 					if (f >= closest_dist) return;
+
 					closest_dist = f;
 					best_node = open;
 				});
@@ -295,48 +331,66 @@
 				return stack;
 			}
 
+			/* remove unnecessary points from the path */
+			function optimizePath(path) {
+				var t = path.length - 1;
+
+				for (var i = 0; i < t; i++) {
+					var node1 = path[i];
+					for (var j = t; j > i + 1; j--) {
+						var node2 = path[j];
+						if (node1.point.visibility[node2.point.index] !== true) continue;
+
+						path.splice(i + 1, j - i - 1);
+						t = path.length - 1;
+						break;
+					}
+				}
+
+				return path;
+			}
+
 			var _i = 0,
 				current = null;
 
-			while (result.open.length && _i++ <= 100) {
+			while (Object.keys(result.open).length && _i++ <= 100) {
 
 				current = getBestNode();
 				if (current.point === end_point) {
-					var path = reconstructPath(current, []);
+					var path = optimizePath(reconstructPath(current, []));
 					console.log('path found:', result, path);
 					return path;
 				}
 
 				// remove current from openset
-				result.open = $.grep(result.open, function(open) {
-					return open.point != current.point;
-				});
+				delete result.open[current.point.index];
 
 				// add current to closed set
-				result.closed.push(current.point);
+				result.closed[current.point.index] = current.point;
 
-				$.each(getAdjacentPoints(current), function(i, adjacent) {
-					// check for the adjacent in the closed set
-					var in_closed = (result.closed.indexOf(adjacent.point) >= 0);
+				// always get the adjacent nodes
+				// not the visible ones
+				// if you want to optimize your path use `optimizePath()`
+				$.each(getAdjacentPoints(current), function(i, visible) {
+					// check for the visible in the closed set
+					var in_closed = result.closed[visible.point.index] !== undefined;
 					if (in_closed) return;
 
-					// get current step and distance from current to adjacent point
-					var step_cost = current.distances.g + current.point.distance[adjacent.point.index];
+					// get current step and distance from current to visible point
+					var step_cost = current.distances.g + current.point.distance[visible.point.index];
+					// check if its cost is >= the step_cost, if so skip current visible point
+					if (in_closed && step_cost >= visible.distances.g) return;
 
-					// check if its cost is >= the step_cost, if so skip current adjacent point
-					if (in_closed && step_cost >= adjacent.distances.g) return;
+					// verify visible doesn't exist or new score for it is better
+					var in_open = result.open[visible.point.index] !== undefined;
 
-					// verify neighbor doesn't exist or new score for it is better
-					var in_open = $.grep(result.open, function(open) {
-						return open.point === adjacent.point;
-					}).length > 0;
-					if (!in_open || step_cost < adjacent.distances.g) {
+					if (!in_open || step_cost < visible.distances.g) {
 						if (!in_open) {
-							result.open.push(adjacent);
+							result.open[visible.point.index] = visible;
 						} else {
-							adjacent.parent = current;
-							adjacent.distances.g = step_cost;
-							adjacent.distances.f = step_cost + adjacent.distances.h;
+							visible.parent = current;
+							visible.distances.g = step_cost;
+							visible.distances.f = step_cost + visible.distances.h;
 						}
 					}
 				});
