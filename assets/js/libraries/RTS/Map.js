@@ -358,7 +358,6 @@
 				current = getBestNode();
 				if (current.point === end_point) {
 					var path = optimizePath(reconstructPath(current, []));
-					console.log('path found:', result, path);
 					return path;
 				}
 

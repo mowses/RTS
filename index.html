@@ -6,6 +6,9 @@
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <!--STYLES-->
 <link rel="stylesheet" href="./styles/reset.css">
+
+<link rel="stylesheet" href="./styles/Rts/agent.css">
+<link rel="stylesheet" href="./styles/Rts/imp.css">
 <!--STYLES END-->
 
 <!--SCRIPTS-->
@@ -19,11 +22,19 @@
 <script src="./assets/js/libraries/2D.js/Intersection.js"></script>
 
 <script src="./assets/js/libraries/Rts/Rts.js"></script>
+<script src="./assets/js/libraries/Rts/Game.js"></script>
 <script src="./assets/js/libraries/Rts/Map.js"></script>
+<script src="./assets/js/libraries/Rts/Walkable.js"></script>
+<script src="./assets/js/libraries/Rts/AgentFactory.js"></script>
+<script src="./assets/js/libraries/Rts/Agents/Imp.js"></script>
+
 <script src="./assets/js/RTS/App.js"></script>
+<script src="./assets/js/RTS/directives/Map.js"></script>
+<script src="./assets/js/RTS/directives/Agents.js"></script>
 <!--SCRIPTS END-->
 </head>
-<body ng-app="Rts" style="background:#101010;">
-	<map></map>
+<body ng-app="Rts" style="background:#101010;" ng-controller="AgentTest">
+	<map map="game.map"></map>
+	<agents agents="game.agents"></agents>
 </body>
 </html>
