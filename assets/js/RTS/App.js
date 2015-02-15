@@ -15,7 +15,9 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 		var agent = agentFactoryNew.apply(this, arguments);
 
 		agent.watch(null, function(data) {
-			this.data = data.new;
+			this.data = $.extend({}, data.new, {
+				walkable: agent.walkable.getData()
+			});
 			$scope.$apply();
 		});
 
@@ -55,7 +57,10 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 
 			hero = Rts.AgentFactory.new('Imp', {
 				id: 'hero',
-				position: [607, 333, 0]
+				position: {
+					x: 607,
+					y: 333
+				}
 			}, game)
 
 			.watch(['destination'], function() {
@@ -74,7 +79,10 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 			});
 
 			imp1 = Rts.AgentFactory.new('Imp', {
-				position: [418, 48, 0]
+				position: {
+					x: 418,
+					y: 48
+				}
 			}, game);
 
 			$scope.$apply();
@@ -83,9 +91,11 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 	game.map.loadMap('./assets/js/libraries/RTS/ASSETS/doom-RTS_navMesh.json');
 
 	$(document).on('click', function(e) {
-		var pos = [e.pageX, e.pageY, 0],
-			closest_pos = game.map.getClosestFromPos(pos),
-			distance = 0;
+		var pos = {
+				x: e.pageX,
+				y: e.pageY
+			},
+			closest_pos = game.map.getClosestFromPos(pos);
 
 		hero.setData({
 			destination: pos

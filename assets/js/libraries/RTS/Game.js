@@ -16,7 +16,7 @@
 
 			interval = setInterval(function(events) {
 				events.trigger('game loop');
-				console.log('game loop');
+				//console.log('game loop');
 			}, update_freq, self.events);
 		}
 

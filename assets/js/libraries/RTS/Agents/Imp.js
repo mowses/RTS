@@ -25,9 +25,9 @@
 
 	$.extend(Imp.prototype, (function() {
 		return {
-			getConfig: function(position) {
+			getConfig: function() {
 				return {
-					MAX_SPEED: 5,
+					MAX_VELOCITY: 5,
 					ACCELERATION: 0.5,
 					DECCELERATION: 0.5
 				};

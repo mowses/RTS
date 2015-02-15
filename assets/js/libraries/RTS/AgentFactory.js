@@ -11,7 +11,7 @@
 				walkable: walkable
 			});
 
-			agent.setData(data);
+			agent.extendData(data);
 			self.registerAgent(agent);
 
 			return agent;

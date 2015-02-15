@@ -225,7 +225,7 @@
 					point: null,
 					pointIndex: null
 				},
-				point = new Poly2tri.Point(pos[0], pos[1]),
+				point = new Poly2tri.Point(pos.x, pos.y),
 				triangles = self.poly2tri.getTriangles(),
 				closest_dist = 99999999;
 
