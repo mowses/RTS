@@ -14,9 +14,9 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 	Rts.AgentFactory.new = function() {
 		var agent = agentFactoryNew.apply(this, arguments);
 
-		agent.watch(null, function(data) {
+		agent.model.watch(null, function(data) {
 			this.data = $.extend({}, data.new, {
-				walkable: agent.walkable.getData()
+				walkable: agent.walkable.model.getData()
 			});
 			$scope.$apply();
 		});
@@ -58,12 +58,12 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 			hero = Rts.AgentFactory.new('Imp', {
 				id: 'hero',
 				position: {
-					x: 607,
-					y: 333
+					x: 965,
+					y: 427
 				}
-			}, game)
+			}, game);
 
-			.watch(['destination'], function() {
+			hero.model.watch(['destination'], function() {
 				var result = hero.walkable.mapDestinationPath,
 					distance = 0;
 
@@ -88,7 +88,7 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 			$scope.$apply();
 		});
 
-	game.map.loadMap('./assets/js/libraries/RTS/ASSETS/doom-RTS_navMesh.json');
+	game.map.loadMap('./assets/js/libraries/Rts/ASSETS/doom-RTS_navMesh.json');
 
 	$(document).on('click', function(e) {
 		var pos = {
@@ -97,11 +97,11 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 			},
 			closest_pos = game.map.getClosestFromPos(pos);
 
-		hero.setData({
-			destination: pos
-		}, true);
+		hero.model.setData('destination', pos);
 
 		game.map.data.clickPos = [hero.walkable.mapClosestNode, closest_pos];
+		/*console.clear();
+		console.log(hero.walkable.mapClosestNode, closest_pos, game.map.data.clickPos	);*/
 		$scope.$apply();
 	});
 

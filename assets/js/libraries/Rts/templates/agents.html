@@ -1,0 +1,5 @@
+<div ng-repeat="(id, agent) in agents" id="{{id}}" class="agent {{agent.constructor.name}}" style="top: {{agent.model.data.position.y}}px; left: {{agent.model.data.position.x}}px;">
+	<div style="position: absolute; bottom: 0px; left: 0px; background: #00ff00; width: 50px; height: 2px; -ms-transform: rotate({{-agent.model.data.orientation.pan}}rad); -webkit-transform: rotate({{-agent.model.data.orientation.pan}}rad); transform: rotate({{-agent.model.data.orientation.pan}}rad)"></div>
+
+	<div style="position: absolute; bottom: 0px; left: 0px; background: #0000ff; width: 30px; height: 2px; -ms-transform: rotate({{-agent.model.data.orientation.pan}}rad); -webkit-transform: rotate({{-agent.model.data.orientation.pan}}rad); transform: rotate({{-agent.model.data.orientation.pan}}rad)"></div>
+</div>

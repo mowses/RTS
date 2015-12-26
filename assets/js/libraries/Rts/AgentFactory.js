@@ -11,7 +11,7 @@
 				walkable: walkable
 			});
 
-			agent.extendData(data);
+			agent.model.extendData(data);
 			self.registerAgent(agent);
 
 			return agent;
@@ -27,14 +27,14 @@
 
 		return {
 			registerAgent: function(agent) {
-				var id = agent.getData('id');
+				var id = agent.model.getData('id');
 
 				if (!id) {
 					id = generateID();
 
-					agent.setData({
+					agent.model.extendData({
 						id: id
-					}, true);
+					});
 				}
 
 				instances[id] = agent;

@@ -1,0 +1,69 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'install', 'ObjDiff' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.37
+4 verbose node symlink /usr/bin/node
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'ObjDiff@git+https://github.com/mowses/ObjDiff', null ]
+7 verbose cache add name=undefined spec="ObjDiff@git+https://github.com/mowses/ObjDiff" args=["ObjDiff@git+https://github.com/mowses/ObjDiff",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: 'ObjDiff@git+https://github.com/mowses/ObjDiff',
+8 verbose parsed url   path: 'ObjDiff@git+https://github.com/mowses/ObjDiff',
+8 verbose parsed url   href: 'ObjDiff@git+https://github.com/mowses/ObjDiff' }
+9 verbose cache add name="ObjDiff" spec="git+https://github.com/mowses/ObjDiff" args=["ObjDiff","git+https://github.com/mowses/ObjDiff"]
+10 verbose parsed url { protocol: 'git+https:',
+10 verbose parsed url   slashes: true,
+10 verbose parsed url   auth: null,
+10 verbose parsed url   host: 'github.com',
+10 verbose parsed url   port: null,
+10 verbose parsed url   hostname: 'github.com',
+10 verbose parsed url   hash: null,
+10 verbose parsed url   search: null,
+10 verbose parsed url   query: null,
+10 verbose parsed url   pathname: '/mowses/ObjDiff',
+10 verbose parsed url   path: '/mowses/ObjDiff',
+10 verbose parsed url   href: 'git+https://github.com/mowses/ObjDiff' }
+11 silly lockFile 3859e821-https-github-com-mowses-ObjDiff https://github.com/mowses/ObjDiff
+12 verbose lock https://github.com/mowses/ObjDiff /home/moises/.npm/3859e821-https-github-com-mowses-ObjDiff.lock
+13 verbose addRemoteGit [ 'https://github.com/mowses/ObjDiff', 'master' ]
+14 verbose git remote.origin.url https://github.com/mowses/ObjDiff
+15 verbose git fetch -a origin (https://github.com/mowses/ObjDiff)
+16 verbose git rev-list -n1 master f487a09db858b941883ca00b18fc3990d0340332
+17 verbose resolved git url git+https://github.com/mowses/ObjDiff#f487a09db858b941883ca00b18fc3990d0340332
+18 verbose tar unpack /tmp/npm-17064-q-S2ypxR/1451096324400-0.5086455976124853/tmp.tgz
+19 silly lockFile c84888ba--5086455976124853-tmp-tgz-unpack tar:///tmp/npm-17064-q-S2ypxR/1451096324400-0.5086455976124853/tmp.tgz-unpack
+20 verbose lock tar:///tmp/npm-17064-q-S2ypxR/1451096324400-0.5086455976124853/tmp.tgz-unpack /home/moises/.npm/c84888ba--5086455976124853-tmp-tgz-unpack.lock
+21 silly lockFile aafbf53d-24400-0-5086455976124853-tmp-tgz tar:///tmp/npm-17064-q-S2ypxR/1451096324400-0.5086455976124853/tmp.tgz
+22 verbose lock tar:///tmp/npm-17064-q-S2ypxR/1451096324400-0.5086455976124853/tmp.tgz /home/moises/.npm/aafbf53d-24400-0-5086455976124853-tmp-tgz.lock
+23 silly gunzTarPerm modes [ '775', '664' ]
+24 silly gunzTarPerm extractEntry
+25 silly gunzTarPerm extractEntry .gitattributes
+26 silly gunzTarPerm extractEntry .gitignore
+27 silly gunzTarPerm extractEntry ObjDiff.js
+28 silly lockFile c84888ba--5086455976124853-tmp-tgz-unpack tar:///tmp/npm-17064-q-S2ypxR/1451096324400-0.5086455976124853/tmp.tgz-unpack
+29 silly lockFile c84888ba--5086455976124853-tmp-tgz-unpack tar:///tmp/npm-17064-q-S2ypxR/1451096324400-0.5086455976124853/tmp.tgz-unpack
+30 silly lockFile aafbf53d-24400-0-5086455976124853-tmp-tgz tar:///tmp/npm-17064-q-S2ypxR/1451096324400-0.5086455976124853/tmp.tgz
+31 silly lockFile aafbf53d-24400-0-5086455976124853-tmp-tgz tar:///tmp/npm-17064-q-S2ypxR/1451096324400-0.5086455976124853/tmp.tgz
+32 silly lockFile 3859e821-https-github-com-mowses-ObjDiff https://github.com/mowses/ObjDiff
+33 silly lockFile 3859e821-https-github-com-mowses-ObjDiff https://github.com/mowses/ObjDiff
+34 error Error: ENOENT, open '/tmp/npm-17064-q-S2ypxR/1451096324400-0.5086455976124853/tmp.tgz-unpack/package.json'
+35 error If you need help, you may report this *entire* log,
+35 error including the npm and node versions, at:
+35 error     <http://github.com/npm/npm/issues>
+36 error System Linux 3.16.0-57-generic
+37 error command "/usr/bin/node" "/usr/bin/npm" "install" "ObjDiff"
+38 error cwd /home/moises/Documents/Projects/RTS
+39 error node -v v0.10.37
+40 error npm -v 1.4.28
+41 error path /tmp/npm-17064-q-S2ypxR/1451096324400-0.5086455976124853/tmp.tgz-unpack/package.json
+42 error code ENOENT
+43 error errno 34
+44 verbose exit [ 34, true ]

@@ -4,18 +4,16 @@
 		var self = this;
 
 		function init() {
-			$.extend(self,
-				new ObserverCore(), {
-				events: new Events([
-
-				])
+			$.extend(self, {
+				model: new ObserverCore(),
+				events: new Events([])
 			});
 
 			self.events
 				/*.on('set destination', function() {
 					console.log('Imp sets destination');
 				})
-				.on('reach destination', function() {
+				.on2('reach destination', function() {
 					console.log('Imp reaches destination');
 				});*/
 		}
@@ -27,9 +25,7 @@
 		return {
 			getConfig: function() {
 				return {
-					MAX_VELOCITY: 5,
-					ACCELERATION: 0.5,
-					DECCELERATION: 0.5
+					MAX_VELOCITY: 10
 				};
 			}
 		};

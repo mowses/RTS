@@ -33,6 +33,9 @@
 		var self = this,
 			polygons = null;
 
+		self.getClosestPointFromPosition = getClosestPointFromPosition;
+
+		// functions
 		function isPointInPoly(pt, poly) {
 			for (var c = false, i = 0, l = poly.length, j = l - 2; i < l; i += 2, j = i - 2) {
 				((poly[i + 1] <= pt[1] && pt[1] < poly[j + 1]) || (poly[j + 1] <= pt[1] && pt[1] < poly[i + 1])) && (pt[0] < (poly[j] - poly[i]) * (pt[1] - poly[i + 1]) / (poly[j + 1] - poly[i + 1]) + poly[i]) && (c = !c);
@@ -69,7 +72,7 @@
 
 		function getClosestPointFromTriangle(point, triangle) {
 			var closest_point = null,
-				closest_dist = 999999;
+				closest_dist = Infinity;
 
 			$.each(triangle.getPoints(), function(i, triangle_point) {
 				var distance = getDistance(triangle_point, point); // always use getDistance
@@ -85,11 +88,12 @@
 
 		function init() {
 			$.extend(self, {
+				model: new ObserverCore(),
 				events: new Events([
 					'load map'
 				]),
 				poly2tri: null
-			}, new ObserverCore());
+			});
 
 			self.events
 				.on('load map', function() {
@@ -211,11 +215,17 @@
 		}*/
 
 		this.loadMap = function(filepath) {
-			$.get(filepath, function(data) {
-				polygons = data.polygons;
-				self.events.trigger('load map');
-			});
+			$.ajax({
+				url: filepath,
+				dataType: 'json',
+				cache: false,
 
+				success: function (data) {
+				    polygons = data.polygons;
+					self.events.trigger('load map');
+				}
+			});
+			
 			return this;
 		}
 
@@ -227,11 +237,9 @@
 				},
 				point = new Poly2tri.Point(pos.x, pos.y),
 				triangles = self.poly2tri.getTriangles(),
-				closest_dist = 99999999;
+				closest_dist = Infinity;
 
 			$.each(triangles, function(i, triangle) {
-				if (!point.inPolygon(triangle.getPoints())) return;
-
 				var triangle_point = getClosestPointFromTriangle(point, triangle),
 					distance = getDistance(point, triangle_point);
 
@@ -245,6 +253,7 @@
 				});
 
 				closest_dist = distance;
+				if (distance == 0) return false;  // break $.each
 			});
 
 			return result;
@@ -308,7 +317,7 @@
 			}
 
 			function getBestNode() {
-				var closest_dist = 999999999,
+				var closest_dist = Infinity,
 					best_node = null;
 
 				$.each(result.open, function(i, open) {
@@ -397,6 +406,28 @@
 
 			return;
 
+		}
+
+		/**
+		 * return the closest point from any position
+		 */
+		function getClosestPointFromPosition(pos) {
+			var result,
+				point = new Poly2tri.Point(pos.x, pos.y),
+				triangles = self.poly2tri.getTriangles(),
+				closest_dist = Infinity;
+
+			$.each(triangles, function(i, triangle) {
+				var triangle_point = getClosestPointFromTriangle(point, triangle),
+					distance = getDistance(point, triangle_point);
+
+				if (distance >= closest_dist) return;
+
+				closest_dist = distance;
+				result = triangle_point;
+			});
+
+			return result;
 		}
 
 		init();

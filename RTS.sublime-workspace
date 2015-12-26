@@ -1,0 +1,1325 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"componen",
+				"component_subcomponent"
+			],
+			[
+				"compo",
+				"component_subcomponent"
+			],
+			[
+				"expresio",
+				"expressions"
+			],
+			[
+				"express",
+				"expressions"
+			],
+			[
+				"changed",
+				"changed_movies"
+			],
+			[
+				"get",
+				"getMadeIn"
+			],
+			[
+				"added",
+				"added_item"
+			],
+			[
+				"watch",
+				"watch_type"
+			],
+			[
+				"param",
+				"param_split"
+			],
+			[
+				"obje",
+				"objectToPaths"
+			],
+			[
+				"repea",
+				"repeatable_elements"
+			],
+			[
+				"repat",
+				"repeatable"
+			],
+			[
+				"tem",
+				"template_dom"
+			],
+			[
+				"component",
+				"component_subcomponent"
+			],
+			[
+				"compon",
+				"componentsService"
+			],
+			[
+				"run",
+				"runExpression"
+			],
+			[
+				"prep",
+				"prepareExpression"
+			],
+			[
+				"attri",
+				"attributes"
+			],
+			[
+				"attr",
+				"attr_value"
+			],
+			[
+				"Ob",
+				"ObserverCore"
+			],
+			[
+				"compone",
+				"componentsService"
+			],
+			[
+				"generateCSS",
+				"generateCSSforComponent"
+			],
+			[
+				"resi",
+				"n-resize"
+			],
+			[
+				"add",
+				"addComponentsSubcomponentsRow"
+			],
+			[
+				"parent",
+				"parent_ctrl"
+			],
+			[
+				"getCompo",
+				"getComponentById"
+			],
+			[
+				"getCom",
+				"getComponentById"
+			],
+			[
+				"total_",
+				"total_updates"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"Compo",
+				"Components"
+			],
+			[
+				"components",
+				"component_subcomponent"
+			],
+			[
+				"component_",
+				"component_id"
+			],
+			[
+				"is",
+				"isNumeric"
+			],
+			[
+				"newCompon",
+				"newComponentsSubcomponentsRow"
+			],
+			[
+				"subcom",
+				"subcomponents"
+			],
+			[
+				"com",
+				"components"
+			],
+			[
+				"update",
+				"updateComponents"
+			],
+			[
+				"subcompo",
+				"subcomponent"
+			],
+			[
+				"stringif",
+				"stringify"
+			],
+			[
+				"max",
+				"max-height"
+			],
+			[
+				"stringi",
+				"stringified"
+			],
+			[
+				"editing",
+				"editingComponent"
+			],
+			[
+				"apply",
+				"applyChanges"
+			],
+			[
+				"applyC",
+				"applyChangesNow"
+			],
+			[
+				"editin",
+				"editingComponent"
+			],
+			[
+				"prototye",
+				"prototypeFrom"
+			],
+			[
+				"registere",
+				"registered_controllers"
+			],
+			[
+				"regis",
+				"registered_controllers"
+			],
+			[
+				"proto_ctrl",
+				"proto_ctrl_name"
+			],
+			[
+				"index",
+				"indexed_components"
+			],
+			[
+				"proto",
+				"proto_ctrl"
+			],
+			[
+				"prototype",
+				"prototypeFrom"
+			],
+			[
+				"Components",
+				"components_subcomponents"
+			],
+			[
+				"pro",
+				"prototyped_data"
+			],
+			[
+				"font-",
+				"font-family"
+			],
+			[
+				"genera",
+				"generateCSS"
+			],
+			[
+				"list-",
+				"list-style-position"
+			],
+			[
+				"bounding",
+				"bounding-box"
+			],
+			[
+				"transc",
+				"transclusion_area"
+			],
+			[
+				"editable",
+				"editable-area"
+			],
+			[
+				"selecte",
+				"selected_theme"
+			],
+			[
+				"selec",
+				"selected_theme"
+			],
+			[
+				"new",
+				"new_data"
+			],
+			[
+				"select",
+				"selectedTheme"
+			],
+			[
+				"socket",
+				"socketService"
+			],
+			[
+				"bound",
+				"boundingBox"
+			],
+			[
+				"border-col",
+				"border-color"
+			],
+			[
+				"start",
+				"startSize"
+			],
+			[
+				"ui-",
+				"ui-resizable-handle"
+			],
+			[
+				"border-s",
+				"border-style"
+			],
+			[
+				"watc",
+				"watchCollection"
+			],
+			[
+				"s",
+				"scope"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "assets/js/Rts/App.js",
+			"settings":
+			{
+				"buffer_size": 2210,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 1853,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "assets/js/libraries/Rts/templates/map.html",
+			"settings":
+			{
+				"buffer_size": 906,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "assets/js/Rts/directives/Map.js",
+			"settings":
+			{
+				"buffer_size": 1704,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "assets/js/libraries/Rts/Game.js",
+			"settings":
+			{
+				"buffer_size": 507,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "assets/js/libraries/Rts/Map.js",
+			"settings":
+			{
+				"buffer_size": 10299,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 33.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/ObserverCore.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Events/Events.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/Rts/directives/Agents.js",
+		"/home/moises/Documents/Projects/RTS/package.json",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/Component.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/styles/resizable-handles.css",
+		"/home/moises/Documents/Projects/wysirwyg/assets/templates/Directives/Component.html",
+		"/home/moises/Documents/Projects/wysirwyg/assets/templates/Directives/EditableArea.html",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/EditableArea.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/Resizable.js",
+		"/home/moises/Documents/Projects/wysirwyg/tasks/pipeline.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/components/controllers.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/modules/Editor/Editor.js",
+		"/home/moises/Documents/Projects/wysirwyg/views/editor/index.ejs",
+		"/home/moises/Documents/Projects/wysirwyg/assets/styles/stage.css",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/BoundingBox.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/Draggable.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/Editor.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/ElementScopeWatcher.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/Grid.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/Ruler.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/Sortable.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/i18n.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/Selectable.js",
+		"/home/moises/Documents/Projects/html-templater/Templater/Templater.js",
+		"/home/moises/Documents/Projects/html-templater/index2.html",
+		"/home/moises/Documents/Projects/html-templater/index.html",
+		"/home/moises/Documents/Projects/html-templater/WYSIRWYG/modules/EditorController.js",
+		"/home/moises/Documents/Projects/html-templater/ObjDiff/ObjDiff.js",
+		"/home/moises/Documents/Projects/html-templater/ObserverCore/ObserverCore.js",
+		"/home/moises/Documents/Projects/html-templater/ObserverCore/tests.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/libraries/angular/angular.js",
+		"/home/moises/Documents/Projects/html-templater/Events/Events.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/services/components.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/modules/Editor/EditorController.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/libraries/jQuery.ui/jquery-ui.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/services/generateCSS.js",
+		"/home/moises/Documents/Projects/html-templater-project/tasks/pipeline.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/ObserverCore/ObserverCore.js",
+		"/home/moises/Documents/Projects/html-templater-project/views/layout.ejs",
+		"/home/moises/Documents/archivio-verona.txt",
+		"/home/moises/Documents/Projects/wysirwyg/assets/templates/i18n-edition.html",
+		"/home/moises/Documents/Projects/wysirwyg/assets/styles/boundingbox.css",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/services/view.js",
+		"/home/moises/Documents/Projects/wysirwyg/views/documentation/index.ejs",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/components/3.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/components/1.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/services/componentsDatabase.js",
+		"/home/moises/Documents/Projects/html-templater-project/views/documentation/index.ejs",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/directives/Component.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/directives/i18n.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/services/componentsFactory.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/modules/DocumentationController.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/services/getParentLanguage.js",
+		"/home/moises/Documents/Projects/wysirwyg/.tmp/documentation/initial-data.sql",
+		"/home/moises/Documents/Projects/wysirwyg/package.json",
+		"/home/moises/Documents/Projects/html-templater-project/api/controllers/ComponentsController.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/components/Empty/controller.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/components/Person/controller.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/components/Person/template.html",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/components/Person2/controller.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/services/getThemes.js",
+		"/home/moises/Documents/Projects/html-templater-project/tasks/config/jst.js",
+		"/home/moises/Documents/Projects/html-templater-project/tasks/config/less.js",
+		"/home/moises/Documents/Projects/html-templater-project/tasks/config/sails-linker.js",
+		"/home/moises/Documents/Projects/html-templater-project/.tmp/public/styles/importer.css",
+		"/home/moises/Documents/Projects/html-templater-project/views/documentation/layout.ejs",
+		"/home/moises/Documents/Projects/html-templater-project/config/local.js",
+		"/home/moises/Documents/Projects/html-templater-project/.tmp/public/jst.js",
+		"/home/moises/Documents/Projects/html-templater-project/.editorconfig",
+		"/home/moises/Documents/Projects/html-templater-project/fs",
+		"/home/moises/Documents/Projects/html-templater-project/views/homepage.ejs",
+		"/home/moises/Documents/Projects/html-templater-project/config/routes.js",
+		"/home/moises/Documents/Projects/html-templater-project/api/controllers/DocumentationController.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/WYSIRWYG.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/modules/MainController.js",
+		"/home/moises/Documents/Projects/html-templater-project/package.json",
+		"/home/moises/Documents/Projects/html-templater-project/config/globals.js",
+		"/home/moises/Documents/AI-project",
+		"/home/moises/Documents/Projects/html-templater-project/config/blueprints.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/services/controllerRegister.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/components/Person2/template.html",
+		"/home/moises/Documents/Projects/html-templater-project/tasks/README.md",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/MainController.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/EditorController.js",
+		"/home/moises/Documents/Projects/html-templater-project/assets/js/dependencies/WYSIRWYG/modules/EditorController.js",
+		"/home/moises/Documents/Projects/html-templater/directives/ElementScopeWatcher.js",
+		"/home/moises/Documents/Projects/html-templater/services/getParentLanguage.js",
+		"/home/moises/Documents/Projects/html-templater/directives/i18n.js",
+		"/home/moises/Documents/Projects/html-templater/directives/Component.js",
+		"/home/moises/Documents/Projects/html-templater-project/config/views.js",
+		"/home/moises/Documents/Projects/wargame/assets/js/libraries/Wargame/Multiplayer.js",
+		"/home/moises/Documents/Projects/html-templater/ObserverCore/index.html",
+		"/home/moises/Documents/Projects/wargame/assets/js/libraries/Wargame/Client.js",
+		"/home/moises/Documents/Projects/wargame/assets/js/Wargame/Classic.js",
+		"/home/moises/Documents/index.html",
+		"/home/moises/Documents/Projects/wysirwyg/views/editor/layout.ejs",
+		"/home/moises/Documents/Projects/wysirwyg/assets/styles/WYSIRWYG/directives/bounding-box.css",
+		"/home/moises/Documents/Projects/wysirwyg/views/editor/mobile.ejs",
+		"/home/moises/Documents/Projects/wysirwyg/.tmp/public/js/WYSIRWYG/modules/Editor/MobileController.js",
+		"/home/moises/Documents/Projects/wysirwyg/api/controllers/EditorController.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/styles/ruler.css",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/services/ObjDiff.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/filters/join.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/ngModelUtils.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/styles/editor/editor.css",
+		"/home/moises/Documents/Projects/wysirwyg/assets/styles/editor/stage/stage.css",
+		"/home/moises/Documents/Projects/wysirwyg/assets/styles/WYSIRWYG/main.css",
+		"/home/moises/Documents/Projects/wysirwyg/config/routes.js",
+		"/home/moises/Documents/Projects/wysirwyg/api/controllers/ComponentsController.js",
+		"/home/moises/Documents/Projects/wysirwyg/config/policies.js",
+		"/home/moises/Documents/Projects/wysirwyg/api/policies/optionalComponentsArray.js",
+		"/home/moises/Documents/Projects/wysirwyg/views/layout.ejs",
+		"/home/moises/Documents/Projects/wysirwyg/api/controllers/DocumentationController.js",
+		"/home/moises/Documents/Projects/wysirwyg/api/models/Components.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/components/2.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/modules/Editor/MobileController.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/libraries/ObjDiff/ObjDiff.js",
+		"/home/moises/Documents/Projects/wysirwyg/api/models/Components_subcomponents.js",
+		"/home/moises/Documents/Projects/wysirwyg/config/blueprints.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/libraries/ionic/js/ionic.bundle.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/libraries/ionic/js/ionic-angular.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/libraries/angular/angular-route.js",
+		"/home/moises/Documents/Projects/wysirwyg/assets/styles/editor/mobile/mobile.css",
+		"/home/moises/Documents/Projects/wysirwyg/.tmp/postgres-initial-components.backup",
+		"/home/moises/Documents/Projects/wysirwyg/.tmp/postgres-database.backup",
+		"/home/moises/Documents/Projects/wysirwyg/views/editor/raw.ejs",
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/modules/Editor/RawController.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 126.0,
+		"where_history":
+		[
+			"/home/moises/Documents/Projects/RTS",
+			"/home/moises/Documents/Projects/wysirwyg",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js",
+			"/home/moises/Documents/Projects/html-templater",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/modules",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js",
+			"<open files>",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/wysirwyg/views",
+			"/home/moises/Documents/Projects/wysirwyg/assets",
+			"/home/moises/Documents/Projects/wysirwyg/views/editor",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives",
+			"/home/moises/Documents/Projects/html-templater-project/assets/js",
+			"/home/moises/Documents/Projects/html-templater-project/tasks",
+			"/home/moises/Documents/Projects/wargame/assets/js",
+			"/home/moises/Documents/Projects/wargame",
+			"/home/moises/Documents/Projects/wargame/assets/js/libraries/Wargame",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/wysirwyg/assets/styles",
+			"/home/moises/Documents/Projects/wysirwyg/assets",
+			"/home/moises/Documents/Projects/wysirwyg",
+			"<open files>",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js",
+			"<open files>",
+			"/home/moises/Documents/Projects/wysirwyg/views",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/wysirwyg/assets",
+			"/home/moises/Documents/Projects/wysirwyg/api",
+			"/home/moises/Documents/Projects/wysirwyg/assets",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js",
+			"/home/moises/Documents/Projects/wysirwyg/assets",
+			"/home/moises/Documents/Projects/wysirwyg/views/editor",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/wysirwyg/views/editor",
+			"/home/moises/Documents/Projects/wysirwyg/assets",
+			"/home/moises/Documents/Projects/wysirwyg/views",
+			"<open files>",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/wysirwyg/assets",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js",
+			"/home/moises/Documents/Projects/wysirwyg/assets/styles",
+			"/home/moises/Documents/Projects/wysirwyg/assets",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/wysirwyg/assets",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/wysirwyg/assets/js",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/js",
+			"/home/moises/Documents/Projects/WYSIRWYG",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/wargame/api",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/styles",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/WYSIRWYG",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets",
+			"/home/moises/Documents/Projects/WYSIRWYG/.tmp",
+			"/home/moises/Documents/Projects/WYSIRWYG/api",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/js",
+			"/home/moises/Documents/Projects/wargame/api",
+			"/home/moises/Documents/Projects/wargame/assets/js/libraries/Wargame/templates",
+			"/home/moises/Documents/Projects/WYSIRWYG/views",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/styles",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/js",
+			"/home/moises/Documents/Projects/wargame/assets/js",
+			"/home/moises/Documents/Projects/wargame/api/controllers",
+			"/home/moises/Documents/Projects/wargame/api/services",
+			"/home/moises/Documents/Projects/wargame/api/controllers",
+			"/home/moises/Documents/Projects/wargame",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/js/WYSIRWYG/directives",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/js",
+			"/media/moises/Acer/Program Files (x86)/EasyPHP-DevServer-13.1VC11/data/localweb/wargame/assets/js",
+			"/media/moises/Acer/Program Files (x86)/EasyPHP-DevServer-13.1VC11/data/localweb/wargame/assets",
+			"/media/moises/Acer/Program Files (x86)/EasyPHP-DevServer-13.1VC11/data/localweb/wargame",
+			"",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/js",
+			"/home/moises/Documents/Projects/WYSIRWYG",
+			"/media/moises/Acer/Program Files (x86)/EasyPHP-DevServer-13.1VC11/data/localweb/wargame/assets",
+			"/home/moises/Documents/Projects/WYSIRWYG",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets",
+			"/home/moises/Documents/Projects/WYSIRWYG/assets/js/WYSIRWYG",
+			"/home/moises/Documents/Projects/WYSIRWYG/config",
+			"/media/moises/Acer/Program Files (x86)/EasyPHP-DevServer-13.1VC11/data/localweb/wargame",
+			"/media/moises/Acer/Program Files (x86)/EasyPHP-DevServer-13.1VC11/data/localweb/wargame/.tmp"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"load map",
+			"Events",
+			"map",
+			"AgentTest",
+			"theme-switcher",
+			"$rootScope",
+			"trigger",
+			"setResizableHandles",
+			"digest()",
+			"setResizableHandles",
+			"$parse",
+			"interpolate",
+			"disabled",
+			"select",
+			"attrs",
+			"attrs.",
+			"attrs.$element",
+			"getParentsComponents",
+			"togglectrl",
+			"bounding",
+			"theme-switcher",
+			"compile",
+			"setResizableHandles",
+			"handles",
+			"getParentsComponents",
+			"carry on from",
+			"addWidget",
+			"getOffsetPosition",
+			"watch",
+			"setResizableHandles",
+			"changedMainTheme",
+			"edition",
+			"config.class",
+			"changedMainTheme",
+			"emit",
+			"$emit",
+			"watch",
+			"setResizableHandles",
+			"addClass",
+			"disabled",
+			"setResizableHandles",
+			"disabled",
+			"setResizableHandles",
+			"self.resiza",
+			"disabled",
+			"setResizableHandles",
+			"edition.",
+			"setResizableHandles",
+			"disabled",
+			"before-compile",
+			"resizable",
+			"setResizableHandles",
+			"disabled",
+			"watch",
+			"this.$",
+			"this.selection",
+			"this.sele",
+			"this.selection",
+			"params.this",
+			"$watch",
+			"watchcollec",
+			"setResizableHandles",
+			"$scope",
+			"events",
+			"addItem",
+			"bind events",
+			"items",
+			"parse",
+			"added_item",
+			"added item in repeatable area",
+			"proto",
+			"parse(",
+			"__proto__",
+			"$value",
+			"$vaue",
+			"getExpressions",
+			"getexpre",
+			"$texts",
+			"expressions.$texts",
+			"once(",
+			"expressions.$elements",
+			"$elements",
+			"getExpressions",
+			"new templater",
+			"lll",
+			"getCache",
+			"getExpressions",
+			"added item in repeatable area",
+			"new templater",
+			"getExpressions",
+			"added item",
+			"getExpressions",
+			"lll",
+			"changed repeatable item",
+			"deleted repeatable item",
+			"added repeatable item",
+			"clicked o",
+			"getExpressions",
+			"console",
+			".index",
+			"getExpressions",
+			"textIndex",
+			"placeholderStart",
+			"elclone",
+			"new templa",
+			"getExpressions",
+			"$element",
+			"element",
+			"getExpressions",
+			"setCache",
+			"new templater",
+			"subviews.repeatable",
+			"before parse.repeatable",
+			"subviews",
+			"changed_item",
+			"ObjDeleted.prototype",
+			".apply(",
+			"changed repeatable item",
+			"new Templater",
+			"$index",
+			".type(",
+			"typeof",
+			"type(",
+			"getProp",
+			"$.type",
+			"for (",
+			"type",
+			"type_obj2"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"this",
+			" ",
+			"",
+			";",
+			"roll-up",
+			"\": \"",
+			"\"",
+			"",
+			"\": \"",
+			"\",",
+			"",
+			"components_subcomponents",
+			"",
+			"component",
+			"components_subcomponents",
+			"component",
+			"components_subcomponents",
+			"subcomponent",
+			"component",
+			"\"",
+			"\\\"",
+			"\"",
+			"	",
+			"",
+			"	",
+			"",
+			"extendsFrom,",
+			"\"",
+			"	",
+			"\"",
+			"	",
+			"\"",
+			"	",
+			"\"",
+			"	",
+			"\\\"",
+			"\\t",
+			"/",
+			"Data"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "assets/js/Rts/App.js",
+					"settings":
+					{
+						"buffer_size": 2210,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								985,
+								985
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1046.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "index.html",
+					"settings":
+					{
+						"buffer_size": 1853,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1767,
+								1767
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1080.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "assets/js/libraries/Rts/templates/map.html",
+					"settings":
+					{
+						"buffer_size": 906,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								232,
+								232
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "assets/js/Rts/directives/Map.js",
+					"settings":
+					{
+						"buffer_size": 1704,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								298,
+								298
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "assets/js/libraries/Rts/Game.js",
+					"settings":
+					{
+						"buffer_size": 507,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "assets/js/libraries/Rts/Map.js",
+					"settings":
+					{
+						"buffer_size": 10299,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2178,
+								2178
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2289.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"bounding",
+				"wysirwyg/assets/styles/WYSIRWYG/directives/bounding-box.css"
+			],
+			[
+				"stage.css",
+				"wysirwyg/assets/styles/editor/stage/stage.css"
+			],
+			[
+				"socketserve",
+				"wargame/api/services/socketService.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 243.0,
+	"status_bar_visible": true
+}

@@ -9,7 +9,7 @@
 		this.mapCurrentNodePathIndex = null;
 
 		function entMove(reldist) {
-			var agent_data = agent.getData(),
+			var agent_data = agent.model.getData(),
 				angle = agent_data.orientation;
 
 			agent_data.position.x += reldist.x * Math.cos(angle.pan);
@@ -18,9 +18,11 @@
 
 
 		function init() {
-			$.extend(self, new ObserverCore());
+			$.extend(self, {
+				model: new ObserverCore()
+			});
 
-			self.setData({
+			self.model.setData({
 				target: null
 			})
 
@@ -30,41 +32,28 @@
 			;
 
 			game.events
+				// follow path
 				.on('game loop.go to target', function() {
-					var data = self.getData(),
-						agent_data,
-						agent_config,
-						distance;
+					var data = self.model.getData();
 
 					if (!data.target) return;
 
-					agent_data = agent.getData();
-					agent_config = agent.getConfig();
+					var agent_data = agent.model.getData(),
+						distance,
+						velocity_length;
 
 					//http://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-path-following--gamedev-8769
 					//http://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-seek--gamedev-849
-					/*agent_data.velocity = {
-						x: Trigonometry.normalize() * agent_config.MAX_VELOCITY
-					};*/
+					rotateTo(data.target);
+					move();
 
-					/*agent.extendData({
-						orientation: {
-							pan: Trigonometry.vecToAngle(agent_data.position, data.target).radians
-						}
-					});*/
-
-					/*entMove({
-						x: 1,
-						y: 0
-					});*/
-
-					agent_data = agent.getData();
 					distance = Trigonometry.vecDist(agent_data.position, data.target);
-					if (distance > 10) return;
+					velocity_length = Trigonometry.vecDist({x:0, y:0}, agent_data.velocity);
+					if (distance > velocity_length) return;
 
 					self.mapCurrentNodePathIndex--;
 					if (self.mapCurrentNodePathIndex < 0) {
-						// reached destination
+						// reached path end
 						data.target = null;
 						return;
 					}
@@ -74,9 +63,33 @@
 						x: self.mapDestinationPath[self.mapCurrentNodePathIndex].point.x,
 						y: self.mapDestinationPath[self.mapCurrentNodePathIndex].point.y
 					};
+				})
+				// after followed the path, go straight to the destination
+				.on('game loop.go to destination', function() {
+					var data = self.model.getData();
+
+					if (data.target) return;
+
+					var agent_data = agent.model.getData();
+					if (!agent_data.destination) return;
+
+					var distance,
+						velocity_length;
+
+					rotateTo(agent_data.destination);
+					move();
+
+					distance = Trigonometry.vecDist(agent_data.position, agent_data.destination);
+					velocity_length = Trigonometry.vecDist({x:0, y:0}, agent_data.velocity);
+					if (distance > velocity_length) return;
+
+					// agent reached destination
+					agent_data.destination = null;
+
+
 				});
 
-			agent
+			agent.model
 				.setData({
 					position: null,
 					orientation: {
@@ -84,14 +97,12 @@
 					},
 					velocity: null,
 					destination: null
-				}, true)
+				})
 
 			.watch(['destination'], function(data) {
 				self.mapDestinationNode = game.map.getClosestFromPos(data.new.destination);
 				if (!self.mapDestinationNode.point || !self.mapClosestNode.point) {
-					self.setData({
-						target: null
-					}, true);
+					self.model.setData('target', null);
 					return;
 				}
 
@@ -101,21 +112,40 @@
 
 				self.mapCurrentNodePathIndex = self.mapDestinationPath.length - 1;
 
-				var agent_data = agent.getData(),
+				var agent_data = agent.model.getData(),
 					target = {
 						x: self.mapDestinationPath[self.mapCurrentNodePathIndex].point.x,
 						y: self.mapDestinationPath[self.mapCurrentNodePathIndex].point.y
 					};
 
-				self.setData({
-					target: target
-				}, true);
+				self.model.setData('target', target);
 			})
 
 			.watch(['position'], function(data) {
 				self.mapClosestNode = game.map.getClosestFromPos(data.new.position);
 			});
 
+		}
+
+		/**
+		 * set agent orientation to the passed position
+		 */
+		function rotateTo(position) {
+			agent.model.setData('orientation', {
+				pan: Trigonometry.vecToAngle(agent.model.getData('position'), position).radians
+			});
+		}
+
+		function move() {
+			var agent_data = agent.model.getData(),
+				agent_config = agent.getConfig();
+
+			agent_data.velocity = {
+				x: agent_config.MAX_VELOCITY,
+				y: 0
+			};
+
+			entMove(agent_data.velocity);
 		}
 
 		init();
