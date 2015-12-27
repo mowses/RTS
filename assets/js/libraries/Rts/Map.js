@@ -105,7 +105,8 @@
 									y: Math.ceil(coord[1])
 								}
 							})];
-						});
+						}),
+						all_triangles;
 
 					$.each(_polygons, function(i, polygon_coords) {
 						var hole = [];
@@ -118,11 +119,17 @@
 					});
 
 					self.poly2tri = swctx.triangulate();
+					all_triangles = self.poly2tri.getTriangles();
+
+					// add index to triangles
+					$.each(all_triangles, function(i, triangle) {
+						triangle.index = i;
+					});
 
 					// calculate point to point visibility and distances
 					// also add the index property and triangles objects
 					$.each(self.poly2tri.points_, function(i, point1) {
-						var triangles = $.grep(self.poly2tri.getTriangles(), function(triangle) {
+						var triangles = $.grep(all_triangles, function(triangle) {
 								return (triangle.getPoints().indexOf(point1) >= 0);
 							}),
 							adjacent = $.unique($.map(triangles, function(triangle) {
@@ -232,8 +239,7 @@
 		this.getClosestFromPos = function(pos) {
 			var result = {
 					triangle: null,
-					point: null,
-					pointIndex: null
+					point: null
 				},
 				point = new Poly2tri.Point(pos.x, pos.y),
 				triangles = self.poly2tri.getTriangles(),
@@ -248,8 +254,7 @@
 				$.extend(result, {
 					triangle: triangle,
 					triangleIndex: i,
-					point: triangle_point,
-					pointIndex: triangle.index(triangle_point)
+					point: triangle_point
 				});
 
 				closest_dist = distance;
@@ -259,11 +264,13 @@
 			return result;
 		}
 
-		this.findPath = function(start_point, end_point) {
-			var result = {
-				closed: {},
-				open: {}
-			};
+		this.findPath = function(start_node, end_node) {
+			var start_point = start_node.point,
+				end_point = end_node.point,
+				result = {
+					closed: {},
+					open: {}
+				};
 
 			result.open[start_point.index] = {
 				point: start_point,
@@ -342,6 +349,9 @@
 
 			/* remove unnecessary points from the path */
 			function optimizePath(path) {
+				path = checkAndRemoveFirstNode(path);
+				path = checkAndRemoveLastNode(path);
+				
 				var t = path.length - 1;
 
 				for (var i = 0; i < t; i++) {
@@ -359,6 +369,52 @@
 				return path;
 			}
 
+			/**
+			 * check and remove first node from path if the next node is in the same triangulation
+			 */
+			function checkAndRemoveFirstNode(path) {
+				var t = path.length - 1,
+					closest_node = path[t],
+					next_node = path[t - 1];
+
+				if (!next_node) return [];
+
+				var next_triangles = $.map(next_node.point.triangles, function(triangle) {
+						return triangle.index;
+					});
+
+				$.each(start_node.point.triangles, function(i, triangle) {
+					if ($.inArray(triangle.index, next_triangles) == -1) return;
+					console.log('kkkkkkkk');
+					path.pop();  // remove the last index because it was the agent's closest node
+					return false;
+				});
+
+				return path;
+			}
+
+			/**
+			 * check and remove last node from path if the previous node is in the same triangulation
+			 */
+			function checkAndRemoveLastNode(path) {
+				var previous_node = path[1];
+
+				if (!previous_node) return [];
+
+				var previous_triangles = $.map(previous_node.point.triangles, function(triangle) {
+						return triangle.index;
+					});
+				$.each(end_node.point.triangles, function(i, triangle) {
+					console.log('tente mover o hero da posicao x: 754, y: 308 para 643, 443 - vai ver q da prob	', triangle.index, previous_triangles);
+					if ($.inArray(triangle.index, previous_triangles) == -1) return;
+					
+					path.shift();
+					return false;
+				});
+
+				return path;
+			}
+
 			var _i = 0,
 				current = null;
 
@@ -367,6 +423,8 @@
 				current = getBestNode();
 				if (current.point === end_point) {
 					var path = optimizePath(reconstructPath(current, []));
+					if (!path.length) return null;
+
 					return path;
 				}
 

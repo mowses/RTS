@@ -12,8 +12,8 @@
 			var agent_data = agent.model.getData(),
 				angle = agent_data.orientation;
 
-			agent_data.position.x += reldist.x * Math.cos(angle.pan);
-			agent_data.position.y -= reldist.x * Math.sin(angle.pan);
+			agent_data.position.x += reldist.x * Math.sin(angle.pan);
+			agent_data.position.y -= reldist.x * Math.cos(angle.pan);
 		}
 
 
@@ -33,7 +33,7 @@
 
 			game.events
 				// follow path
-				.on('game loop.go to target', function() {
+				.on('game loop.move to path target', function() {
 					var data = self.model.getData();
 
 					if (!data.target) return;
@@ -65,10 +65,10 @@
 					};
 				})
 				// after followed the path, go straight to the destination
-				.on('game loop.go to destination', function() {
+				.on('game loop.move to destination', function() {
 					var data = self.model.getData();
 
-					if (data.target) return;
+					if (data.target) return;  // data.target are for paths
 
 					var agent_data = agent.model.getData();
 					if (!agent_data.destination) return;
@@ -106,8 +106,7 @@
 					return;
 				}
 
-				self.mapDestinationPath = game.map.findPath(self.mapClosestNode.point, self.mapDestinationNode.point);
-
+				self.mapDestinationPath = game.map.findPath(self.mapClosestNode, self.mapDestinationNode);
 				if (!self.mapDestinationPath) return;
 
 				self.mapCurrentNodePathIndex = self.mapDestinationPath.length - 1;
@@ -132,7 +131,7 @@
 		 */
 		function rotateTo(position) {
 			agent.model.setData('orientation', {
-				pan: Trigonometry.vecToAngle(agent.model.getData('position'), position).radians
+				pan: -Trigonometry.vecToAngle(agent.model.getData('position'), position).radians + 1.5707963267948966  // + 90 deg
 			});
 		}
 

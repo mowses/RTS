@@ -1,6 +1,139 @@
 .Imp {
-	width: 45px;
+	width: 60px;
 	height: 65px;
-	margin: -65px 0px 0px -22px;
+	margin: -65px 0px 0px -30px;
 	background: url("../../assets/images/Rts/Agents/imp.png") 0px 0px no-repeat;
+
+	animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.Imp.rotation-45,
+.Imp.rotation-90,
+.Imp.rotation-135 {
+	-moz-transform: scaleX(-1);
+	-o-transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	transform: scaleX(-1);
+	filter: FlipH;
+	-ms-filter: "FlipH";
+}
+
+.Imp.walking.rotation-180 {
+	animation-name: imp_walking180;
+}
+
+.Imp.walking.rotation-225 {
+	animation-name: imp_walking225;
+}
+
+.Imp.walking.rotation-270 {
+	animation-name: imp_walking270;
+}
+
+.Imp.walking.rotation-315 {
+	animation-name: imp_walking315;
+}
+
+.Imp.walking.rotation-0 {
+	animation-name: imp_walking0;
+}
+
+.Imp.walking.rotation-45 {
+	animation-name: imp_walking315;
+}
+
+.Imp.walking.rotation-90 {
+	animation-name: imp_walking270;
+}
+
+.Imp.walking.rotation-135 {
+	animation-name: imp_walking225;
+}
+/*
+.Imp.walking.rotation-135 {
+	animation-name: imp_walking45;
+}
+
+.Imp.walking.rotation-90 {
+	animation-name: imp_walking90;
+}
+
+.Imp.walking.rotation-45 {
+	animation-name: imp_walking315;
+}
+
+.Imp.walking.rotation-0 {
+	animation-name: imp_walking0;
+}*/
+
+@keyframes imp_walking180 {
+	0%			{background-position: 0px 0px;}
+	24.9999%	{background-position: 0px 0px;}
+
+	25%			{background-position: -60px 0px;}
+	49.9999%	{background-position: -60px 0px;}
+
+	50%			{background-position: -120px 0px;}
+	74.9999% 	{background-position: -120px 0px;}
+
+	75%			{background-position: -180px 0px;}
+	100%		{background-position: -180px 0px;}
+}
+
+@keyframes imp_walking225 {
+	0%			{background-position:  0px -65px;}
+	24.9999%	{background-position: 0px -65px;}
+
+	25%			{background-position: -60px -65px;}
+	49.9999%	{background-position: -60px -65px;}
+
+	50%			{background-position: -120px -65px;}
+	74.9999%	{background-position: -120px -65px;}
+
+	75%			{background-position: -180px -65px;}
+	100%		{background-position: -180px -65px;}
+}
+
+@keyframes imp_walking270 {
+	0%			{background-position:  0px -130px;}
+	24.9999%	{background-position: 0px -130px;}
+
+	25%			{background-position: -60px -130px;}
+	49.9999%	{background-position: -60px -130px;}
+
+	50%			{background-position: -120px -130px;}
+	74.9999%	{background-position: -120px -130px;}
+
+	75%			{background-position: -180px -130px;}
+	100%		{background-position: -180px -130px;}
+}
+
+@keyframes imp_walking315 {
+	0%			{background-position:  0px -195px;}
+	24.9999%	{background-position: 0px -195px;}
+
+	25%			{background-position: -60px -195px;}
+	49.9999%	{background-position: -60px -195px;}
+
+	50%			{background-position: -120px -195px;}
+	74.9999%	{background-position: -120px -195px;}
+
+	75%			{background-position: -180px -195px;}
+	100%		{background-position: -180px -195px;}
+}
+
+@keyframes imp_walking0 {
+	0%			{background-position:  0px -260px;}
+	24.9999%	{background-position: 0px -260px;}
+
+	25%			{background-position: -60px -260px;}
+	49.9999%	{background-position: -60px -260px;}
+
+	50%			{background-position: -120px -260px;}
+	74.9999%	{background-position: -120px -260px;}
+
+	75%			{background-position: -180px -260px;}
+	100%		{background-position: -180px -260px;}
 }
