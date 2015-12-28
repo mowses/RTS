@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"upda",
+				"updated_data"
+			],
+			[
+				"node2",
+				"node2index"
+			],
+			[
+				"adjace",
+				"adjacent_point"
+			],
+			[
+				"start",
+				"start_triangles"
+			],
+			[
 				"previou",
 				"previous_triangles"
 			],
@@ -304,10 +320,6 @@
 				"border-color"
 			],
 			[
-				"start",
-				"startSize"
-			],
-			[
 				"ui-",
 				"ui-resizable-handle"
 			],
@@ -328,34 +340,10 @@
 	"buffers":
 	[
 		{
-			"file": "index.html",
+			"file": "assets/js/libraries/Rts/Map.js",
 			"settings":
 			{
-				"buffer_size": 1853,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "assets/js/libraries/Rts/templates/agents.html",
-			"settings":
-			{
-				"buffer_size": 259,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "assets/js/libraries/Rts/Walkable.js",
-			"settings":
-			{
-				"buffer_size": 4101,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "assets/js/Rts/directives/Agents.js",
-			"settings":
-			{
-				"buffer_size": 774,
+				"buffer_size": 12873,
 				"line_ending": "Unix"
 			}
 		},
@@ -363,15 +351,15 @@
 			"file": "assets/js/Rts/App.js",
 			"settings":
 			{
-				"buffer_size": 2431,
+				"buffer_size": 3308,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "assets/js/libraries/Rts/Map.js",
+			"file": "assets/js/libraries/Rts/templates/map.html",
 			"settings":
 			{
-				"buffer_size": 12670,
+				"buffer_size": 1682,
 				"line_ending": "Unix"
 			}
 		}
@@ -404,20 +392,24 @@
 	},
 	"file_history":
 	[
-		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Game.js",
-		"/home/moises/Documents/Projects/RTS/styles/Rts/imp.css",
-		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/AgentFactory.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/Rts/App.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Map.js",
-		"/home/moises/Documents/Projects/RTS/assets/js/Rts/directives/Map.js",
-		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/templates/map.html",
-		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Agents/Imp.js",
-		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/ASSETS/doom-RTS_navMesh.json",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Walkable.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/templates/agents.html",
+		"/home/moises/Documents/Projects/RTS/assets/js/Rts/directives/Map.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/Rts/directives/Agents.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/templates/map.html",
+		"/home/moises/Documents/Projects/RTS/index.html",
+		"/home/moises/Documents/Projects/RTS/styles/reset.css",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Game.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/ObserverCore.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/tests.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/index.html",
+		"/home/moises/Documents/Projects/RTS/styles/Rts/imp.css",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/AgentFactory.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Agents/Imp.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/ASSETS/doom-RTS_navMesh.json",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Events/Events.js",
-		"/home/moises/Documents/Projects/RTS/assets/js/Rts/directives/Agents.js",
 		"/home/moises/Documents/Projects/RTS/package.json",
 		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives/Component.js",
 		"/home/moises/Documents/Projects/wysirwyg/assets/styles/resizable-handles.css",
@@ -527,11 +519,7 @@
 		"/home/moises/Documents/Projects/wysirwyg/api/controllers/ComponentsController.js",
 		"/home/moises/Documents/Projects/wysirwyg/config/policies.js",
 		"/home/moises/Documents/Projects/wysirwyg/api/policies/optionalComponentsArray.js",
-		"/home/moises/Documents/Projects/wysirwyg/views/layout.ejs",
-		"/home/moises/Documents/Projects/wysirwyg/api/controllers/DocumentationController.js",
-		"/home/moises/Documents/Projects/wysirwyg/api/models/Components.js",
-		"/home/moises/Documents/Projects/wysirwyg/assets/js/components/2.js",
-		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/modules/Editor/MobileController.js"
+		"/home/moises/Documents/Projects/wysirwyg/views/layout.ejs"
 	],
 	"find":
 	{
@@ -539,9 +527,12 @@
 	},
 	"find_in_files":
 	{
-		"height": 114.0,
+		"height": 93.0,
 		"where_history":
 		[
+			"/home/moises/Documents/Projects/RTS",
+			"/home/moises/Documents/Projects/RTS/assets",
+			"<open files>",
 			"/home/moises/Documents/Projects/RTS/assets/js",
 			"/home/moises/Documents/Projects/RTS/assets",
 			"/home/moises/Documents/Projects/RTS",
@@ -645,6 +636,53 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"load map",
+			"pathFound",
+			"load map",
+			"checkAndRemoveLastNode",
+			"destination",
+			"getClosestPointFromPosition",
+			"oint = new Poly2tri.Point(pos.x, pos.y),",
+			"customPath",
+			"pathFound",
+			"getDistances",
+			"mousedown",
+			"width",
+			"data",
+			"poly2Tri",
+			"mapDestinationNode",
+			"getClosestFromPos",
+			"isset",
+			"new_data",
+			"update data",
+			"check_changes",
+			"setdata",
+			"update data",
+			"destination",
+			"watch",
+			"reconstructPath",
+			"stack.",
+			"getBestNode",
+			"lowest_f_node",
+			"getDistances",
+			"already",
+			"reconstructPath",
+			"optimizePath",
+			"parent",
+			"reconstructPath",
+			"optimizePath",
+			"getDistances",
+			"adjacent_point",
+			"loremipsum_apagar",
+			"getBestNode",
+			"reconstructPath",
+			"getBestNode",
+			"adjacent_point",
+			"getAdjacentPoints",
+			"distance",
+			"getBestNode",
+			"getClosestPointFromPosition",
+			"triangle",
 			"checkAndRemoveFirstNode",
 			"checkAndRemoveLastNode",
 			"checkAndRemoveFirstNode",
@@ -725,54 +763,7 @@
 			"Walkable",
 			"hero",
 			"target",
-			"registerAgent",
-			"register",
-			"s.re",
-			"destination",
-			"getdata",
-			"extenddata",
-			"setdata",
-			"hero",
-			"isset",
-			"setdata",
-			"setData",
-			"propToArray",
-			"orientatio",
-			"propToArray",
-			"trace",
-			"propToArray",
-			"setdata",
-			"getdata",
-			"setdata",
-			"load map",
-			"Events",
-			"map",
-			"AgentTest",
-			"theme-switcher",
-			"$rootScope",
-			"trigger",
-			"setResizableHandles",
-			"digest()",
-			"setResizableHandles",
-			"$parse",
-			"interpolate",
-			"disabled",
-			"select",
-			"attrs",
-			"attrs.",
-			"attrs.$element",
-			"getParentsComponents",
-			"togglectrl",
-			"bounding",
-			"theme-switcher",
-			"compile",
-			"setResizableHandles",
-			"handles",
-			"getParentsComponents",
-			"carry on from",
-			"addWidget",
-			"getOffsetPosition",
-			"watch"
+			"registerAgent"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -830,23 +821,23 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "index.html",
+					"file": "assets/js/libraries/Rts/Map.js",
 					"settings":
 					{
-						"buffer_size": 1853,
+						"buffer_size": 12873,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1767,
-								1767
+								2384,
+								2384
 							]
 						],
 						"settings":
@@ -900,28 +891,29 @@
 								"bh_single_quote_close"
 							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
-							"syntax": "Packages/HTML/HTML.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 604.0,
+						"translation.y": 1099.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "assets/js/libraries/Rts/templates/agents.html",
+					"file": "assets/js/Rts/App.js",
 					"settings":
 					{
-						"buffer_size": 259,
+						"buffer_size": 3308,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								252,
-								252
+								1120,
+								1120
 							]
 						],
 						"settings":
@@ -975,28 +967,29 @@
 								"bh_single_quote_close"
 							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
-							"syntax": "Packages/HTML/HTML.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 540.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "assets/js/libraries/Rts/Walkable.js",
+					"file": "assets/js/libraries/Rts/templates/map.html",
 					"settings":
 					{
-						"buffer_size": 4101,
+						"buffer_size": 1682,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2905,
-								2905
+								1634,
+								1634
 							]
 						],
 						"settings":
@@ -1050,236 +1043,11 @@
 								"bh_single_quote_close"
 							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2485.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "assets/js/Rts/directives/Agents.js",
-					"settings":
-					{
-						"buffer_size": 774,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								454,
-								454
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 234.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "assets/js/Rts/App.js",
-					"settings":
-					{
-						"buffer_size": 2431,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1293,
-								1293
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1263.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "assets/js/libraries/Rts/Map.js",
-					"settings":
-					{
-						"buffer_size": 12670,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10158,
-								10158
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 8742.0,
+						"translation.y": 135.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

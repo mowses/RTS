@@ -51,21 +51,59 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 
 	game.map.events
 		.on('load map', function() {
+			var edges = [],
+				edge_groups = [];
+
+			$.each(game.map.poly2tri.edge_list, function(i, edge) {
+
+				if($.inArray(edge.p, edges) === -1) {
+					edges.push(edge.p);
+				}
+
+				if($.inArray(edge.q, edges) === -1) {
+					edges.push(edge.q);
+				}
+			});
+			edges = $.map(edges, function(edge) {
+				return {
+					point: edge
+				}
+			});
+
+			var group_start = 0;
+			$.each(edges, function(i, edge) {
+				if (!edge_groups[group_start]) {
+					edge_groups[group_start] = [];
+				}
+
+				edge_groups[group_start].push(edge);
+
+				// check if next edge if connected to the current one
+				// if not, create new edge group and add into it
+				if (edges[i + 1] && $.inArray(edges[i + 1].point, edge.point.connected_edges) === -1) {
+					group_start++;
+				}
+			});
+			console.log(edge_groups[1]);
+
 			$.extend(game.map, {
 				data: {
-					width: 976,
-					height: 532,
-					triangles: getTriangles()
+					width: 1076,
+					height: 632,
+					triangles: getTriangles(),
+					edges: edge_groups
 				}
 			});
 
 			hero = Rts.AgentFactory.new('Imp', {
 				id: 'hero',
 				position: {
-					x: 489,
-					y: 286
+					x: 367,
+					y: 267
 				}
 			}, game);
+
+			console.log('mandar hero para o node 46 +/-(701,243)');
 
 			hero.model.watch(['destination'], function() {
 				var result = hero.walkable.mapDestinationPath,
