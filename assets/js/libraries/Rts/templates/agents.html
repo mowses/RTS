@@ -1,2 +1,2 @@
-<div ng-repeat="(id, agent) in agents" id="{{id}}" class="agent {{agent.constructor.name}} walking rotation-{{getViewRotation(agent.model.data.orientation.pan)}}" style="top: {{agent.model.data.position.y}}px; left: {{agent.model.data.position.x}}px;">
+<div ng-repeat="(id, agent) in agents" id="{{id}}" class="agent {{agent.constructor.name}} {{agent.walkable.model.data.animation}} rotation-{{getViewRotation(agent.model.data.orientation.pan)}}" style="top: {{agent.model.data.position.y}}px; left: {{agent.model.data.position.x}}px;">
 </div>

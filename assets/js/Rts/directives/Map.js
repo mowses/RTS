@@ -12,11 +12,34 @@ angular.module('Rts.Map', [])
         controller: ['$scope', '$element', function($scope, $element) {
 
             $scope.mouseCoords = [];
+            $scope.customPath = [];
+            $scope.distance = 0;
+
+            $scope.$watchCollection('customPath', function(custompath) {
+                var distance = 0;
+
+                $.each(custompath, function(i, p) {
+                    var next = custompath[i + 1];
+                    if (!next) return;
+
+                    distance += p.point.distance[next.point.index];
+                });
+
+                $scope.distance = distance;
+            });
 
             $(document)
                 .on('mousemove', function(e) {
                     $scope.mouseCoords = [e.pageX, e.pageY];
-                    $scope.$apply();
+                    $scope.closestnode = $scope.$parent.game.map.getClosestPointFromPosition({
+                        x: $scope.mouseCoords[0],
+                        y: $scope.mouseCoords[1]
+                    });
+                })
+                .on('keyup', function(event) {
+                    if (event.which === 107) {  // 107: '+' key
+                        $scope.customPath.push($scope.closestnode);
+                    }
                 });
 
         }],

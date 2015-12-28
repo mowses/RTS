@@ -15,10 +15,10 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 		var agent = agentFactoryNew.apply(this, arguments);
 
 		agent.model.watch(null, function(data) {
-			this.data = $.extend({}, data.new, {
-				walkable: agent.walkable.model.getData()
-			});
-			//$scope.$apply();
+			this.data = data.new;
+		});
+		agent.walkable.model.watch(null, function(data) {
+			this.data = data.new;
 		});
 
 		game.agents = Rts.AgentFactory.getAgent();
@@ -62,8 +62,8 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 			hero = Rts.AgentFactory.new('Imp', {
 				id: 'hero',
 				position: {
-					x: 754,
-					y: 308
+					x: 489,
+					y: 286
 				}
 			}, game);
 
@@ -82,12 +82,12 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 				//console.log('total distance:', distance);
 			});
 
-			imp1 = Rts.AgentFactory.new('Imp', {
+			/*imp1 = Rts.AgentFactory.new('Imp', {
 				position: {
 					x: 418,
 					y: 48
 				}
-			}, game);
+			}, game);*/
 
 			//$scope.$apply();
 		});

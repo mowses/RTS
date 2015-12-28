@@ -23,7 +23,8 @@
 			});
 
 			self.model.setData({
-				target: null
+				target: null,
+				animation: null
 			})
 
 			/*.watch(['target'], function(data) {
@@ -100,6 +101,11 @@
 				})
 
 			.watch(['destination'], function(data) {
+				var destination = data.new.destination;
+				self.model.setData('animation', destination ? 'walking' : null)
+				self.mapDestinationNode = null;
+				if (!destination) return;
+				
 				self.mapDestinationNode = game.map.getClosestFromPos(data.new.destination);
 				if (!self.mapDestinationNode.point || !self.mapClosestNode.point) {
 					self.model.setData('target', null);

@@ -1,9 +1,29 @@
 <div>
-	<div class="mouse-coords" style="position: fixed; right: 0px; padding: 10px; background: salmon;">mouse pos: {{mouseCoords[0]}}, {{mouseCoords[1]}}</div>
+	<div class="mouse-coords" style="position: fixed; right: 0px; padding: 10px; background: salmon;" ng-click="$event.stopPropagation();">
+		mouse pos: {{mouseCoords[0]}}, {{mouseCoords[1]}}
+		<br />
+		<div style="padding: 5px; border: 1px solid black; margin: 5px;" ng-init="distance = 0;">
+			closest node {{closestnode.point}}
+			<br>
+			index: {{closestnode.point.index}}
+			<hr>
+			<ul>
+				<li ng-repeat="(i, point) in customPath">
+					{{point.point}} <button ng-click="customPath.splice(i, 1);">remove</button>
+				</li>
+			</ul>
+			<hr />
+			DISTANCE: {{distance}}
+		</div>
+
+		<button ng-click="customPath = [];">reset</button>
+	</div>
 
 	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" ng-attr-width="{{map.data.width}}" ng-attr-height="{{map.data.height}}">
 		<!-- <polygon ng-repeat="terrain in Rts.map.data.terrain.sand" polygon-points style="fill: gold;" /> -->
 		<polygon ng-repeat="(index, triangle) in map.data.triangles" id="triangle-{{index}}" polygon-points style="fill: #5CACDB;" />
+
+		<circle ng-repeat="custompath in customPath" ng-attr-cx="{{custompath.point.x}}" ng-attr-cy="{{custompath.point.y}}" r="8" fill="crimson" />
 
 		<circle ng-repeat="clickPos in map.data.clickPos" ng-attr-cx="{{clickPos.point.x}}" ng-attr-cy="{{clickPos.point.y}}" r="6" fill="yellow" />
 

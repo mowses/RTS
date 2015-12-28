@@ -132,11 +132,17 @@
 						var triangles = $.grep(all_triangles, function(triangle) {
 								return (triangle.getPoints().indexOf(point1) >= 0);
 							}),
-							adjacent = $.unique($.map(triangles, function(triangle) {
+							adjacent = $.map(triangles, function(triangle) {
 								return $.grep(triangle.getPoints(), function(point) {
 									return point != point1;
 								});
-							})),
+							}),
+							// filter duplicated adjacents
+							// $.unique doesnt work
+							adjacent = $.grep(adjacent, function(adj, i) {
+								var arr = adjacent.slice(i + 1);
+								return $.inArray(adj, arr) === -1;
+							}),
 							connected_edges = $.map(self.poly2tri.edge_list, function(edge) {
 								if (edge.p == point1) return edge.q;
 								if (edge.q == point1) return edge.p;
@@ -227,12 +233,12 @@
 				dataType: 'json',
 				cache: false,
 
-				success: function (data) {
-				    polygons = data.polygons;
+				success: function(data) {
+					polygons = data.polygons;
 					self.events.trigger('load map');
 				}
 			});
-			
+
 			return this;
 		}
 
@@ -258,76 +264,20 @@
 				});
 
 				closest_dist = distance;
-				if (distance == 0) return false;  // break $.each
+				if (distance == 0) return false; // break $.each
 			});
 
 			return result;
 		}
 
-		this.findPath = function(start_node, end_node) {
-			var start_point = start_node.point,
-				end_point = end_node.point,
-				result = {
-					closed: {},
-					open: {}
-				};
-
-			result.open[start_point.index] = {
-				point: start_point,
-				parent: null,
-				distances: getDistances(start_point)
-			};
-
-			function getVisiblePoints(node) {
-				var result = {};
-
-				$.each(node.point.visibility, function(j, visible) {
-					if (!visible) return;
-
-					var adjpoint = self.poly2tri.getPoint(j);
-					if (adjpoint === node.point) return;
-
-					result[adjpoint.index] = {
-						point: adjpoint,
-						parent: node,
-						distances: getDistances(adjpoint)
-					};
-				});
-
-				return result;
-			}
-
-			function getAdjacentPoints(node) {
-				var result = {};
-
-				$.each(node.point.adjacent, function(j, adjpoint) {
-					result[adjpoint.index] = {
-						point: adjpoint,
-						parent: node,
-						distances: getDistances(adjpoint)
-					};
-				});
-
-				return result;
-			}
-
-			function getDistances(point) {
-				//console.log('foo', open);
-				var g = start_point.distance[point.index],
-					h = end_point.distance[point.index];
-
-				return {
-					g: g,
-					h: h,
-					f: g + h
-				};
-			}
-
-			function getBestNode() {
+		// http://drpexe.com/2011/07/a-star-with-navmesh-detailed/
+		this.findPath = (function() {
+			function getBestNode(list) {
 				var closest_dist = Infinity,
 					best_node = null;
 
-				$.each(result.open, function(i, open) {
+				$.each(list.open, function(i, open) {
+					if (list.closed[i]) return;
 					var f = open.distances.f;
 
 					if (f >= closest_dist) return;
@@ -348,17 +298,14 @@
 			}
 
 			/* remove unnecessary points from the path */
-			function optimizePath(path) {
-				path = checkAndRemoveFirstNode(path);
-				path = checkAndRemoveLastNode(path);
-				
+			/*function optimizePath(path) {
 				var t = path.length - 1;
 
 				for (var i = 0; i < t; i++) {
 					var node1 = path[i];
 					for (var j = t; j > i + 1; j--) {
 						var node2 = path[j];
-						if (node1.point.visibility[node2.point.index] !== true) continue;
+						if (node1.point.visibility[node2.index] !== true) continue;
 
 						path.splice(i + 1, j - i - 1);
 						t = path.length - 1;
@@ -367,110 +314,113 @@
 				}
 
 				return path;
-			}
+			}*/
 
-			/**
-			 * check and remove first node from path if the next node is in the same triangulation
-			 */
-			function checkAndRemoveFirstNode(path) {
-				var t = path.length - 1,
-					closest_node = path[t],
-					next_node = path[t - 1];
+			return function(start_position, end_position) {
+				var start_triangles = start_position.point.triangles,
+					end_triangles = end_position.point.triangles;
 
-				if (!next_node) return [];
+				// 1. Both points are located on the same triangle
+				if (start_triangles == end_triangles) return null;
 
-				var next_triangles = $.map(next_node.point.triangles, function(triangle) {
-						return triangle.index;
-					});
+				// 2. One or both points are outside all triangles
+				// actually this is not possible since we always have valid start_position and end_position
 
-				$.each(start_node.point.triangles, function(i, triangle) {
-					if ($.inArray(triangle.index, next_triangles) == -1) return;
-					console.log('kkkkkkkk');
-					path.pop();  // remove the last index because it was the agent's closest node
-					return false;
-				});
+				// 3. Both points are located on different triangles
+				var result = {
+					closed: {},
+					open: {}
+				};
 
-				return path;
-			}
+				// send all starting adjacent points to open list
+				$.each(start_position.point.adjacent, function(i, adjacent) {
+					var g = adjacent.distance[start_position.point.index],
+						h = adjacent.distance[end_position.point.index];
 
-			/**
-			 * check and remove last node from path if the previous node is in the same triangulation
-			 */
-			function checkAndRemoveLastNode(path) {
-				var previous_node = path[1];
-
-				if (!previous_node) return [];
-
-				var previous_triangles = $.map(previous_node.point.triangles, function(triangle) {
-						return triangle.index;
-					});
-				$.each(end_node.point.triangles, function(i, triangle) {
-					console.log('tente mover o hero da posicao x: 754, y: 308 para 643, 443 - vai ver q da prob	', triangle.index, previous_triangles);
-					if ($.inArray(triangle.index, previous_triangles) == -1) return;
-					
-					path.shift();
-					return false;
-				});
-
-				return path;
-			}
-
-			var _i = 0,
-				current = null;
-
-			while (Object.keys(result.open).length && _i++ <= 100) {
-
-				current = getBestNode();
-				if (current.point === end_point) {
-					var path = optimizePath(reconstructPath(current, []));
-					if (!path.length) return null;
-
-					return path;
-				}
-
-				// remove current from openset
-				delete result.open[current.point.index];
-
-				// add current to closed set
-				result.closed[current.point.index] = current.point;
-
-				// always get the adjacent nodes
-				// not the visible ones
-				// if you want to optimize your path use `optimizePath()`
-				$.each(getAdjacentPoints(current), function(i, visible) {
-					// check for the visible in the closed set
-					var in_closed = result.closed[visible.point.index] !== undefined;
-					if (in_closed) return;
-
-					// get current step and distance from current to visible point
-					var step_cost = current.distances.g + current.point.distance[visible.point.index];
-					// check if its cost is >= the step_cost, if so skip current visible point
-					if (in_closed && step_cost >= visible.distances.g) return;
-
-					// verify visible doesn't exist or new score for it is better
-					var in_open = result.open[visible.point.index] !== undefined;
-
-					if (!in_open || step_cost < visible.distances.g) {
-						if (!in_open) {
-							result.open[visible.point.index] = visible;
-						} else {
-							visible.parent = current;
-							visible.distances.g = step_cost;
-							visible.distances.f = step_cost + visible.distances.h;
+					result.open[adjacent.index] = {
+						point: adjacent,
+						parent: start_position,
+						distances: {
+							g: g,
+							h: h,
+							f: g + h
 						}
-					}
+					};
 				});
-			}
+				// send the starting point to closed list
+				result.closed[start_position.point.index] = start_position.point;
 
-			return;
+				var _i = 0,
+					lowest_f_node;
 
-		}
+				while(_i++ < 100) {
+					lowest_f_node = getBestNode(result);
+					// add the point to closed list
+					result.closed[lowest_f_node.point.index] = lowest_f_node.point;
+
+					// you know you are finished, the time that you add to the
+					// closed list one of the vertices of the triangle that contains
+					// the ending point
+					if (end_position.triangle.containsPoint(lowest_f_node.point)) {
+						console.log('DISCOVERED PATH', lowest_f_node);
+						var final_path = (reconstructPath(lowest_f_node, []));
+						console.log('FINAL PATH', final_path);
+						return final_path;
+					}
+
+console.group();
+console.log('lowest_f_node', lowest_f_node);
+console.log('parent', lowest_f_node.parent);
+					// process adjacent nodes
+					$.each(lowest_f_node.point.adjacent, function(i, adjacent_point) {
+						var adjacent_in_open_list = result.open[adjacent_point.index];
+
+						
+console.log(adjacent_point);
+						// check if adjacent_point is already in open list
+						if (adjacent_in_open_list) {
+							// already in open list
+							// check if the G cost from this new path is better than the former
+							var step_cost = lowest_f_node.point.distance[adjacent_point.index] + lowest_f_node.distances.group;
+							console.log('ADJACENT IN OPEN LIST ALREADY');
+							console.log('step cost', step_cost);
+							if ( step_cost < adjacent_in_open_list.distances.g) {
+								console.log('WILL UPDATE parent');
+								if (lowest_f_node.point.index == 60) {
+									//console.log('lllllllllllllllll', );
+								}
+								adjacent_in_open_list.parent = lowest_f_node;
+								adjacent_in_open_list.distances.g = step_cost;
+								adjacent_in_open_list.distances.f = step_cost + adjacent_in_open_list.distances.h;
+							}
+						} else {
+							var g = lowest_f_node.point.distance[lowest_f_node.parent.point.index] + lowest_f_node.point.distance[adjacent_point.index],
+								h = adjacent_point.distance[end_position.point.index];
+							//console.log(adjacent_point);
+							// add adjacent to open list
+							result.open[adjacent_point.index] = {
+								point: adjacent_point,
+								parent: lowest_f_node,
+								distances: {
+									g: g,
+									h: h,
+									f: g + h
+								}
+							};
+						}
+					});
+console.groupEnd();
+				}
+				
+				return null;
+			};
+		})();
 
 		/**
 		 * return the closest point from any position
 		 */
 		function getClosestPointFromPosition(pos) {
-			var result,
+			var result = null,
 				point = new Poly2tri.Point(pos.x, pos.y),
 				triangles = self.poly2tri.getTriangles(),
 				closest_dist = Infinity;
@@ -482,7 +432,10 @@
 				if (distance >= closest_dist) return;
 
 				closest_dist = distance;
-				result = triangle_point;
+				result = {
+					triangle: triangle,
+					point: triangle_point
+				};
 			});
 
 			return result;

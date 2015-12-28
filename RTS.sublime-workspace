@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"previou",
+				"previous_triangles"
+			],
+			[
+				"end_",
+				"end_node"
+			],
+			[
+				"end",
+				"end_point"
+			],
+			[
+				"optimiz",
+				"optimizePath"
+			],
+			[
+				"back",
+				"background-position"
+			],
+			[
+				"veloci",
+				"velocity_length"
+			],
+			[
+				"triangle",
+				"triangle_point"
+			],
+			[
+				"closes",
+				"closest_dist"
+			],
+			[
 				"componen",
 				"component_subcomponent"
 			],
@@ -296,14 +328,6 @@
 	"buffers":
 	[
 		{
-			"file": "assets/js/Rts/App.js",
-			"settings":
-			{
-				"buffer_size": 2210,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "index.html",
 			"settings":
 			{
@@ -312,26 +336,34 @@
 			}
 		},
 		{
-			"file": "assets/js/libraries/Rts/templates/map.html",
+			"file": "assets/js/libraries/Rts/templates/agents.html",
 			"settings":
 			{
-				"buffer_size": 906,
+				"buffer_size": 259,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "assets/js/Rts/directives/Map.js",
+			"file": "assets/js/libraries/Rts/Walkable.js",
 			"settings":
 			{
-				"buffer_size": 1704,
+				"buffer_size": 4101,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "assets/js/libraries/Rts/Game.js",
+			"file": "assets/js/Rts/directives/Agents.js",
 			"settings":
 			{
-				"buffer_size": 507,
+				"buffer_size": 774,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "assets/js/Rts/App.js",
+			"settings":
+			{
+				"buffer_size": 2431,
 				"line_ending": "Unix"
 			}
 		},
@@ -339,7 +371,7 @@
 			"file": "assets/js/libraries/Rts/Map.js",
 			"settings":
 			{
-				"buffer_size": 10299,
+				"buffer_size": 12670,
 				"line_ending": "Unix"
 			}
 		}
@@ -355,7 +387,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 575.0
+		"width": 521.0
 	},
 	"console":
 	{
@@ -372,7 +404,18 @@
 	},
 	"file_history":
 	[
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Game.js",
+		"/home/moises/Documents/Projects/RTS/styles/Rts/imp.css",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/AgentFactory.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/Rts/App.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Map.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/Rts/directives/Map.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/templates/map.html",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Agents/Imp.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/ASSETS/doom-RTS_navMesh.json",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Walkable.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/ObserverCore.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/tests.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Events/Events.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/Rts/directives/Agents.js",
 		"/home/moises/Documents/Projects/RTS/package.json",
@@ -488,18 +531,7 @@
 		"/home/moises/Documents/Projects/wysirwyg/api/controllers/DocumentationController.js",
 		"/home/moises/Documents/Projects/wysirwyg/api/models/Components.js",
 		"/home/moises/Documents/Projects/wysirwyg/assets/js/components/2.js",
-		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/modules/Editor/MobileController.js",
-		"/home/moises/Documents/Projects/wysirwyg/assets/js/libraries/ObjDiff/ObjDiff.js",
-		"/home/moises/Documents/Projects/wysirwyg/api/models/Components_subcomponents.js",
-		"/home/moises/Documents/Projects/wysirwyg/config/blueprints.js",
-		"/home/moises/Documents/Projects/wysirwyg/assets/js/libraries/ionic/js/ionic.bundle.js",
-		"/home/moises/Documents/Projects/wysirwyg/assets/js/libraries/ionic/js/ionic-angular.js",
-		"/home/moises/Documents/Projects/wysirwyg/assets/js/libraries/angular/angular-route.js",
-		"/home/moises/Documents/Projects/wysirwyg/assets/styles/editor/mobile/mobile.css",
-		"/home/moises/Documents/Projects/wysirwyg/.tmp/postgres-initial-components.backup",
-		"/home/moises/Documents/Projects/wysirwyg/.tmp/postgres-database.backup",
-		"/home/moises/Documents/Projects/wysirwyg/views/editor/raw.ejs",
-		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/modules/Editor/RawController.js"
+		"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/modules/Editor/MobileController.js"
 	],
 	"find":
 	{
@@ -507,9 +539,15 @@
 	},
 	"find_in_files":
 	{
-		"height": 126.0,
+		"height": 114.0,
 		"where_history":
 		[
+			"/home/moises/Documents/Projects/RTS/assets/js",
+			"/home/moises/Documents/Projects/RTS/assets",
+			"/home/moises/Documents/Projects/RTS",
+			"<open files>",
+			"/home/moises/Documents/Projects/RTS",
+			"<open files>",
 			"/home/moises/Documents/Projects/RTS",
 			"/home/moises/Documents/Projects/wysirwyg",
 			"/home/moises/Documents/Projects/wysirwyg/assets/js/WYSIRWYG/directives",
@@ -607,6 +645,105 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"checkAndRemoveFirstNode",
+			"checkAndRemoveLastNode",
+			"checkAndRemoveFirstNode",
+			"checkAndRemoveLastNode",
+			"pointIndex",
+			".index",
+			"load map",
+			"console",
+			"load map",
+			"getAdjacentPoints",
+			"findpa",
+			"open",
+			"optimizePath",
+			"reconstructPath",
+			"optimizePath",
+			"triangleindex",
+			"checkAndRemoveLastNode",
+			"checkAndRemoveFirstNode",
+			"findPath",
+			"checkAndRemoveLastNode",
+			"checkAndRemoveFirstNode",
+			"console",
+			"mapDestinationPath",
+			"findPath",
+			"optimizePath",
+			"checkAndRemoveLastNode",
+			"checkAndRemoveFirstNode",
+			"mapDestinationNode",
+			"mapDestinationPath",
+			"checkAndRemoveLastNode",
+			"optimizePath",
+			"checkAndRemoveFirstNode",
+			"find",
+			"find]",
+			"pathfind",
+			"path",
+			"checkAndRemoveLastNode",
+			"optimizePath",
+			"current",
+			"position",
+			"load map",
+			"getViewRotation",
+			"mapClosestNode",
+			"findpath",
+			"$apply",
+			"game loop",
+			"entMove",
+			"rotateTo",
+			"+ 1",
+			"deg",
+			"vec_angle",
+			"radians",
+			"orientation",
+			"rad",
+			" no-repeat",
+			"background: url(\"../../assets/images/Rts/Agents/imp.png\")",
+			"agent_config",
+			"rotateAgentTo",
+			"load map",
+			"visible",
+			"hero",
+			"optimizePath",
+			"findPath",
+			"getDistance",
+			"9999\n\n\n\n",
+			"getClosestFromPos",
+			"closestnode",
+			"CLICK",
+			"mousedown",
+			"reac",
+			"entMove",
+			"destination",
+			"agent.data",
+			"agents",
+			"AgentTest",
+			"(id, agent) in agents",
+			"agent Imp",
+			"Walkable",
+			"hero",
+			"target",
+			"registerAgent",
+			"register",
+			"s.re",
+			"destination",
+			"getdata",
+			"extenddata",
+			"setdata",
+			"hero",
+			"isset",
+			"setdata",
+			"setData",
+			"propToArray",
+			"orientatio",
+			"propToArray",
+			"trace",
+			"propToArray",
+			"setdata",
+			"getdata",
+			"setdata",
 			"load map",
 			"Events",
 			"map",
@@ -635,106 +772,7 @@
 			"carry on from",
 			"addWidget",
 			"getOffsetPosition",
-			"watch",
-			"setResizableHandles",
-			"changedMainTheme",
-			"edition",
-			"config.class",
-			"changedMainTheme",
-			"emit",
-			"$emit",
-			"watch",
-			"setResizableHandles",
-			"addClass",
-			"disabled",
-			"setResizableHandles",
-			"disabled",
-			"setResizableHandles",
-			"self.resiza",
-			"disabled",
-			"setResizableHandles",
-			"edition.",
-			"setResizableHandles",
-			"disabled",
-			"before-compile",
-			"resizable",
-			"setResizableHandles",
-			"disabled",
-			"watch",
-			"this.$",
-			"this.selection",
-			"this.sele",
-			"this.selection",
-			"params.this",
-			"$watch",
-			"watchcollec",
-			"setResizableHandles",
-			"$scope",
-			"events",
-			"addItem",
-			"bind events",
-			"items",
-			"parse",
-			"added_item",
-			"added item in repeatable area",
-			"proto",
-			"parse(",
-			"__proto__",
-			"$value",
-			"$vaue",
-			"getExpressions",
-			"getexpre",
-			"$texts",
-			"expressions.$texts",
-			"once(",
-			"expressions.$elements",
-			"$elements",
-			"getExpressions",
-			"new templater",
-			"lll",
-			"getCache",
-			"getExpressions",
-			"added item in repeatable area",
-			"new templater",
-			"getExpressions",
-			"added item",
-			"getExpressions",
-			"lll",
-			"changed repeatable item",
-			"deleted repeatable item",
-			"added repeatable item",
-			"clicked o",
-			"getExpressions",
-			"console",
-			".index",
-			"getExpressions",
-			"textIndex",
-			"placeholderStart",
-			"elclone",
-			"new templa",
-			"getExpressions",
-			"$element",
-			"element",
-			"getExpressions",
-			"setCache",
-			"new templater",
-			"subviews.repeatable",
-			"before parse.repeatable",
-			"subviews",
-			"changed_item",
-			"ObjDeleted.prototype",
-			".apply(",
-			"changed repeatable item",
-			"new Templater",
-			"$index",
-			".type(",
-			"typeof",
-			"type(",
-			"getProp",
-			"$.type",
-			"for (",
-			"type",
-			"type_obj2"
+			"watch"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -742,6 +780,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"background-position: ",
 			"this",
 			" ",
 			"",
@@ -791,87 +830,11 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "assets/js/Rts/App.js",
-					"settings":
-					{
-						"buffer_size": 2210,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								985,
-								985
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1046.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "index.html",
 					"settings":
 					{
@@ -940,25 +903,25 @@
 							"syntax": "Packages/HTML/HTML.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1080.0,
+						"translation.y": 604.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "assets/js/libraries/Rts/templates/map.html",
+					"buffer": 1,
+					"file": "assets/js/libraries/Rts/templates/agents.html",
 					"settings":
 					{
-						"buffer_size": 906,
+						"buffer_size": 259,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								232,
-								232
+								252,
+								252
 							]
 						],
 						"settings":
@@ -1021,96 +984,19 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "assets/js/Rts/directives/Map.js",
+					"buffer": 2,
+					"file": "assets/js/libraries/Rts/Walkable.js",
 					"settings":
 					{
-						"buffer_size": 1704,
+						"buffer_size": 4101,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								298,
-								298
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 90.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "assets/js/libraries/Rts/Game.js",
-					"settings":
-					{
-						"buffer_size": 507,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								2905,
+								2905
 							]
 						],
 						"settings":
@@ -1168,7 +1054,157 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 90.0,
+						"translation.y": 2485.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "assets/js/Rts/directives/Agents.js",
+					"settings":
+					{
+						"buffer_size": 774,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								454,
+								454
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 234.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "assets/js/Rts/App.js",
+					"settings":
+					{
+						"buffer_size": 2431,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1293,
+								1293
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1263.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1178,15 +1214,15 @@
 					"file": "assets/js/libraries/Rts/Map.js",
 					"settings":
 					{
-						"buffer_size": 10299,
+						"buffer_size": 12670,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2178,
-								2178
+								10158,
+								10158
 							]
 						],
 						"settings":
@@ -1239,12 +1275,11 @@
 								"bh_single_quote_open",
 								"bh_single_quote_close"
 							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2289.0,
+						"translation.y": 8742.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
