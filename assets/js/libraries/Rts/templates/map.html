@@ -32,8 +32,8 @@
 
 		<circle ng-repeat="pathPos in map.data.pathFound" ng-attr-cx="{{pathPos.point.x}}" ng-attr-cy="{{pathPos.point.y}}" r="3" fill="white" />
 
-		<path path="map.data.pathFound" stroke="white" stroke-width="2" fill="none" />
-
 		<path ng-repeat="(i, group) in map.data.edges" ng-init="group.push(group[0]);" path="group" stroke="crimson" stroke-width="4" fill="none" />
+
+		<path path="map.data.pathFound" stroke="white" stroke-width="2" fill="none" />
 	</svg>
 </div>

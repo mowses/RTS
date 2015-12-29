@@ -271,21 +271,29 @@
 		}
 
 		// http://drpexe.com/2011/07/a-star-with-navmesh-detailed/
+		// http://www.growingwiththeweb.com/2012/06/a-pathfinding-algorithm.html
 		this.findPath = function(start_node, end_node) {
 			var start_point = start_node.point,
 				end_point = end_node.point,
+				g = 0,
+				h = end_point.distance[start_point.index],
 				result = {
 					closed: {},
 					open: {}
 				};
 
+			// add start node to open list
 			result.open[start_point.index] = {
 				point: start_point,
 				parent: null,
-				distances: getDistances(start_point)
+				distances: {
+					g: g,
+					h: h,
+					f: g + h
+				}
 			};
 
-			function getVisiblePoints(node) {
+			/*function getVisiblePoints(node) {
 				var result = {};
 
 				$.each(node.point.visibility, function(j, visible) {
@@ -302,33 +310,7 @@
 				});
 
 				return result;
-			}
-
-			function getAdjacentPoints(node) {
-				var result = {};
-
-				$.each(node.point.adjacent, function(j, adjpoint) {
-					result[adjpoint.index] = {
-						point: adjpoint,
-						parent: node,
-						distances: getDistances(adjpoint)
-					};
-				});
-
-				return result;
-			}
-
-			function getDistances(point) {
-				//console.log('foo', open);
-				var g = start_point.distance[point.index],
-					h = end_point.distance[point.index];
-
-				return {
-					g: g,
-					h: h,
-					f: g + h
-				};
-			}
+			}*/
 
 			function getBestNode() {
 				var closest_dist = Infinity,
@@ -346,16 +328,22 @@
 				return best_node;
 			}
 
-			function reconstructPath(node, stack) {
-				stack.push(node);
+			function reconstructPath(node) {
+				var path = 	[node];
 
-				if (node.parent) return reconstructPath(node.parent, stack);
+				while(node.parent) {
+					node = node.parent;
+					path.push(node);
+				}
 
-				return stack;
+				return path;
 			}
 
-			/* remove unnecessary points from the path */
-			function optimizePath(path) {
+			/**
+			 * remove unnecessary points from the path
+			 * removing nodes between visible ones
+			 */
+			function optimizePath(path) {return path;
 				var t = path.length - 1;
 
 				for (var i = 0; i < t; i++) {
@@ -371,6 +359,13 @@
 				}
 
 				return path;
+			}
+
+			function getVisiblesOf(point) {
+				return $.map(point.visibility, function(visible, i) {
+					if (!visible) return;
+					return self.poly2tri.points_[i];
+				});
 			}
 
 			/**
@@ -419,50 +414,71 @@
 			}*/
 
 			var _i = 0,
+				_i2 = 0,
 				current = null;
 
 			while (Object.keys(result.open).length && _i++ <= 100) {
 
 				current = getBestNode();
+
+				// check if current node is the goal
 				if (current.point === end_point) {
+					//console.log('goal found', current);
+					console.log('total iteractions', _i2 + _i);
 					var path = optimizePath(reconstructPath(current, []));
+					//console.log('reconstructed path', path);
 					if (!path.length) return null;
 
 					return path;
 				}
+				
+				//console.group();
+				//console.log('best node', current);
 
-				// remove current from openset
+				// remove current from open list
 				delete result.open[current.point.index];
 
-				// add current to closed set
-				result.closed[current.point.index] = current.point;
+				// add current to closed list
+				result.closed[current.point.index] = current;
 
-				// always get the adjacent nodes
-				// not the visible ones
-				// if you want to optimize your path use `optimizePath()`
-				$.each(getAdjacentPoints(current), function(i, visible) {
-					// check for the visible in the closed set
-					var in_closed = result.closed[visible.point.index] !== undefined;
-					if (in_closed) return;
+				// process adjacent nodes
+				// you can pass `getVisiblesOf(current.point)` for the first each param
+				// or just `current.point.adjacent`
+				$.each(getVisiblesOf(current.point), function(i, adjacent) {
+					_i2++;
+					//console.log('adjacent node:', adjacent);
+					var in_closed_list = result.closed[adjacent.index],
+						in_open_list = result.open[adjacent.index],
+						g,
+						h;
 
-					// get current step and distance from current to visible point
-					var step_cost = current.distances.g + current.point.distance[visible.point.index];
-					// check if its cost is >= the step_cost, if so skip current visible point
-					if (in_closed && step_cost >= visible.distances.g) return;
+					if (in_closed_list) return;
 
-					// verify visible doesn't exist or new score for it is better
-					var in_open = result.open[visible.point.index] !== undefined;
-
-					if (!in_open || step_cost < visible.distances.g) {
-						if (!in_open) {
-							result.open[visible.point.index] = visible;
-						} else {
-							visible.parent = current;
-							visible.distances.g = step_cost;
-							visible.distances.f = step_cost + visible.distances.h;
+					g = adjacent.distance[current.point.index] + current.distances.g;
+					if (in_open_list) {
+						//console.log('adjacent already on open list');
+						if (g < in_open_list.distances.g) {
+							in_open_list.distances.g = g;
+							in_open_list.parent = current;
 						}
+
+					} else {
+						h = adjacent.distance[end_point.index];
+						// add adjacent to open list
+						result.open[adjacent.index] = {
+							point: adjacent,
+							parent: current,
+							distances: {
+								g: g,
+								h: h,
+								f: g + h
+							}
+						};
 					}
+					
 				});
+				
+				console.groupEnd();
 			}
 
 			return;

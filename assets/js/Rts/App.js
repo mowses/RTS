@@ -84,8 +84,7 @@ angular.module('Rts', ['Rts.Agents', 'Rts.Map'])
 					group_start++;
 				}
 			});
-			console.log(edge_groups[1]);
-
+			
 			$.extend(game.map, {
 				data: {
 					width: 1076,
