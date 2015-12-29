@@ -9,7 +9,10 @@
 			<hr>
 			<ul>
 				<li ng-repeat="(i, point) in customPath">
-					{{point.point}} <button ng-click="customPath.splice(i, 1);">remove</button>
+					{{point.point}}
+					<span class="visibility" ng-show="!customPath[i - 1]">N/A</span>
+					<span class="visibility" ng-show="customPath[i - 1]">{{customPath[i - 1].point.visibility[point.point.index] ? 'visible' : 'not visible'}}</span>
+					<button ng-click="customPath.splice(i, 1);">remove</button>
 				</li>
 			</ul>
 			<hr />

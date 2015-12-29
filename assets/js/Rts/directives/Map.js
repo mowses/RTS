@@ -37,8 +37,12 @@ angular.module('Rts.Map', [])
                     });
                 })
                 .on('keyup', function(event) {
+                    console.log(event.which);
                     if (event.which === 107) {  // 107: '+' key
                         $scope.customPath.push($scope.closestnode);
+                    }
+                    if (event.which === 109) {  // 109: '-' key
+                        $scope.customPath.pop();
                     }
                 });
 
