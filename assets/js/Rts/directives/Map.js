@@ -28,6 +28,8 @@ angular.module('Rts.Map', [])
                 $scope.distance = distance;
             });
 
+            console.log('press +/- to add/remove nodes to make a custom path');
+            console.log('press H to set hero position');
             $(document)
                 .on('mousemove', function(e) {
                     $scope.mouseCoords = [e.pageX, e.pageY];
@@ -36,8 +38,15 @@ angular.module('Rts.Map', [])
                         y: $scope.mouseCoords[1]
                     });
                 })
+                .on('keypress', function(event) {
+                    if (event.which === 104) {  // 104: 'H' key
+                        window.$scope.game.agents.hero.model.setData('position', {
+                            x: $scope.mouseCoords[0],
+                            y: $scope.mouseCoords[1]
+                        });
+                    }
+                })
                 .on('keyup', function(event) {
-                    console.log(event.which);
                     if (event.which === 107) {  // 107: '+' key
                         $scope.customPath.push($scope.closestnode);
                     }

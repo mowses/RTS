@@ -25,7 +25,8 @@
 		return {
 			getConfig: function() {
 				return {
-					MAX_VELOCITY: 10
+					MAX_VELOCITY: 10/*,
+					BOUNDING_BOX_RADIUS: 20*/
 				};
 			}
 		};
