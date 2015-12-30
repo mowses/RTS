@@ -103,24 +103,16 @@
 				hero = Rts.AgentFactory.new('Imp', {
 					id: 'hero',
 					position: {
-						x: 610,
-						y: 291
+						x: 950,
+						y: 450
 					}
 				}, game);
 
+				console.log('set destination to node 45 nearest as possible to the wall');
+
 				hero.model.watch(['destination'], function() {
-					var result = hero.walkable.mapDestinationPath,
-						distance = 0;
-
-					$scope.nodes.path = result;
-					/*$.each(result || [], function(i, item) {
-						var next_point = result[i + 1];
-						if (!next_point) return;
-
-						distance += item.point.distance[next_point.point.index];
-					});*/
-					//$scope.$apply();
-					//console.log('total distance:', distance);
+					$scope.nodes.path = hero.walkable.mapDestinationPath;
+					
 				});
 
 				/*imp1 = Rts.AgentFactory.new('Imp', {

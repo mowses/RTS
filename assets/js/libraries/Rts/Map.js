@@ -36,6 +36,7 @@
 		self.getClosestPointFromPosition = getClosestPointFromPosition;
 		self.getClosestPointOfTriangle = getClosestPointOfTriangle;
 		self.getTriangleFromPosition = getTriangleFromPosition;
+		self.isVisible = isVisible;
 
 		// functions
 		function isPointInPoly(pt, poly) {
@@ -107,6 +108,29 @@
 			});
 
 			return triangle;
+		}
+
+		/**
+		 * return point A - B visibility
+		 * @return {Boolean} visible
+		 */
+		function isVisible(point1, point2) {
+			var visible;
+
+			// check for edge obstacles from point1 to point2
+			$.each(self.poly2tri.edge_list, function(ei, edge) {
+				var intersects = Intersection.intersectLineLine(point1, point2, edge.p, edge.q);
+				// remove point1, point2, and edges intersections from the result
+				intersects.points = $.grep(intersects.points, function(point) {
+					var point = new Poly2tri.Point(point.x, point.y);
+
+					if (!point1.equals(point) && !point2.equals(point) && !edge.p.equals(point) && !edge.q.equals(point)) return true;
+				});
+				visible = !intersects.points.length;
+				return visible;
+			});
+
+			return visible;
 		}
 
 		function init() {
@@ -192,19 +216,7 @@
 
 							if (i != j) {
 								distance = getDistance(point1, point2);
-
-								// check for edge obstacles from point1 to point2
-								$.each(self.poly2tri.edge_list, function(ei, edge) {
-									var intersects = Intersection.intersectLineLine(point1, point2, edge.p, edge.q);
-									// remove point1, point2, and edges intersections from the result
-									intersects.points = $.grep(intersects.points, function(point) {
-										var point = new Poly2tri.Point(point.x, point.y);
-
-										if (!point1.equals(point) && !point2.equals(point) && !edge.p.equals(point) && !edge.q.equals(point)) return true;
-									});
-									visible = !intersects.points.length;
-									return visible;
-								});
+								visible = isVisible(point1, point2)
 							}
 
 							if (visible) {
@@ -345,32 +357,20 @@
 
 			/**
 			 * remove unnecessary points from the path
-			 * removing nodes between visible ones
+			 * we cant simply remove nodes between visible ones
+			 * we should do another path find, using the passed points only
 			 */
-			function optimizePath(path) {return path;
-				var t = path.length - 1;
-
-				for (var i = 0; i < t; i++) {
-					var node1 = path[i];
-					for (var j = t; j > i + 1; j--) {
-						var node2 = path[j];
-						if (node1.point.visibility[node2.point.index] !== true) continue;
-
-						path.splice(i + 1, j - i - 1);
-						t = path.length - 1;
-						break;
-					}
-				}
-
+			function optimizePath(path) {
+				console.log('do optimizePath - read function comment');
 				return path;
 			}
 
-			function getVisiblesOf(point) {
+			/*function getVisiblesOf(point) {
 				return $.map(point.visibility, function(visible, i) {
 					if (!visible) return;
 					return self.poly2tri.points_[i];
 				});
-			}
+			}*/
 
 			/**
 			 * check and remove first node from path if the next node is in the same triangulation
@@ -429,7 +429,7 @@
 				if (current.point === end_point) {
 					//console.log('goal found', current);
 					console.log('total iteractions', _i2 + _i);
-					var path = reconstructPath(current, []).reverse();
+					var path = optimizePath(reconstructPath(current, [])).reverse();
 					if (!path.length) return null;
 
 					return path;
@@ -447,7 +447,10 @@
 				// process adjacent nodes
 				// you can pass `getVisiblesOf(current.point)` for the first each param
 				// or just `current.point.adjacent`
-				$.each(getVisiblesOf(current.point), function(i, adjacent) {
+				// note: dont use getVisiblesOf because:
+				// 	1. it will loop many times more than adjacents
+				// 	2. we need to get nodes as much as better, this way we can create smoother paths, but then we should apply optimizePath
+				$.each(current.point.adjacent, function(i, adjacent) {
 					_i2++;
 					//console.log('adjacent node:', adjacent);
 					var in_closed_list = result.closed[adjacent.index],

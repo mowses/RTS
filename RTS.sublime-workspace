@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"destinat",
+				"destination_point"
+			],
+			[
+				"click",
+				"clicked_triangle"
+			],
+			[
 				"upda",
 				"updated_data"
 			],
@@ -343,7 +351,7 @@
 			"file": "assets/js/libraries/Rts/Map.js",
 			"settings":
 			{
-				"buffer_size": 13022,
+				"buffer_size": 13286,
 				"line_ending": "Unix"
 			}
 		},
@@ -351,7 +359,7 @@
 			"file": "assets/js/Rts/App.js",
 			"settings":
 			{
-				"buffer_size": 3219,
+				"buffer_size": 3764,
 				"line_ending": "Unix"
 			}
 		},
@@ -367,7 +375,7 @@
 			"file": "assets/js/libraries/Rts/templates/map.html",
 			"settings":
 			{
-				"buffer_size": 2084,
+				"buffer_size": 2348,
 				"line_ending": "Unix"
 			}
 		},
@@ -383,15 +391,15 @@
 			"file": "assets/js/libraries/Rts/Walkable.js",
 			"settings":
 			{
-				"buffer_size": 4305,
+				"buffer_size": 5536,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "\n			\ncos\n	\n	-0.9684809593461293\nradians\n	\n	-2.889854608905002\nsin\n	\n	-0.24908759781249842",
+			"contents": ";(function($, angular, Poly2tri) {\n	'use strict';\n\n	angular.module('Rts', ['Rts.Agents', 'Rts.Map'])\n\n	.controller('AgentTest', ['$scope', function($scope) {\n\n		var game = new Rts.Game(),\n			agentFactoryNew = Rts.AgentFactory.new,\n			hero = null,\n			imp1 = null;\n\n		$scope.game = game;\n\n		Rts.AgentFactory.new = function() {\n			var agent = agentFactoryNew.apply(this, arguments);\n\n			agent.model.watch(null, function(data) {\n				this.data = data.new;\n			});\n			agent.walkable.model.watch(null, function(data) {\n				this.data = data.new;\n			});\n\n			game.agents = Rts.AgentFactory.getAgent();\n\n			return agent;\n		};\n\n		function getTriangles() {\n			var path = game.map.poly2tri,\n				triangles = path.getTriangles(),\n				result = [];\n\n			$.each(triangles, function(i, triangle) {\n				var points = triangle.getPoints(),\n					triangle_points = [\n						[points[0].x, points[0].y],\n						[points[1].x, points[1].y],\n						[points[2].x, points[2].y]\n					];\n\n				result.push(triangle_points);\n			});\n\n			return result;\n		}\n\n		game.events.on('game loop.update scopes', function() {\n			$scope.$apply();\n		});\n\n		game.map.events\n			.on('load map', function() {\n				var edges = [],\n					edge_groups = [];\n\n				$.each(game.map.poly2tri.edge_list, function(i, edge) {\n\n					if($.inArray(edge.p, edges) === -1) {\n						edges.push(edge.p);\n					}\n\n					if($.inArray(edge.q, edges) === -1) {\n						edges.push(edge.q);\n					}\n				});\n				edges = $.map(edges, function(edge) {\n					return {\n						point: edge\n					}\n				});\n\n				var group_start = 0;\n				$.each(edges, function(i, edge) {\n					if (!edge_groups[group_start]) {\n						edge_groups[group_start] = [];\n					}\n\n					edge_groups[group_start].push(edge);\n\n					// check if next edge if connected to the current one\n					// if not, create new edge group and add into it\n					if (edges[i + 1] && $.inArray(edges[i + 1].point, edge.point.connected_edges) === -1) {\n						group_start++;\n					}\n				});\n				\n				$.extend(game.map, {\n					data: {\n						width: 1076,\n						height: 632,\n						triangles: getTriangles(),\n						edges: edge_groups\n					}\n				});\n\n				hero = Rts.AgentFactory.new('Imp', {\n					id: 'hero',\n					position: {\n						x: 464,\n						y: 296\n					}\n				}, game);\n\n				console.log('bug, tente move o hero para a posicao 667, 281');\n\n				hero.model.watch(['destination'], function() {\n					var result = hero.walkable.mapDestinationPath,\n						distance = 0;\n\n					game.map.data.pathFound = result;\n					/*$.each(result || [], function(i, item) {\n						var next_point = result[i + 1];\n						if (!next_point) return;\n\n						distance += item.point.distance[next_point.point.index];\n					});*/\n					//$scope.$apply();\n					//console.log('total distance:', distance);\n				});\n\n				/*imp1 = Rts.AgentFactory.new('Imp', {\n					position: {\n						x: 418,\n						y: 48\n					}\n				}, game);*/\n\n				//$scope.$apply();\n			});\n\n		game.map.loadMap('./assets/js/libraries/Rts/ASSETS/doom-RTS_navMesh.json');\n\n		$(document).on('click', function(e) {\n			var pos = new Poly2tri.Point(e.pageX, e.pageY),\n				clicked_triangle = null,\n				point = null;\n\n			// get the clicked triangle instead of closest point\n			// because it leads to get wrong point/triangle if another point is closest from position\n			$.each(game.map.poly2tri.getTriangles(), function(i, triangle) {\n				if (!pos.inPolygon(triangle.getPoints())) return;\n				clicked_triangle = triangle;\n				return false;\n			});\n\n			if (!clicked_triangle) {\n				point = game.map.getClosestFromPos(pos).point;\n			} else {\n				point = game.map.getClosestPointOfTriangle(pos, clicked_triangle);\n			}\n\n			hero.model.setData('destination', {\n				x: clicked_triangle ? pos.x : point.x,\n				y: clicked_triangle ? pos.y :  point.y\n			});\n\n			game.map.data.clickPos = [hero.walkable.mapClosestNode.point, point];\n			/*console.clear();\n			console.log(hero.walkable.mapClosestNode, closest_pos, game.map.data.clickPos	);*/\n			//$scope.$apply();\n		});\n\n		console.log('para acessar $scope use a variavel global $scope');\n		window.$scope = $scope;\n\n	}]);\n})(jQuery, angular, poly2tri);",
 			"settings":
 			{
-				"buffer_size": 89,
+				"buffer_size": 4050,
 				"line_ending": "Unix"
 			}
 		}
@@ -424,6 +432,10 @@
 	},
 	"file_history":
 	[
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObjDiff/ObjDiff.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/tests.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/ObserverCore.js",
+		"/home/moises/Documents/Projects/RTS/RTS.sublime-workspace",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/templates/map.html",
 		"/home/moises/Documents/Projects/RTS/assets/js/Rts/App.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Map.js",
@@ -434,8 +446,6 @@
 		"/home/moises/Documents/Projects/RTS/index.html",
 		"/home/moises/Documents/Projects/RTS/styles/reset.css",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Game.js",
-		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/ObserverCore.js",
-		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/tests.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/index.html",
 		"/home/moises/Documents/Projects/RTS/styles/Rts/imp.css",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/AgentFactory.js",
@@ -549,9 +559,7 @@
 		"/home/moises/Documents/Projects/wysirwyg/assets/styles/WYSIRWYG/main.css",
 		"/home/moises/Documents/Projects/wysirwyg/config/routes.js",
 		"/home/moises/Documents/Projects/wysirwyg/api/controllers/ComponentsController.js",
-		"/home/moises/Documents/Projects/wysirwyg/config/policies.js",
-		"/home/moises/Documents/Projects/wysirwyg/api/policies/optionalComponentsArray.js",
-		"/home/moises/Documents/Projects/wysirwyg/views/layout.ejs"
+		"/home/moises/Documents/Projects/wysirwyg/config/policies.js"
 	],
 	"find":
 	{
@@ -559,7 +567,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			"/home/moises/Documents/Projects/RTS",
@@ -668,6 +676,48 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"start",
+			"mapClosestNode",
+			"getClosestPointOfTriangle",
+			"gettr",
+			"bug",
+			"big",
+			"walkable",
+			"null'",
+			"null",
+			"ng",
+			"pathFound",
+			"clickpos",
+			"stopAgent",
+			"update data",
+			"check_changes",
+			"apply",
+			"check_changes",
+			"null",
+			"stopAgent",
+			"destination_triangle",
+			"reconstructPath",
+			"Poly2tri",
+			"findpath",
+			"destination",
+			"getClosestFromPos",
+			"getClosestPointFromTriangle",
+			"getClosestPointFromPosition",
+			"closest_pos",
+			"triangle",
+			"gettriangle",
+			"mapCurrentNodePathIndex",
+			"optimizePath",
+			"inPolygon",
+			"Poly2tri",
+			"poly2tri",
+			"Poly2tri.Point",
+			"new p",
+			"point",
+			"inpoly",
+			"destination",
+			"findpath",
+			"destination",
 			"hero",
 			"move",
 			"radius",
@@ -753,49 +803,7 @@
 			"optimizePath",
 			"triangleindex",
 			"checkAndRemoveLastNode",
-			"checkAndRemoveFirstNode",
-			"findPath",
-			"checkAndRemoveLastNode",
-			"checkAndRemoveFirstNode",
-			"console",
-			"mapDestinationPath",
-			"findPath",
-			"optimizePath",
-			"checkAndRemoveLastNode",
-			"checkAndRemoveFirstNode",
-			"mapDestinationNode",
-			"mapDestinationPath",
-			"checkAndRemoveLastNode",
-			"optimizePath",
-			"checkAndRemoveFirstNode",
-			"find",
-			"find]",
-			"pathfind",
-			"path",
-			"checkAndRemoveLastNode",
-			"optimizePath",
-			"current",
-			"position",
-			"load map",
-			"getViewRotation",
-			"mapClosestNode",
-			"findpath",
-			"$apply",
-			"game loop",
-			"entMove",
-			"rotateTo",
-			"+ 1",
-			"deg",
-			"vec_angle",
-			"radians",
-			"orientation",
-			"rad",
-			" no-repeat",
-			"background: url(\"../../assets/images/Rts/Agents/imp.png\")",
-			"agent_config",
-			"rotateAgentTo",
-			"load map",
-			"visible"
+			"checkAndRemoveFirstNode"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -861,15 +869,15 @@
 					"file": "assets/js/libraries/Rts/Map.js",
 					"settings":
 					{
-						"buffer_size": 13022,
+						"buffer_size": 13286,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11328,
-								11328
+								2503,
+								2503
 							]
 						],
 						"settings":
@@ -927,7 +935,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 7369.0,
+						"translation.y": 1114.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -937,15 +945,15 @@
 					"file": "assets/js/Rts/App.js",
 					"settings":
 					{
-						"buffer_size": 3219,
+						"buffer_size": 3764,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2101,
-								2101
+								2287,
+								2287
 							]
 						],
 						"settings":
@@ -1003,7 +1011,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1095.0,
+						"translation.y": 1331.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1020,8 +1028,8 @@
 						"selection":
 						[
 							[
-								1577,
-								1577
+								2116,
+								2116
 							]
 						],
 						"settings":
@@ -1080,7 +1088,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 270.0,
+						"translation.y": 656.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1090,15 +1098,15 @@
 					"file": "assets/js/libraries/Rts/templates/map.html",
 					"settings":
 					{
-						"buffer_size": 2084,
+						"buffer_size": 2348,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1684,
-								1684
+								1962,
+								1962
 							]
 						],
 						"settings":
@@ -1156,7 +1164,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 225.0,
+						"translation.y": 90.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1173,8 +1181,8 @@
 						"selection":
 						[
 							[
-								553,
-								553
+								520,
+								520
 							]
 						],
 						"settings":
@@ -1227,6 +1235,7 @@
 								"bh_single_quote_open",
 								"bh_single_quote_close"
 							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
@@ -1241,15 +1250,15 @@
 					"file": "assets/js/libraries/Rts/Walkable.js",
 					"settings":
 					{
-						"buffer_size": 4305,
+						"buffer_size": 5536,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								947,
-								947
+								4110,
+								4110
 							]
 						],
 						"settings":
@@ -1302,11 +1311,12 @@
 								"bh_single_quote_open",
 								"bh_single_quote_close"
 							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 62.0,
-						"translation.y": 571.0,
+						"translation.x": 0.0,
+						"translation.y": 756.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1315,21 +1325,20 @@
 					"buffer": 6,
 					"settings":
 					{
-						"buffer_size": 89,
+						"buffer_size": 4050,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								31,
-								31
+								3570,
+								3570
 							]
 						],
 						"settings":
 						{
 							"BracketHighlighterBusy": false,
-							"auto_name": "",
 							"bh_regions":
 							[
 								"bh_regex",
@@ -1377,10 +1386,12 @@
 								"bh_single_quote_open",
 								"bh_single_quote_close"
 							],
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1847.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

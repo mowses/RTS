@@ -17,7 +17,7 @@
 			agent_data.position.y -= reldist.x * Math.cos(angle.pan);
 		}
 
-		function stopAgent() {
+		function unsetTarget() {
 			self.mapDestinationNode = null;
 			self.mapDestinationPath = null;
 			self.mapCurrentNodePathIndex = null;
@@ -48,6 +48,7 @@
 					if (!data.target) return;
 
 					var agent_data = agent.model.getData(),
+						destination_point,
 						distance,
 						velocity_length;
 
@@ -60,10 +61,20 @@
 					velocity_length = Trigonometry.vecDist({x:0, y:0}, agent_data.velocity);
 					if (distance > velocity_length) return;
 
+					/*// when agent reached any node
+					// check if this node can see destination
+					destination_point = new Poly2tri.Point(agent_data.destination.x, agent_data.destination.y);
+					// check visibility
+					if (game.map.isVisible(self.mapDestinationPath[self.mapCurrentNodePathIndex].point, destination_point)) {
+						unsetTarget();  // finish path following
+						return;
+					}*/
+
 					self.mapCurrentNodePathIndex++;
+
 					if (self.mapCurrentNodePathIndex >= total_path_nodes) {
 						// reached path end
-						data.target = null;
+						unsetTarget();
 						return;
 					}
 
@@ -117,7 +128,7 @@
 
 				self.model.setData('animation', destination_position ? 'walking' : null);
 				if (!destination_position || !self.mapClosestNode) {
-					stopAgent();
+					unsetTarget();
 					return;
 				}
 
@@ -140,7 +151,7 @@
 				self.mapDestinationPath = game.map.findPath(self.mapClosestNode, self.mapDestinationNode);
 				
 				if (!self.mapDestinationPath) {
-					stopAgent();
+					unsetTarget();
 					return;
 				}
 
