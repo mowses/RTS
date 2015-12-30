@@ -11,6 +11,11 @@
 			imp1 = null;
 
 		$scope.game = game;
+		$scope.nodes = {
+			start: null,
+			end: null,
+			path: null
+		};
 
 		Rts.AgentFactory.new = function() {
 			var agent = agentFactoryNew.apply(this, arguments);
@@ -98,8 +103,8 @@
 				hero = Rts.AgentFactory.new('Imp', {
 					id: 'hero',
 					position: {
-						x: 963,
-						y: 415
+						x: 610,
+						y: 291
 					}
 				}, game);
 
@@ -107,7 +112,7 @@
 					var result = hero.walkable.mapDestinationPath,
 						distance = 0;
 
-					game.map.data.pathFound = result;
+					$scope.nodes.path = result;
 					/*$.each(result || [], function(i, item) {
 						var next_point = result[i + 1];
 						if (!next_point) return;
@@ -132,21 +137,24 @@
 
 		$(document).on('click', function(e) {
 			var pos = new Poly2tri.Point(e.pageX, e.pageY),
-				closest_pos = game.map.getClosestFromPos(pos),
-				inside = true;
+				clicked_triangle = game.map.getTriangleFromPosition(pos),
+				point = null,
+				hero_position = hero.model.getData('position'),
+				hero_start_point = new Poly2tri.Point(hero_position.x, hero_position.y);
 
-			// check if clicked pos is inside the triangle
-			$.each(closest_pos.point.triangles, function(i, triangle) {
-				inside = pos.inPolygon(triangle.getPoints());
-				return !inside;  // break if at least 1 triangle matches the point inside in
-			});
-			
+			if (!clicked_triangle) {
+				point = game.map.getClosestFromPos(pos).point;
+			} else {
+				point = pos;
+			}
+
 			hero.model.setData('destination', {
-				x: (inside ? pos.x : closest_pos.point.x),
-				y: (inside ? pos.y : closest_pos.point.y)
+				x: point.x,
+				y: point.y
 			});
 
-			game.map.data.clickPos = [hero.walkable.mapClosestNode, closest_pos];
+			$scope.nodes.start = hero_start_point
+			$scope.nodes.end = point;
 			/*console.clear();
 			console.log(hero.walkable.mapClosestNode, closest_pos, game.map.data.clickPos	);*/
 			//$scope.$apply();

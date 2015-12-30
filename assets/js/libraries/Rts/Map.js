@@ -34,6 +34,8 @@
 			polygons = null;
 
 		self.getClosestPointFromPosition = getClosestPointFromPosition;
+		self.getClosestPointOfTriangle = getClosestPointOfTriangle;
+		self.getTriangleFromPosition = getTriangleFromPosition;
 
 		// functions
 		function isPointInPoly(pt, poly) {
@@ -70,7 +72,10 @@
 			return Math.sqrt(x * x + y * y);
 		}
 
-		function getClosestPointFromTriangle(point, triangle) {
+		/**
+		 * return the closest point from the passed triangle
+		 */
+		function getClosestPointOfTriangle(point, triangle) {
 			var closest_point = null,
 				closest_dist = Infinity;
 
@@ -84,6 +89,24 @@
 			});
 
 			return closest_point;
+		}
+
+		/**
+		 * get the triangulation from an arbitrary position
+		 */
+		function getTriangleFromPosition(position) {
+			var point = new Poly2tri.Point(position.x, position.y),
+				triangle = null;
+
+			// get the clicked triangle instead of closest point
+			// because it leads to get wrong point/triangle if another point is closest from position
+			$.each(self.poly2tri.getTriangles(), function(i, _triangle) {
+				if (!point.inPolygon(_triangle.getPoints())) return;
+				triangle = _triangle;
+				return false;
+			});
+
+			return triangle;
 		}
 
 		function init() {
@@ -252,7 +275,7 @@
 				closest_dist = Infinity;
 
 			$.each(triangles, function(i, triangle) {
-				var triangle_point = getClosestPointFromTriangle(point, triangle),
+				var triangle_point = getClosestPointOfTriangle(point, triangle),
 					distance = getDistance(point, triangle_point);
 
 				if (distance >= closest_dist) return;
@@ -273,8 +296,8 @@
 		// http://drpexe.com/2011/07/a-star-with-navmesh-detailed/
 		// http://www.growingwiththeweb.com/2012/06/a-pathfinding-algorithm.html
 		this.findPath = function(start_node, end_node) {
-			var start_point = start_node.point,
-				end_point = end_node.point,
+			var start_point = start_node,
+				end_point = end_node,
 				g = 0,
 				h = end_point.distance[start_point.index],
 				result = {
@@ -292,25 +315,6 @@
 					f: g + h
 				}
 			};
-
-			/*function getVisiblePoints(node) {
-				var result = {};
-
-				$.each(node.point.visibility, function(j, visible) {
-					if (!visible) return;
-
-					var adjpoint = self.poly2tri.getPoint(j);
-					if (adjpoint === node.point) return;
-
-					result[adjpoint.index] = {
-						point: adjpoint,
-						parent: node,
-						distances: getDistances(adjpoint)
-					};
-				});
-
-				return result;
-			}*/
 
 			function getBestNode() {
 				var closest_dist = Infinity,
@@ -425,8 +429,7 @@
 				if (current.point === end_point) {
 					//console.log('goal found', current);
 					console.log('total iteractions', _i2 + _i);
-					var path = optimizePath(reconstructPath(current, []));
-					//console.log('reconstructed path', path);
+					var path = reconstructPath(current, []).reverse();
 					if (!path.length) return null;
 
 					return path;
@@ -495,7 +498,7 @@
 				closest_dist = Infinity;
 
 			$.each(triangles, function(i, triangle) {
-				var triangle_point = getClosestPointFromTriangle(point, triangle),
+				var triangle_point = getClosestPointOfTriangle(point, triangle),
 					distance = getDistance(point, triangle_point);
 
 				if (distance >= closest_dist) return;

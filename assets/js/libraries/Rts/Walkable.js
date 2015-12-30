@@ -1,7 +1,8 @@
-(function($, Events, ObserverCore, Rts, Trigonometry) {
+(function($, Events, ObserverCore, Rts, Trigonometry, Poly2tri) {
 
 	function Walkable(agent, game) {
-		var self = this;
+		var self = this,
+			total_path_nodes = null;
 
 		this.mapClosestNode = null;
 		this.mapDestinationNode = null;
@@ -14,6 +15,13 @@
 
 			agent_data.position.x += reldist.x * Math.sin(angle.pan);
 			agent_data.position.y -= reldist.x * Math.cos(angle.pan);
+		}
+
+		function stopAgent() {
+			self.mapDestinationNode = null;
+			self.mapDestinationPath = null;
+			self.mapCurrentNodePathIndex = null;
+			self.model.setData('target', null);
 		}
 
 
@@ -52,8 +60,8 @@
 					velocity_length = Trigonometry.vecDist({x:0, y:0}, agent_data.velocity);
 					if (distance > velocity_length) return;
 
-					self.mapCurrentNodePathIndex--;
-					if (self.mapCurrentNodePathIndex < 0) {
+					self.mapCurrentNodePathIndex++;
+					if (self.mapCurrentNodePathIndex >= total_path_nodes) {
 						// reached path end
 						data.target = null;
 						return;
@@ -101,21 +109,43 @@
 				})
 
 			.watch(['destination'], function(data) {
-				var destination = data.new.destination;
-				self.model.setData('animation', destination ? 'walking' : null)
-				self.mapDestinationNode = null;
-				if (!destination) return;
-				
-				self.mapDestinationNode = game.map.getClosestFromPos(data.new.destination);
-				if (!self.mapDestinationNode.point || !self.mapClosestNode.point) {
-					self.model.setData('target', null);
+				// get the destination triangle instead of directly the closest point
+				// because it leads to get wrong point/triangle if another point is closest from destination
+				var destination_position = data.new.destination,  // can be any arbitrary position
+					destination_point,
+					destination_triangle;
+
+				self.model.setData('animation', destination_position ? 'walking' : null);
+				if (!destination_position || !self.mapClosestNode) {
+					stopAgent();
 					return;
 				}
 
-				self.mapDestinationPath = game.map.findPath(self.mapClosestNode, self.mapDestinationNode);
-				if (!self.mapDestinationPath) return;
+				destination_point = new Poly2tri.Point(destination_position.x, destination_position.y);
 
-				self.mapCurrentNodePathIndex = self.mapDestinationPath.length - 1;
+				// get destination triangle
+				$.each(game.map.poly2tri.getTriangles(), function(i, triangle) {
+					if (!destination_point.inPolygon(triangle.getPoints())) return;
+					destination_triangle = triangle;
+					return false;
+				});
+
+				// now get the destination node
+				if (!destination_triangle) {
+					self.mapDestinationNode = game.map.getClosestFromPos(destination_point).point;
+				} else {
+					self.mapDestinationNode = game.map.getClosestPointOfTriangle(destination_point, destination_triangle);
+				}
+				
+				self.mapDestinationPath = game.map.findPath(self.mapClosestNode, self.mapDestinationNode);
+				
+				if (!self.mapDestinationPath) {
+					stopAgent();
+					return;
+				}
+
+				self.mapCurrentNodePathIndex = 0;
+				total_path_nodes = self.mapDestinationPath.length;
 
 				var agent_data = agent.model.getData(),
 					target = {
@@ -127,7 +157,14 @@
 			})
 
 			.watch(['position'], function(data) {
-				self.mapClosestNode = game.map.getClosestFromPos(data.new.position);
+				var position = data.new.position,
+					triangle = game.map.getTriangleFromPosition(position);
+
+				if (!triangle) {
+					self.mapClosestNode = game.map.getClosestFromPos(data.new.position).point;
+				} else {
+					self.mapClosestNode = game.map.getClosestPointOfTriangle(position, triangle);
+				}
 			});
 
 		}
@@ -160,4 +197,4 @@
 		Walkable: Walkable
 	});
 
-})(jQuery, Events, ObserverCore, Rts, Trigonometry);
+})(jQuery, Events, ObserverCore, Rts, Trigonometry, poly2tri);

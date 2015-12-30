@@ -17,9 +17,12 @@
 			</ul>
 			<hr />
 			DISTANCE: {{distance}}
-		</div>
 
-		<button ng-click="customPath = [];">reset</button>
+			<button ng-click="customPath = [];">reset</button>
+		</div>
+		hero:
+		current node: {{$parent.game.agents.hero.walkable.mapClosestNode.index}}<br>
+		target: {{$parent.game.agents.hero.walkable.model.data.target.x}}, {{$parent.game.agents.hero.walkable.model.data.target.y}}
 	</div>
 
 	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" ng-attr-width="{{map.data.width}}" ng-attr-height="{{map.data.height}}">
@@ -28,14 +31,14 @@
 
 		<circle ng-repeat="custompath in customPath" ng-attr-cx="{{custompath.point.x}}" ng-attr-cy="{{custompath.point.y}}" r="8" fill="crimson" />
 
-		<circle ng-repeat="clickPos in map.data.clickPos" ng-attr-cx="{{clickPos.point.x}}" ng-attr-cy="{{clickPos.point.y}}" r="6" fill="yellow" />
+		<circle ng-repeat="path in [$parent.nodes.start, $parent.nodes.end] track by $index" ng-if="path.x && path.y" ng-attr-cx="{{path.x}}" ng-attr-cy="{{path.y}}" r="6" fill="yellow" />
 
-		<circle ng-attr-cx="{{$parent.game.agents.hero.walkable.model.data.target.x}}" ng-attr-cy="{{$parent.game.agents.hero.walkable.model.data.target.y}}" r="13" fill="white" />
+		<!-- <circle ng-attr-cx="{{$parent.game.agents.hero.walkable.model.data.target.x}}" ng-attr-cy="{{$parent.game.agents.hero.walkable.model.data.target.y}}" r="13" fill="white" /> -->
 
-		<circle ng-repeat="pathPos in map.data.pathFound" ng-attr-cx="{{pathPos.point.x}}" ng-attr-cy="{{pathPos.point.y}}" r="3" fill="white" />
+		<circle ng-repeat="pathPos in $parent.nodes.path" ng-attr-cx="{{pathPos.point.x}}" ng-attr-cy="{{pathPos.point.y}}" r="3" fill="white" />
 
 		<path ng-repeat="(i, group) in map.data.edges" ng-init="group.push(group[0]);" path="group" stroke="crimson" stroke-width="4" fill="none" />
 
-		<path path="map.data.pathFound" stroke="white" stroke-width="2" fill="none" />
+		<path path="$parent.nodes.path" stroke="white" stroke-width="2" fill="none" />
 	</svg>
 </div>
