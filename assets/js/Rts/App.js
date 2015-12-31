@@ -103,12 +103,12 @@
 				hero = Rts.AgentFactory.new('Imp', {
 					id: 'hero',
 					position: {
-						x: 950,
-						y: 450
+						x: 760,
+						y: 500
 					}
 				}, game);
 
-				console.log('set destination to node 45 nearest as possible to the wall');
+				console.log('set destination to node 57 clicking outside level boundaries');
 
 				hero.model.watch(['destination'], function() {
 					$scope.nodes.path = hero.walkable.mapDestinationPath;

@@ -36,6 +36,7 @@
 		self.getClosestPointFromPosition = getClosestPointFromPosition;
 		self.getClosestPointOfTriangle = getClosestPointOfTriangle;
 		self.getTriangleFromPosition = getTriangleFromPosition;
+		self.optimizePath = optimizePath;
 		self.isVisible = isVisible;
 
 		// functions
@@ -115,7 +116,8 @@
 		 * @return {Boolean} visible
 		 */
 		function isVisible(point1, point2) {
-			var visible;
+			var visible,
+				midpoint;
 
 			// check for edge obstacles from point1 to point2
 			$.each(self.poly2tri.edge_list, function(ei, edge) {
@@ -129,6 +131,14 @@
 				visible = !intersects.points.length;
 				return visible;
 			});
+
+			if (visible) {
+				// so far its visible, but now, we need to check if a point between point1 and point2 is inside a triangle
+				// if so, its visible, if not, then we traced a point that went through outside level boundaries
+				// to continue visibility
+				// the point must be inside at least 1 triangle
+				visible = !!getTriangleFromPosition(point1.lerp(point2, 0.5));
+			}
 
 			return visible;
 		}
@@ -214,27 +224,13 @@
 								distance = 0,
 								midpoint = point1.lerp(point2, 0.5);
 
+							point1.midpoint[j] = midpoint;
+
 							if (i != j) {
 								distance = getDistance(point1, point2);
-								visible = isVisible(point1, point2)
+								visible = isVisible(point1, point2);
 							}
 
-							if (visible) {
-								visible = false;
-
-								// to continue visibility
-								// the point must be inside at least 1 triangle
-								$.each(self.poly2tri.getTriangles(), function(it, triangle) {
-									var inside = midpoint.inPolygon(triangle.getPoints());
-
-									if (inside) {
-										visible = true;
-										return false;
-									}
-								});
-							}
-
-							point1.midpoint[j] = midpoint;
 							point1.visibility[j] = (point1.connected_edges.indexOf(point2) >= 0) || visible;
 							point1.distance[j] = distance;
 						});
@@ -355,16 +351,6 @@
 				return path;
 			}
 
-			/**
-			 * remove unnecessary points from the path
-			 * we cant simply remove nodes between visible ones
-			 * we should do another path find, using the passed points only
-			 */
-			function optimizePath(path) {
-				console.log('do optimizePath - read function comment');
-				return path;
-			}
-
 			/*function getVisiblesOf(point) {
 				return $.map(point.visibility, function(visible, i) {
 					if (!visible) return;
@@ -421,18 +407,16 @@
 				_i2 = 0,
 				current = null;
 
-			while (Object.keys(result.open).length && _i++ <= 100) {
+			while (_i++ <= 100) {
 
 				current = getBestNode();
+				if (!current) break;
 
 				// check if current node is the goal
 				if (current.point === end_point) {
 					//console.log('goal found', current);
-					console.log('total iteractions', _i2 + _i);
-					var path = optimizePath(reconstructPath(current, [])).reverse();
-					if (!path.length) return null;
-
-					return path;
+					//console.log('total iteractions', _i2 + _i);
+					return reconstructPath(current).reverse();
 				}
 				
 				//console.group();
@@ -484,11 +468,182 @@
 					
 				});
 				
-				console.groupEnd();
+				//console.groupEnd();
 			}
 
 			return;
 
+		}
+
+		/**
+		 * remove unnecessary points from the path
+		 * we cant simply remove nodes between visible ones
+		 * we should do another path find, using the passed points only
+		 * 
+		 * I am adding the destination point to the path
+		 * so optimizePath will recognize it as a level node
+		 */
+		function optimizePath(path, start_point, end_point) {
+			$.extend(start_point, {
+				index: 'start',
+				distance: {
+					'end': getDistance(start_point, end_point)
+				}
+			});
+			path.unshift({
+				point: start_point
+			});
+
+			$.extend(end_point, {
+				index: 'end',
+				distance: {
+					'start': getDistance(end_point, start_point)
+				}
+			});
+			path.push({
+				point: end_point
+			});
+			// dont do destination visibility check if end_point is the same as last path index
+			// because could be no intersection between these two nodes and this could be outside of level boundaries
+			// check each node can see destination point
+			/*if (!end_point.equals(path[path.length - 1].point)) {
+				$.each(path, function(i, node) {
+					var cansee = isVisible(node.point, end_point);
+					if (!cansee) return;
+					path = path.slice(0, i + 1);
+					return false;
+				});
+			}
+
+			// same as above, but now for starting point
+			$.each(path.reverse(), function(i, node) {
+				var cansee = isVisible(node.point, start_point);
+				if (!cansee) return;
+				path = path.slice(0, i + 1);
+				return false;
+			});
+			path.reverse();*/
+			
+			// start path optimization
+			var path_len = path.length,
+				start_point = path[path_len - 1].point,
+				end_point = path[0].point,
+				g = 0,
+				h = end_point.distance[start_point.index],
+				result = {
+					closed: {},
+					open: {}
+				},
+				_i = 0,
+				current = null;
+
+			// add start node to open list
+			result.open[start_point.index] = {
+				point: start_point,
+				parent: null,
+				distances: {
+					g: g,
+					h: h,
+					f: g + h
+				}
+			};
+
+			function getBestNode() {
+				var closest_dist = Infinity,
+					best_node = null;
+
+				$.each(result.open, function(i, open) {
+					var f = open.distances.f;
+
+					if (f >= closest_dist) return;
+
+					closest_dist = f;
+					best_node = open;
+				});
+
+				return best_node;
+			}
+
+			function reconstructPath(node) {
+				var path = 	[node];
+
+				while(node.parent) {
+					node = node.parent;
+					path.push(node);
+				}
+
+				return path;
+			}
+
+			function getVisiblesOf(point) {
+				return $.grep(path, function(node) {
+					var visible = point.visibility && point.visibility[node.point.index];
+					if (visible !== undefined) {
+						return visible;
+					} else {
+						return isVisible(point, node.point);
+					}
+				});
+			}
+
+			while (_i++ <= 100) {
+
+				current = getBestNode();
+				if (!current) break;
+
+				// check if current node is the last
+				if (current.point === end_point) {
+					//console.log('goal found', current);
+					return reconstructPath(current);
+				}
+				
+				//console.group();
+				//console.log('best node', current);
+
+				// remove current from open list
+				delete result.open[current.point.index];
+
+				// add current to closed list
+				result.closed[current.point.index] = current;
+
+				// process VISIBLE nodes - not adjacent (it was used in the findPath method)
+				$.each(getVisiblesOf(current.point), function(i, visible) {
+					visible = visible.point;
+					var in_closed_list = result.closed[visible.index],
+						in_open_list = result.open[visible.index],
+						g,
+						h;
+
+					if (in_closed_list) return;
+
+					g = visible.distance[current.point.index] + current.distances.g;
+					if (in_open_list) {
+						//console.log('visible already on open list');
+						if (g < in_open_list.distances.g) {
+							in_open_list.distances.g = g;
+							in_open_list.parent = current;
+						}
+
+					} else {
+						h = visible.distance[end_point.index];
+						// add visible to open list
+						result.open[visible.index] = {
+							point: visible,
+							parent: current,
+							distances: {
+								g: g,
+								h: h,
+								f: g + h
+							}
+						};
+					}
+					
+				});
+				
+				//console.groupEnd();
+			}
+
+			return path;
 		}
 
 		/**

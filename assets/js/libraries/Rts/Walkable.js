@@ -41,6 +41,10 @@
 			;
 
 			game.events
+				.on('game loop.animate', function() {
+					var agent_data = agent.model.getData();
+					self.model.setData('animation', agent_data.destination ? 'walking' : null);
+				})
 				// follow path
 				.on('game loop.move to path target', function() {
 					var data = self.model.getData();
@@ -48,7 +52,6 @@
 					if (!data.target) return;
 
 					var agent_data = agent.model.getData(),
-						destination_point,
 						distance,
 						velocity_length;
 
@@ -61,15 +64,8 @@
 					velocity_length = Trigonometry.vecDist({x:0, y:0}, agent_data.velocity);
 					if (distance > velocity_length) return;
 
-					/*// when agent reached any node
-					// check if this node can see destination
-					destination_point = new Poly2tri.Point(agent_data.destination.x, agent_data.destination.y);
-					// check visibility
-					if (game.map.isVisible(self.mapDestinationPath[self.mapCurrentNodePathIndex].point, destination_point)) {
-						unsetTarget();  // finish path following
-						return;
-					}*/
-
+					// reached a node
+					
 					self.mapCurrentNodePathIndex++;
 
 					if (self.mapCurrentNodePathIndex >= total_path_nodes) {
@@ -117,22 +113,25 @@
 					},
 					velocity: null,
 					destination: null
-				})
+				}).apply() // apply to prevent double running watches
 
 			.watch(['destination'], function(data) {
 				// get the destination triangle instead of directly the closest point
 				// because it leads to get wrong point/triangle if another point is closest from destination
 				var destination_position = data.new.destination,  // can be any arbitrary position
-					destination_point,
-					destination_triangle;
+					destination_point = new Poly2tri.Point(destination_position ? destination_position.x : null, destination_position ? destination_position.y : null),
+					destination_triangle,
+					agent_data = agent.model.getData(),
+					agent_starting_point = new Poly2tri.Point(agent_data.position.x, agent_data.position.y),
+					target;
 
-				self.model.setData('animation', destination_position ? 'walking' : null);
-				if (!destination_position || !self.mapClosestNode) {
+				// dont use self.mapClosestNode to check visibility because in large corridors the agent can walk from outside  of level boundaries
+				// use agent_starting_point instead
+				if (!destination_position || !self.mapClosestNode || game.map.isVisible(destination_point, agent_starting_point)) {
+					// destination is visible from mapClosestNode
 					unsetTarget();
 					return;
 				}
-
-				destination_point = new Poly2tri.Point(destination_position.x, destination_position.y);
 
 				// get destination triangle
 				$.each(game.map.poly2tri.getTriangles(), function(i, triangle) {
@@ -149,6 +148,7 @@
 				}
 				
 				self.mapDestinationPath = game.map.findPath(self.mapClosestNode, self.mapDestinationNode);
+				self.mapDestinationPath = game.map.optimizePath(self.mapDestinationPath, agent_starting_point, destination_point);
 				
 				if (!self.mapDestinationPath) {
 					unsetTarget();
@@ -158,11 +158,10 @@
 				self.mapCurrentNodePathIndex = 0;
 				total_path_nodes = self.mapDestinationPath.length;
 
-				var agent_data = agent.model.getData(),
-					target = {
-						x: self.mapDestinationPath[self.mapCurrentNodePathIndex].point.x,
-						y: self.mapDestinationPath[self.mapCurrentNodePathIndex].point.y
-					};
+				target = {
+					x: self.mapDestinationPath[self.mapCurrentNodePathIndex].point.x,
+					y: self.mapDestinationPath[self.mapCurrentNodePathIndex].point.y
+				};
 
 				self.model.setData('target', target);
 			})
