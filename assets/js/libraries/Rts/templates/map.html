@@ -35,7 +35,7 @@
 
 		<!-- <circle ng-attr-cx="{{$parent.game.agents.hero.walkable.model.data.target.x}}" ng-attr-cy="{{$parent.game.agents.hero.walkable.model.data.target.y}}" r="13" fill="white" /> -->
 
-		<circle ng-repeat="pathPos in $parent.nodes.path" ng-attr-cx="{{pathPos.point.x}}" ng-attr-cy="{{pathPos.point.y}}" r="3" fill="white" />
+		<circle ng-repeat="pathPos in $parent.nodes.path" ng-attr-cx="{{pathPos.point.x}}" ng-attr-cy="{{pathPos.point.y}}" r="4" fill="white" />
 
 		<path ng-repeat="(i, group) in map.data.edges" ng-init="group.push(group[0]);" path="group" stroke="crimson" stroke-width="4" fill="none" />
 

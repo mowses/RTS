@@ -61,11 +61,14 @@
 					move();
 
 					distance = Trigonometry.vecDist(agent_data.position, data.target);
-					velocity_length = Trigonometry.vecDist({x:0, y:0}, agent_data.velocity);
+					velocity_length = Trigonometry.vecDist({
+						x: 0,
+						y: 0
+					}, agent_data.velocity);
 					if (distance > velocity_length) return;
 
 					// reached a node
-					
+
 					self.mapCurrentNodePathIndex++;
 
 					if (self.mapCurrentNodePathIndex >= total_path_nodes) {
@@ -84,7 +87,7 @@
 				.on('game loop.move to destination', function() {
 					var data = self.model.getData();
 
-					if (data.target) return;  // data.target are for paths
+					if (data.target) return; // data.target are for paths
 
 					var agent_data = agent.model.getData();
 					if (!agent_data.destination) return;
@@ -96,7 +99,10 @@
 					move();
 
 					distance = Trigonometry.vecDist(agent_data.position, agent_data.destination);
-					velocity_length = Trigonometry.vecDist({x:0, y:0}, agent_data.velocity);
+					velocity_length = Trigonometry.vecDist({
+						x: 0,
+						y: 0
+					}, agent_data.velocity);
 					if (distance > velocity_length) return;
 
 					// agent reached destination
@@ -116,29 +122,18 @@
 				}).apply() // apply to prevent double running watches
 
 			.watch(['destination'], function(data) {
-				// get the destination triangle instead of directly the closest point
-				// because it leads to get wrong point/triangle if another point is closest from destination
-				var destination_position = data.new.destination,  // can be any arbitrary position
-					destination_point = new Poly2tri.Point(destination_position ? destination_position.x : null, destination_position ? destination_position.y : null),
-					destination_triangle,
-					agent_data = agent.model.getData(),
-					agent_starting_point = new Poly2tri.Point(agent_data.position.x, agent_data.position.y),
-					target;
-
-				// dont use self.mapClosestNode to check visibility because in large corridors the agent can walk from outside  of level boundaries
-				// use agent_starting_point instead
-				if (!destination_position || !self.mapClosestNode || game.map.isVisible(destination_point, agent_starting_point)) {
-					// destination is visible from mapClosestNode
+				if (!data.new.destination) {
 					unsetTarget();
 					return;
 				}
-
-				// get destination triangle
-				$.each(game.map.poly2tri.getTriangles(), function(i, triangle) {
-					if (!destination_point.inPolygon(triangle.getPoints())) return;
-					destination_triangle = triangle;
-					return false;
-				});
+				// get the destination triangle instead of directly the closest point
+				// because it leads to get wrong point/triangle if another point is closest from destination
+				var destination_position = data.new.destination, // can be any arbitrary position
+					destination_point = new Poly2tri.Point(destination_position ? destination_position.x : null, destination_position ? destination_position.y : null),
+					destination_triangle = game.map.getTriangleFromPosition(destination_point),
+					agent_data = agent.model.getData(),
+					agent_starting_point = new Poly2tri.Point(agent_data.position.x, agent_data.position.y),
+					target;
 
 				// now get the destination node
 				if (!destination_triangle) {
@@ -146,10 +141,10 @@
 				} else {
 					self.mapDestinationNode = game.map.getClosestPointOfTriangle(destination_point, destination_triangle);
 				}
-				
+
 				self.mapDestinationPath = game.map.findPath(self.mapClosestNode, self.mapDestinationNode);
 				self.mapDestinationPath = game.map.optimizePath(self.mapDestinationPath, agent_starting_point, destination_point);
-				
+
 				if (!self.mapDestinationPath) {
 					unsetTarget();
 					return;
@@ -184,7 +179,7 @@
 		 */
 		function rotateTo(position) {
 			agent.model.setData('orientation', {
-				pan: -Trigonometry.vecToAngle(agent.model.getData('position'), position).radians + 1.5707963267948966  // + 90 deg
+				pan: -Trigonometry.vecToAngle(agent.model.getData('position'), position).radians + 1.5707963267948966 // + 90 deg
 			});
 		}
 

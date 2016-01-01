@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"get",
+				"getTriangleFromPosition"
+			],
+			[
+				"visib",
+				"visible"
+			],
+			[
+				"start",
+				"start_point"
+			],
+			[
+				"destination",
+				"destination_point"
+			],
+			[
+				"vi",
+				"visibility"
+			],
+			[
 				"destinat",
 				"destination_point"
 			],
@@ -22,10 +42,6 @@
 			[
 				"adjace",
 				"adjacent_point"
-			],
-			[
-				"start",
-				"start_triangles"
 			],
 			[
 				"previou",
@@ -78,10 +94,6 @@
 			[
 				"changed",
 				"changed_movies"
-			],
-			[
-				"get",
-				"getMadeIn"
 			],
 			[
 				"added",
@@ -351,7 +363,7 @@
 			"file": "assets/js/libraries/Rts/Map.js",
 			"settings":
 			{
-				"buffer_size": 13286,
+				"buffer_size": 16509,
 				"line_ending": "Unix"
 			}
 		},
@@ -359,7 +371,7 @@
 			"file": "assets/js/Rts/App.js",
 			"settings":
 			{
-				"buffer_size": 3764,
+				"buffer_size": 3585,
 				"line_ending": "Unix"
 			}
 		},
@@ -391,15 +403,7 @@
 			"file": "assets/js/libraries/Rts/Walkable.js",
 			"settings":
 			{
-				"buffer_size": 5536,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": ";(function($, angular, Poly2tri) {\n	'use strict';\n\n	angular.module('Rts', ['Rts.Agents', 'Rts.Map'])\n\n	.controller('AgentTest', ['$scope', function($scope) {\n\n		var game = new Rts.Game(),\n			agentFactoryNew = Rts.AgentFactory.new,\n			hero = null,\n			imp1 = null;\n\n		$scope.game = game;\n\n		Rts.AgentFactory.new = function() {\n			var agent = agentFactoryNew.apply(this, arguments);\n\n			agent.model.watch(null, function(data) {\n				this.data = data.new;\n			});\n			agent.walkable.model.watch(null, function(data) {\n				this.data = data.new;\n			});\n\n			game.agents = Rts.AgentFactory.getAgent();\n\n			return agent;\n		};\n\n		function getTriangles() {\n			var path = game.map.poly2tri,\n				triangles = path.getTriangles(),\n				result = [];\n\n			$.each(triangles, function(i, triangle) {\n				var points = triangle.getPoints(),\n					triangle_points = [\n						[points[0].x, points[0].y],\n						[points[1].x, points[1].y],\n						[points[2].x, points[2].y]\n					];\n\n				result.push(triangle_points);\n			});\n\n			return result;\n		}\n\n		game.events.on('game loop.update scopes', function() {\n			$scope.$apply();\n		});\n\n		game.map.events\n			.on('load map', function() {\n				var edges = [],\n					edge_groups = [];\n\n				$.each(game.map.poly2tri.edge_list, function(i, edge) {\n\n					if($.inArray(edge.p, edges) === -1) {\n						edges.push(edge.p);\n					}\n\n					if($.inArray(edge.q, edges) === -1) {\n						edges.push(edge.q);\n					}\n				});\n				edges = $.map(edges, function(edge) {\n					return {\n						point: edge\n					}\n				});\n\n				var group_start = 0;\n				$.each(edges, function(i, edge) {\n					if (!edge_groups[group_start]) {\n						edge_groups[group_start] = [];\n					}\n\n					edge_groups[group_start].push(edge);\n\n					// check if next edge if connected to the current one\n					// if not, create new edge group and add into it\n					if (edges[i + 1] && $.inArray(edges[i + 1].point, edge.point.connected_edges) === -1) {\n						group_start++;\n					}\n				});\n				\n				$.extend(game.map, {\n					data: {\n						width: 1076,\n						height: 632,\n						triangles: getTriangles(),\n						edges: edge_groups\n					}\n				});\n\n				hero = Rts.AgentFactory.new('Imp', {\n					id: 'hero',\n					position: {\n						x: 464,\n						y: 296\n					}\n				}, game);\n\n				console.log('bug, tente move o hero para a posicao 667, 281');\n\n				hero.model.watch(['destination'], function() {\n					var result = hero.walkable.mapDestinationPath,\n						distance = 0;\n\n					game.map.data.pathFound = result;\n					/*$.each(result || [], function(i, item) {\n						var next_point = result[i + 1];\n						if (!next_point) return;\n\n						distance += item.point.distance[next_point.point.index];\n					});*/\n					//$scope.$apply();\n					//console.log('total distance:', distance);\n				});\n\n				/*imp1 = Rts.AgentFactory.new('Imp', {\n					position: {\n						x: 418,\n						y: 48\n					}\n				}, game);*/\n\n				//$scope.$apply();\n			});\n\n		game.map.loadMap('./assets/js/libraries/Rts/ASSETS/doom-RTS_navMesh.json');\n\n		$(document).on('click', function(e) {\n			var pos = new Poly2tri.Point(e.pageX, e.pageY),\n				clicked_triangle = null,\n				point = null;\n\n			// get the clicked triangle instead of closest point\n			// because it leads to get wrong point/triangle if another point is closest from position\n			$.each(game.map.poly2tri.getTriangles(), function(i, triangle) {\n				if (!pos.inPolygon(triangle.getPoints())) return;\n				clicked_triangle = triangle;\n				return false;\n			});\n\n			if (!clicked_triangle) {\n				point = game.map.getClosestFromPos(pos).point;\n			} else {\n				point = game.map.getClosestPointOfTriangle(pos, clicked_triangle);\n			}\n\n			hero.model.setData('destination', {\n				x: clicked_triangle ? pos.x : point.x,\n				y: clicked_triangle ? pos.y :  point.y\n			});\n\n			game.map.data.clickPos = [hero.walkable.mapClosestNode.point, point];\n			/*console.clear();\n			console.log(hero.walkable.mapClosestNode, closest_pos, game.map.data.clickPos	);*/\n			//$scope.$apply();\n		});\n\n		console.log('para acessar $scope use a variavel global $scope');\n		window.$scope = $scope;\n\n	}]);\n})(jQuery, angular, poly2tri);",
-			"settings":
-			{
-				"buffer_size": 4050,
+				"buffer_size": 5789,
 				"line_ending": "Unix"
 			}
 		}
@@ -567,7 +571,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"/home/moises/Documents/Projects/RTS",
@@ -676,6 +680,68 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"optimize",
+			"getTriangleFromPosition",
+			"end_point.dis",
+			"distance",
+			"distances",
+			"vecdist",
+			"distance",
+			"isVisible",
+			"getVisiblesOf",
+			"optimizePath",
+			"new ",
+			"mapClosestNode",
+			"isVisible",
+			"optimizePath",
+			"mapDestinationPath",
+			"path",
+			"getTriangleFromPosition",
+			"gettrian",
+			"midpoint",
+			"midpoint =",
+			"isVisible",
+			"lerp",
+			"isvisible",
+			"isVisible",
+			"equals",
+			"isVisible",
+			"destination",
+			"agent_position_point",
+			"agend_position_point",
+			"optimizePath",
+			"Intersection.intersectLineLine",
+			"isVisible",
+			"optimi",
+			"isVisible",
+			"optimizePath",
+			"end_node",
+			"isVisible",
+			"isvisible",
+			"getVisiblesOf",
+			"optimizePath",
+			"getVisiblesOf",
+			"console.groupEnd",
+			"getVisiblesOf",
+			"reconstructPath",
+			"penul",
+			"optimizePath",
+			"getVisiblesOf",
+			"isVisible",
+			"isvi",
+			"destina",
+			".map",
+			"penul",
+			"isVisible",
+			"getTriangleFromPosition",
+			"isVisible",
+			"visibility",
+			"visible",
+			"visibl",
+			"unsetTarget",
+			"stop",
+			"total_path_nodes",
+			"findpa",
 			"start",
 			"mapClosestNode",
 			"getClosestPointOfTriangle",
@@ -741,69 +807,7 @@
 			"loadmap",
 			"load map",
 			"pathFound",
-			"load map",
-			"checkAndRemoveLastNode",
-			"destination",
-			"getClosestPointFromPosition",
-			"oint = new Poly2tri.Point(pos.x, pos.y),",
-			"customPath",
-			"pathFound",
-			"getDistances",
-			"mousedown",
-			"width",
-			"data",
-			"poly2Tri",
-			"mapDestinationNode",
-			"getClosestFromPos",
-			"isset",
-			"new_data",
-			"update data",
-			"check_changes",
-			"setdata",
-			"update data",
-			"destination",
-			"watch",
-			"reconstructPath",
-			"stack.",
-			"getBestNode",
-			"lowest_f_node",
-			"getDistances",
-			"already",
-			"reconstructPath",
-			"optimizePath",
-			"parent",
-			"reconstructPath",
-			"optimizePath",
-			"getDistances",
-			"adjacent_point",
-			"loremipsum_apagar",
-			"getBestNode",
-			"reconstructPath",
-			"getBestNode",
-			"adjacent_point",
-			"getAdjacentPoints",
-			"distance",
-			"getBestNode",
-			"getClosestPointFromPosition",
-			"triangle",
-			"checkAndRemoveFirstNode",
-			"checkAndRemoveLastNode",
-			"checkAndRemoveFirstNode",
-			"checkAndRemoveLastNode",
-			"pointIndex",
-			".index",
-			"load map",
-			"console",
-			"load map",
-			"getAdjacentPoints",
-			"findpa",
-			"open",
-			"optimizePath",
-			"reconstructPath",
-			"optimizePath",
-			"triangleindex",
-			"checkAndRemoveLastNode",
-			"checkAndRemoveFirstNode"
+			"load map"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -861,7 +865,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -869,15 +873,15 @@
 					"file": "assets/js/libraries/Rts/Map.js",
 					"settings":
 					{
-						"buffer_size": 13286,
+						"buffer_size": 16509,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2503,
-								2503
+								14398,
+								14398
 							]
 						],
 						"settings":
@@ -935,7 +939,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1114.0,
+						"translation.y": 7921.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -945,15 +949,15 @@
 					"file": "assets/js/Rts/App.js",
 					"settings":
 					{
-						"buffer_size": 3764,
+						"buffer_size": 3585,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2287,
-								2287
+								2405,
+								2405
 							]
 						],
 						"settings":
@@ -1010,8 +1014,8 @@
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 1331.0,
+						"translation.x": 90.0,
+						"translation.y": 1421.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1105,8 +1109,8 @@
 						"selection":
 						[
 							[
-								1962,
-								1962
+								2100,
+								2100
 							]
 						],
 						"settings":
@@ -1164,7 +1168,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 90.0,
+						"translation.y": 345.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1250,15 +1254,15 @@
 					"file": "assets/js/libraries/Rts/Walkable.js",
 					"settings":
 					{
-						"buffer_size": 5536,
+						"buffer_size": 5789,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4110,
-								4110
+								4327,
+								4327
 							]
 						],
 						"settings":
@@ -1316,82 +1320,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 756.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"settings":
-					{
-						"buffer_size": 4050,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3570,
-								3570
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1847.0,
+						"translation.y": 1906.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

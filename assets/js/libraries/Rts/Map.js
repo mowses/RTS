@@ -341,9 +341,9 @@
 			}
 
 			function reconstructPath(node) {
-				var path = 	[node];
+				var path = [node];
 
-				while(node.parent) {
+				while (node.parent) {
 					node = node.parent;
 					path.push(node);
 				}
@@ -351,60 +351,7 @@
 				return path;
 			}
 
-			/*function getVisiblesOf(point) {
-				return $.map(point.visibility, function(visible, i) {
-					if (!visible) return;
-					return self.poly2tri.points_[i];
-				});
-			}*/
-
-			/**
-			 * check and remove first node from path if the next node is in the same triangulation
-			 */
-			/*function checkAndRemoveFirstNode(path) {
-				var t = path.length - 1,
-					closest_node = path[t],
-					next_node = path[t - 1];
-
-				if (!next_node) return [];
-
-				var next_triangles = $.map(next_node.point.triangles, function(triangle) {
-						return triangle.index;
-					});
-
-				$.each(start_node.point.triangles, function(i, triangle) {
-					if ($.inArray(triangle.index, next_triangles) == -1) return;
-					path.pop();  // remove the last index because it was the agent's closest node
-					return false;
-				});
-
-				return path;
-			}*/
-
-			/**
-			 * check and remove last node from path if the previous node is in the same triangulation
-			 */
-			/*function checkAndRemoveLastNode(path) {
-				var previous_node = path[1];
-
-				if (!previous_node) return [];
-
-				var previous_triangles = $.map(previous_node.point.triangles, function(triangle) {
-						return triangle.index;
-					});
-				$.each(end_node.point.triangles, function(i, triangle) {
-					console.log('tente mover o hero da posicao x: 754, y: 308 para 643, 443 - vai ver q da prob	', triangle.index, previous_triangles);
-					if ($.inArray(triangle.index, previous_triangles) == -1) return;
-					
-					path.shift();
-					return false;
-				});
-
-				return path;
-			}*/
-
 			var _i = 0,
-				_i2 = 0,
 				current = null;
 
 			while (_i++ <= 100) {
@@ -418,7 +365,7 @@
 					//console.log('total iteractions', _i2 + _i);
 					return reconstructPath(current).reverse();
 				}
-				
+
 				//console.group();
 				//console.log('best node', current);
 
@@ -435,7 +382,6 @@
 				// 	1. it will loop many times more than adjacents
 				// 	2. we need to get nodes as much as better, this way we can create smoother paths, but then we should apply optimizePath
 				$.each(current.point.adjacent, function(i, adjacent) {
-					_i2++;
 					//console.log('adjacent node:', adjacent);
 					var in_closed_list = result.closed[adjacent.index],
 						in_open_list = result.open[adjacent.index],
@@ -465,9 +411,9 @@
 							}
 						};
 					}
-					
+
 				});
-				
+
 				//console.groupEnd();
 			}
 
@@ -484,11 +430,10 @@
 		 * so optimizePath will recognize it as a level node
 		 */
 		function optimizePath(path, start_point, end_point) {
+			// add agent start and end points
 			$.extend(start_point, {
 				index: 'start',
-				distance: {
-					'end': getDistance(start_point, end_point)
-				}
+				visibility: ObserverCore.utils.object([path[0].point.index], true)
 			});
 			path.unshift({
 				point: start_point
@@ -496,40 +441,18 @@
 
 			$.extend(end_point, {
 				index: 'end',
-				distance: {
-					'start': getDistance(end_point, start_point)
-				}
+				visibility: ObserverCore.utils.object([path[path.length - 1].point.index], true)
 			});
 			path.push({
 				point: end_point
 			});
-			// dont do destination visibility check if end_point is the same as last path index
-			// because could be no intersection between these two nodes and this could be outside of level boundaries
-			// check each node can see destination point
-			/*if (!end_point.equals(path[path.length - 1].point)) {
-				$.each(path, function(i, node) {
-					var cansee = isVisible(node.point, end_point);
-					if (!cansee) return;
-					path = path.slice(0, i + 1);
-					return false;
-				});
-			}
 
-			// same as above, but now for starting point
-			$.each(path.reverse(), function(i, node) {
-				var cansee = isVisible(node.point, start_point);
-				if (!cansee) return;
-				path = path.slice(0, i + 1);
-				return false;
-			});
-			path.reverse();*/
-			
 			// start path optimization
 			var path_len = path.length,
 				start_point = path[path_len - 1].point,
 				end_point = path[0].point,
 				g = 0,
-				h = end_point.distance[start_point.index],
+				h = getDistance(end_point, start_point),
 				result = {
 					closed: {},
 					open: {}
@@ -565,9 +488,9 @@
 			}
 
 			function reconstructPath(node) {
-				var path = 	[node];
+				var path = [node];
 
-				while(node.parent) {
+				while (node.parent) {
 					node = node.parent;
 					path.push(node);
 				}
@@ -577,7 +500,7 @@
 
 			function getVisiblesOf(point) {
 				return $.grep(path, function(node) {
-					var visible = point.visibility && point.visibility[node.point.index];
+					var visible = (point.visibility && point.visibility[node.point.index]) || (node.point.visibility && node.point.visibility[point.index]);
 					if (visible !== undefined) {
 						return visible;
 					} else {
@@ -596,7 +519,7 @@
 					//console.log('goal found', current);
 					return reconstructPath(current);
 				}
-				
+
 				//console.group();
 				//console.log('best node', current);
 
@@ -616,7 +539,7 @@
 
 					if (in_closed_list) return;
 
-					g = visible.distance[current.point.index] + current.distances.g;
+					g = ((visible.distance && visible.distance[current.point.index]) || getDistance(visible, current.point)) + current.distances.g;
 					if (in_open_list) {
 						//console.log('visible already on open list');
 						if (g < in_open_list.distances.g) {
@@ -625,7 +548,7 @@
 						}
 
 					} else {
-						h = visible.distance[end_point.index];
+						h = (visible.distance && visible.distance[end_point.index]) || getDistance(visible, end_point);
 						// add visible to open list
 						result.open[visible.index] = {
 							point: visible,
@@ -637,12 +560,12 @@
 							}
 						};
 					}
-					
+
 				});
-				
+
 				//console.groupEnd();
 			}
-
+console.log('FODEOOOOOOOO', _i);
 			return path;
 		}
 

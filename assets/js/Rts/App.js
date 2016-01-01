@@ -104,11 +104,9 @@
 					id: 'hero',
 					position: {
 						x: 760,
-						y: 500
+						y: 465
 					}
 				}, game);
-
-				console.log('set destination to node 57 clicking outside level boundaries');
 
 				hero.model.watch(['destination'], function() {
 					$scope.nodes.path = hero.walkable.mapDestinationPath;
