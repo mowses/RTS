@@ -11,10 +11,10 @@
 
 		function entMove(reldist) {
 			var agent_data = agent.model.getData(),
-				angle = agent_data.orientation;
+				reldist = Trigonometry.vecForAngle(reldist, agent_data.orientation);
 
-			agent_data.position.x += reldist.x * Math.sin(angle.pan);
-			agent_data.position.y -= reldist.x * Math.cos(angle.pan);
+			agent_data.position.x += reldist.x;
+			agent_data.position.y += reldist.y;
 		}
 
 		function unsetTarget() {
@@ -33,9 +33,11 @@
 			self.model.setData({
 				target: null,
 				animation: null
-			})
+			}).apply()
 
 			/*.watch(['target'], function(data) {
+				console.log(data.new.target, data.old.target);
+				alert('x');
 				console.log('changed target to', data.new.target);
 			})*/
 			;
@@ -52,24 +54,31 @@
 					if (!data.target) return;
 
 					var agent_data = agent.model.getData(),
+						agent_config = agent.getConfig(),
 						distance,
-						velocity_length;
+						next_node;
 
 					//http://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-path-following--gamedev-8769
 					//http://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-seek--gamedev-849
-					rotateTo(data.target);
-					move();
 
-					distance = Trigonometry.vecDist(agent_data.position, data.target);
-					velocity_length = Trigonometry.vecDist({
-						x: 0,
-						y: 0
-					}, agent_data.velocity);
-					if (distance > velocity_length) return;
+					// ignore nodes that are closer to agent
+					do {
+						distance = Trigonometry.vecDist(agent_data.position, data.target);
+						if (distance < agent_config.WALK_VELOCITY) { // reached a node
+							self.mapCurrentNodePathIndex++;
+							next_node = self.mapDestinationPath[self.mapCurrentNodePathIndex];
+							if (!next_node) break;
 
-					// reached a node
+							data.target = {
+								x: next_node.point.x,
+								y: next_node.point.y
+							};
 
-					self.mapCurrentNodePathIndex++;
+							rotateTo(data.target);
+						}
+
+						break;
+					} while (data.target);
 
 					if (self.mapCurrentNodePathIndex >= total_path_nodes) {
 						// reached path end
@@ -77,11 +86,11 @@
 						return;
 					}
 
-					// set another node point in the path as target
-					data.target = {
-						x: self.mapDestinationPath[self.mapCurrentNodePathIndex].point.x,
-						y: self.mapDestinationPath[self.mapCurrentNodePathIndex].point.y
-					};
+					entMove({
+						x: agent_config.WALK_VELOCITY,
+						y: 0
+					});
+
 				})
 				// after followed the path, go straight to the destination
 				.on('game loop.move to destination', function() {
@@ -93,23 +102,37 @@
 					if (!agent_data.destination) return;
 
 					var distance,
-						velocity_length;
+						agent_config = agent.getConfig();
 
 					rotateTo(agent_data.destination);
-					move();
-
+					
 					distance = Trigonometry.vecDist(agent_data.position, agent_data.destination);
-					velocity_length = Trigonometry.vecDist({
-						x: 0,
-						y: 0
-					}, agent_data.velocity);
-					if (distance > velocity_length) return;
+					if (distance > agent_config.WALK_VELOCITY) {
+						entMove({
+							x: agent_config.WALK_VELOCITY,
+							y: 0
+						});
+
+						return;
+					}
 
 					// agent reached destination
 					agent_data.destination = null;
 
+				})
+				/*.on('game loop.apply forces', function() {  // decidido por comentar isso pq questoes de performance futura
+					var agent_data = agent.model.getData();
+					if (!agent_data.velocity) return;
 
-				});
+					var xmult = agent_data.velocity.x < 0 ? -1 : 1,
+						ymult = agent_data.velocity.y < 0 ? -1 : 1,
+						math = Math;
+
+					entMove();
+					// deceleration
+					agent_data.velocity.x = math.max(0, math.abs(agent_data.velocity.x) - 2) * xmult;
+					agent_data.velocity.y = math.max(0, math.abs(agent_data.velocity.y) - 2) * ymult;
+				})*/;
 
 			agent.model
 				.setData({
@@ -117,7 +140,10 @@
 					orientation: {
 						pan: null
 					},
-					velocity: null,
+					velocity: {
+						x: 0,
+						y: 0
+					},
 					destination: null
 				}).apply() // apply to prevent double running watches
 
@@ -181,18 +207,6 @@
 			agent.model.setData('orientation', {
 				pan: -Trigonometry.vecToAngle(agent.model.getData('position'), position).radians + 1.5707963267948966 // + 90 deg
 			});
-		}
-
-		function move() {
-			var agent_data = agent.model.getData(),
-				agent_config = agent.getConfig();
-
-			agent_data.velocity = {
-				x: agent_config.MAX_VELOCITY,
-				y: 0
-			};
-
-			entMove(agent_data.velocity);
 		}
 
 		init();

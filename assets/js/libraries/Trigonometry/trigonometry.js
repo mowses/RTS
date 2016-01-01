@@ -31,6 +31,25 @@
 			return math.sqrt(math.pow(diff.x, 2) + math.pow(diff.y, 2));
 		},
 
+		vecLength: function(vec) {
+			return Trigonometry.vecDist({
+				x: 0,
+				y: 0
+			}, vec);
+		},
+
+		/**
+		 * calculates the rotated vector using angle
+		 * this method is useful to set forces relative to the agent
+		 * like entMove(reldist)
+		 */
+		vecForAngle: function(vec, angle) {
+			return {
+				x: vec.x * Math.sin(angle.pan) - vec.y * Math.cos(angle.pan),
+				y: vec.y * Math.sin(angle.pan) - vec.x * Math.cos(angle.pan)
+			};
+		},
+
 		vecRotate: function(vec, angle) {
 			var a = angle.pan,
 				b = angle.tilt,

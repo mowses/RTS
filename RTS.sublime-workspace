@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"nex",
+				"next_node"
+			],
+			[
+				"velo",
+				"velocity"
+			],
+			[
+				"agent",
+				"agent_data"
+			],
+			[
 				"get",
 				"getTriangleFromPosition"
 			],
@@ -363,7 +375,7 @@
 			"file": "assets/js/libraries/Rts/Map.js",
 			"settings":
 			{
-				"buffer_size": 16509,
+				"buffer_size": 15187,
 				"line_ending": "Unix"
 			}
 		},
@@ -371,15 +383,7 @@
 			"file": "assets/js/Rts/App.js",
 			"settings":
 			{
-				"buffer_size": 3585,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "assets/js/Rts/directives/Map.js",
-			"settings":
-			{
-				"buffer_size": 3219,
+				"buffer_size": 3458,
 				"line_ending": "Unix"
 			}
 		},
@@ -392,18 +396,35 @@
 			}
 		},
 		{
-			"file": "assets/js/libraries/Rts/Agents/Imp.js",
+			"file": "assets/js/libraries/Rts/Walkable.js",
 			"settings":
 			{
-				"buffer_size": 691,
+				"buffer_size": 6299,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "assets/js/libraries/Rts/Walkable.js",
+			"file": "assets/js/libraries/Trigonometry/trigonometry.js",
 			"settings":
 			{
-				"buffer_size": 5789,
+				"buffer_size": 2099,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "var hero = $scope.game.agents.hero;\nvar walk = hero.walkable;\nvar hero_data = hero.model.getData();\nvar walk_data = walk.model.getData();\n\n//hero_data.destination = {x:355,y:217};\n\n//walk_data.target = hhhnull;\n//hero_data.velocity.x = 20;\nhero_data.velocity.y = 20;\nhero_data.orientation;",
+			"settings":
+			{
+				"buffer_size": 289,
+				"line_ending": "Unix",
+				"name": "var hero = $scope.game.agents.hero;"
+			}
+		},
+		{
+			"file": "assets/js/libraries/Rts/Agents/Imp.js",
+			"settings":
+			{
+				"buffer_size": 692,
 				"line_ending": "Unix"
 			}
 		}
@@ -436,16 +457,17 @@
 	},
 	"file_history":
 	[
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/ObserverCore.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Agents/Imp.js",
+		"/home/moises/Documents/Projects/RTS/assets/js/Rts/directives/Map.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObjDiff/ObjDiff.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/tests.js",
-		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/ObserverCore.js",
 		"/home/moises/Documents/Projects/RTS/RTS.sublime-workspace",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/templates/map.html",
 		"/home/moises/Documents/Projects/RTS/assets/js/Rts/App.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Map.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Walkable.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/templates/agents.html",
-		"/home/moises/Documents/Projects/RTS/assets/js/Rts/directives/Map.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/Rts/directives/Agents.js",
 		"/home/moises/Documents/Projects/RTS/index.html",
 		"/home/moises/Documents/Projects/RTS/styles/reset.css",
@@ -453,7 +475,6 @@
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/ObserverCore/index.html",
 		"/home/moises/Documents/Projects/RTS/styles/Rts/imp.css",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/AgentFactory.js",
-		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/Agents/Imp.js",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Rts/ASSETS/doom-RTS_navMesh.json",
 		"/home/moises/Documents/Projects/RTS/assets/js/libraries/Events/Events.js",
 		"/home/moises/Documents/Projects/RTS/package.json",
@@ -571,7 +592,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			"/home/moises/Documents/Projects/RTS",
@@ -680,6 +701,38 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"entMove",
+			"rotateTo",
+			"vecfor",
+			"vec",
+			"normal",
+			"vecRotate",
+			"entMove",
+			"move(",
+			"entmove",
+			"unsetTarget",
+			"destination",
+			"vecToAngle",
+			"velocity",
+			"velocity_length",
+			"MAX_VELOCITY",
+			"velocity",
+			"vecDist",
+			"target",
+			"_i2",
+			"getVisiblesOf",
+			"getBestNode",
+			"getVisiblesOf",
+			"optimi",
+			"_i2",
+			"findpath",
+			"optim",
+			"findpath",
+			"console.l",
+			"object:",
+			"utils",
+			"$.inarra",
+			"optimizepa",
 			"optimize",
 			"getTriangleFromPosition",
 			"end_point.dis",
@@ -775,39 +828,7 @@
 			"mapCurrentNodePathIndex",
 			"optimizePath",
 			"inPolygon",
-			"Poly2tri",
-			"poly2tri",
-			"Poly2tri.Point",
-			"new p",
-			"point",
-			"inpoly",
-			"destination",
-			"findpath",
-			"destination",
-			"hero",
-			"move",
-			"radius",
-			"radians",
-			"rotateTo",
-			"config",
-			"optimizePath",
-			"getVisiblesOf",
-			"poly2tri.points_",
-			"reconstructPath",
-			"getBestNode",
-			"getVisiblePoints",
-			"getDistances",
-			"getAdjacentPoints",
-			"keyup",
-			"+1",
-			"+ 1",
-			"= 1",
-			"load Map",
-			"loadMap",
-			"loadmap",
-			"load map",
-			"pathFound",
-			"load map"
+			"Poly2tri"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -865,7 +886,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -873,320 +894,15 @@
 					"file": "assets/js/libraries/Rts/Map.js",
 					"settings":
 					{
-						"buffer_size": 16509,
+						"buffer_size": 15187,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14398,
-								14398
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 7921.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "assets/js/Rts/App.js",
-					"settings":
-					{
-						"buffer_size": 3585,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2405,
-								2405
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 90.0,
-						"translation.y": 1421.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "assets/js/Rts/directives/Map.js",
-					"settings":
-					{
-						"buffer_size": 3219,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2116,
-								2116
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 656.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "assets/js/libraries/Rts/templates/map.html",
-					"settings":
-					{
-						"buffer_size": 2348,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2100,
-								2100
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 345.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "assets/js/libraries/Rts/Agents/Imp.js",
-					"settings":
-					{
-						"buffer_size": 691,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								520,
-								520
+								655,
+								655
 							]
 						],
 						"settings":
@@ -1250,19 +966,19 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "assets/js/libraries/Rts/Walkable.js",
+					"buffer": 1,
+					"file": "assets/js/Rts/App.js",
 					"settings":
 					{
-						"buffer_size": 5789,
+						"buffer_size": 3458,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4327,
-								4327
+								3118,
+								3118
 							]
 						],
 						"settings":
@@ -1320,7 +1036,382 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1906.0,
+						"translation.y": 1736.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "assets/js/libraries/Rts/templates/map.html",
+					"settings":
+					{
+						"buffer_size": 2348,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1586,
+								1586
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "assets/js/libraries/Rts/Walkable.js",
+					"settings":
+					{
+						"buffer_size": 6299,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								316,
+								316
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai.tmTheme",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "assets/js/libraries/Trigonometry/trigonometry.js",
+					"settings":
+					{
+						"buffer_size": 2099,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1119,
+								1119
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"settings":
+					{
+						"buffer_size": 289,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_name": "var hero = $scope.game.agents.hero;",
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "assets/js/libraries/Rts/Agents/Imp.js",
+					"settings":
+					{
+						"buffer_size": 692,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								518,
+								518
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
